@@ -18,7 +18,7 @@ public class LicenseStatusClient {
     public LicenseStatus generateAccount(String licenseKey) {
         try {
             String responseLine;
-            URL endpoint = new URL("http://api.thealtening.com/v2/generate?key=" + licenseKey);
+            URL endpoint = new URL("https://api.thealtening.com/v2/generate?key=" + licenseKey);
             this.connection = (HttpURLConnection)endpoint.openConnection();
             this.connection.setRequestMethod("GET");
             this.connection.setUseCaches(false);

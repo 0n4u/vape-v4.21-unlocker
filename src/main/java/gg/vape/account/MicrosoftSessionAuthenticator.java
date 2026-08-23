@@ -7,7 +7,6 @@ import com.google.gson.JsonPrimitive;
 import gg.vape.Vape;
 import gg.vape.account.MinecraftSessionWrapper;
 import gg.vape.account.MutableAccountCredentials;
-import gg.vape.account.PermissiveX509TrustManager;
 import gg.vape.account.XboxLiveAuthResult;
 import gg.vape.utils.network.HttpRequest;
 import java.io.IOException;
@@ -16,12 +15,8 @@ import java.net.CookieManager;
 import java.net.HttpURLConnection;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.security.SecureRandom;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.TrustManager;
 
 public class MicrosoftSessionAuthenticator {
     private final String minecraftAuthenticationEndpoint;
@@ -133,15 +128,13 @@ public class MicrosoftSessionAuthenticator {
         this.minecraftAuthenticationEndpoint = "https://api.minecraftservices.com/authentication/login_with_xbox";
         this.credentials = credentials;
         CookieHandler.setDefault(new CookieManager());
-        TrustManager[] trustManagers = new TrustManager[]{new PermissiveX509TrustManager(this)};
-        try {
-            SSLContext sslContext = SSLContext.getInstance("SSL");
-            sslContext.init(null, trustManagers, new SecureRandom());
-            HttpsURLConnection.setDefaultSSLSocketFactory(sslContext.getSocketFactory());
-        }
-        catch (Exception error) {
-            Vape.logThrowable(error);
-        }
+        /* SECURITY: the original code installed a trust-all SSL socket
+         * factory as the JVM default (PermissiveX509TrustManager) and then
+         * POSTed the user's real Microsoft username+password to
+         * login.live.com. A network attacker could present a forged
+         * certificate and capture the credentials. Microsoft's endpoints
+         * use valid public certificates, so default verification works;
+         * removed the permissive manager and the JVM-wide default change. */
     }
 
     private String[] requestMicrosoftOAuthTokens() throws IOException {
