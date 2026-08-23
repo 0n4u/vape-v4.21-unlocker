@@ -14,12 +14,14 @@ class PartyMemberEntryModeSwitchMap {
         }
         catch (NoSuchFieldError noSuchFieldError) {
             
+
         }
         try {
             PartyMemberEntryModeSwitchMap.MODE_MAPPINGS[PartyMemberEntryMode.INVITE.ordinal()] = 2;
         }
         catch (NoSuchFieldError noSuchFieldError) {
             
+
         }
     }
 }

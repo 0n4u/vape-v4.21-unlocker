@@ -46,9 +46,16 @@ extends Mapping {
 
     private MStatusEffect(int[] nArray) {
         super(MappedClasses.D3);
-        if (nArray != null) {
-            return;
-        }
+        
+
+        
+
+        
+
+        
+
+        
+
         if (ForgeVersion.MC_1_20_6.v()) {
             Class[] classArray = new Class[]{Integer.TYPE};
             Class clazz = MappedClasses.D3;

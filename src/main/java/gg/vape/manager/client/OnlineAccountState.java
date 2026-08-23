@@ -7,7 +7,7 @@ public enum OnlineAccountState {
     REGISTRATION_OFFLINE,
     CONNECTING;
 
-    private static final  OnlineAccountState[] cachedValues;
+    private static final   OnlineAccountState[] cachedValues;
 
     static {
         String[] obfuscationNames = new String[]{"REGISTRATION_OFFLINE", "CONNECTING", "BANNED", "REGISTERED", "UNREGISTERED"};

@@ -3,7 +3,7 @@ package gg.vape.event.impl;
 import gg.vape.event.Event;
 import gg.vape.event.EventListeners;
 
-
+ 
 public class EventFramePresent
 extends Event {
     private static final EventListeners EVENT_LISTENERS = new EventListeners();

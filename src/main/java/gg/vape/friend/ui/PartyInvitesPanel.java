@@ -24,7 +24,7 @@ extends PanelComponent {
     public void v() {
     }
 
-    
+     
     public void addInviteRow(PartyInviteRow inviteRow) {
         synchronized (this.inviteRows) {
             this.inviteRows.put(inviteRow.getInvite(), inviteRow);
@@ -33,7 +33,7 @@ extends PanelComponent {
         }
     }
 
-    
+     
     public void removeInvite(PartyInvite invite) {
         synchronized (this.inviteRows) {
             PartyInviteRow inviteRow = this.inviteRows.get(invite);
@@ -54,7 +54,7 @@ extends PanelComponent {
         this.updateRowVisibility();
     }
 
-    
+     
     public void removeInviteRow(PartyInviteRow inviteRow) {
         synchronized (this.inviteRows) {
             this.inviteRows.remove(inviteRow.getInvite());

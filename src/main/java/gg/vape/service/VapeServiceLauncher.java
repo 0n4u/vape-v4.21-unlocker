@@ -8,7 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-
+ 
 public final class VapeServiceLauncher {
     private static final int DEFAULT_HTTP_PORT = 8080;
     private static final int DEFAULT_ZEUS_PORT = 8091;
@@ -50,6 +50,7 @@ public final class VapeServiceLauncher {
                 http.close();
             } catch (Throwable ignored) {
                 
+
             }
         }
         if (zeus != null) {
@@ -57,6 +58,7 @@ public final class VapeServiceLauncher {
                 zeus.close();
             } catch (Throwable ignored) {
                 
+
             }
         }
     }
@@ -81,6 +83,7 @@ public final class VapeServiceLauncher {
                     http.close();
                 } catch (Throwable ignored) {
                     
+
                 }
                 throw failure;
             }
@@ -125,6 +128,7 @@ public final class VapeServiceLauncher {
             }
         } catch (NumberFormatException ignored) {
             
+
         }
         System.out.println("[Vape] invalid " + name + "=" + value + ", using default " + fallback);
         return fallback;
@@ -141,6 +145,7 @@ public final class VapeServiceLauncher {
             }
         }
         
+
         return preferred;
     }
 

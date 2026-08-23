@@ -252,6 +252,7 @@ implements FocusableComponent {
             }
             if (ClientSettings.activeComponent != null) {
                 
+
             }
             ClientSettings.activeComponent = this;
             return;
@@ -278,7 +279,9 @@ implements FocusableComponent {
         String displayedText = this.getText();
         boolean focused = this.isFocused() && this.inputEnabled;
         
+
         
+
         FontOption.setTranslationDisabled(true);
         try {
             if (focused) {
@@ -286,6 +289,7 @@ implements FocusableComponent {
                 if (this.inputEnabled) {
                     if (this.getText() != null && this.getText().length() < 1) {
                         
+
                     }
                 } else {
                     showingPlaceholder = true;

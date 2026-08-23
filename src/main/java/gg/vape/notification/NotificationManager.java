@@ -84,7 +84,7 @@ implements EventListener {
         float previousAlphaTestReference = OpenGlBackendHolder.backend.getFloat(3010);
         OpenGlBackendHolder.backend.setAlphaFunction(516, 0.0f);
         OpenGlBackendHolder.backend.pushMatrix();
-        
+         
         double nextTargetY = -14.0;
         long now = System.currentTimeMillis();
         long elapsedMillis = now - this.lastRenderTime;

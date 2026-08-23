@@ -2,6 +2,7 @@ package gg.vape.mapping.runtime;
 
 import gg.vape.Vape;
 import gg.vape.mapping.runtime.MemberLookupSignature;
+import gg.vape.runtime.NativeBridge;
 import gg.vape.wrapper.impl.ForgeVersion;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -52,9 +53,27 @@ public class MemberNameRemapTable {
 
     private static String resolveRuntimeName(String sourceName, String runtimeName) {
         int minorVersion = ForgeVersion.c();
-        if ((minorVersion == 35 || minorVersion == 36)
-                && !runtimeName.startsWith("func_") && !runtimeName.startsWith("field_")) {
-            return sourceName;
+        if (minorVersion == 35 || minorVersion == 36) {
+            boolean srgValue = runtimeName.startsWith("func_")
+                    || runtimeName.startsWith("field_");
+            if (NativeBridge.isForgeAbsent()) {
+                
+
+                
+
+                
+
+                
+
+                return srgValue ? sourceName : runtimeName;
+            }
+            
+
+            
+
+            
+
+            return srgValue ? runtimeName : sourceName;
         }
         return runtimeName;
     }
@@ -66,6 +85,36 @@ public class MemberNameRemapTable {
             return null;
         }
         return mappings.getOrDefault(fieldName, null);
+    }
+
+     
+    @Nullable
+    public MemberLookupSignature lookupFieldMappingByRuntimeName(String runtimeName) {
+        for (Map<String, MemberLookupSignature> mappings : this.fieldMappings.values()) {
+            for (Map.Entry<String, MemberLookupSignature> entry : mappings.entrySet()) {
+                MemberLookupSignature signature = entry.getValue();
+                if (signature != null && runtimeName.equals(signature.runtimeName)) {
+                    return new MemberLookupSignature(entry.getKey(),
+                            signature.getMappedMemberOverride(), signature.resolvedType);
+                }
+            }
+        }
+        return null;
+    }
+
+    @Nullable
+    public MemberLookupSignature lookupMethodMappingByRuntimeName(String runtimeName) {
+        for (Map<String, MemberLookupSignature> mappings : this.methodMappings.values()) {
+            for (Map.Entry<String, MemberLookupSignature> entry : mappings.entrySet()) {
+                MemberLookupSignature signature = entry.getValue();
+                if (signature != null && runtimeName.equals(signature.runtimeName)) {
+                    return new MemberLookupSignature(entry.getKey(),
+                            signature.getMappedMemberOverride(), signature.resolvedType,
+                            signature.parameterTypes);
+                }
+            }
+        }
+        return null;
     }
 
     public void B(Class<?> ownerClass, String sourceName, String runtimeName) {

@@ -149,6 +149,20 @@ extends Mapping {
             String string15 = "setFogDensity";
             MGlStateManager mGlStateManager15 = this;
             this.F = this.registerStaticMethod(string15, bl15, clazz15, classArray12);
+            
+
+            
+
+            
+
+            if (ForgeVersion.MC_1_21_6.v()) {
+                Class[] classArrayW = new Class[]{Integer.TYPE, Integer.TYPE};
+                Class<Void> clazzW = Void.TYPE;
+                boolean blW = false;
+                String stringW = "_blendFunc";
+                MGlStateManager mGlStateManagerW = this;
+                this.W = this.registerStaticMethod(stringW, blW, clazzW, classArrayW);
+            }
             if (GuiComponent.getLegacyComponentState() == null) {
                 MEntityRenderer.c(++n2);
             }
@@ -222,6 +236,18 @@ extends Mapping {
                 this.W = this.registerStaticMethod(string21, bl21, clazz21, classArray18);
             }
         } else {
+            
+
+            
+
+            if (ForgeVersion.MC_1_21_6.v()) {
+                Class[] classArrayW2 = new Class[]{Integer.TYPE, Integer.TYPE};
+                Class<Void> clazzW2 = Void.TYPE;
+                boolean blW2 = false;
+                String stringW2 = "_blendFunc";
+                MGlStateManager mGlStateManagerW2 = this;
+                this.W = this.registerStaticMethod(stringW2, blW2, clazzW2, classArrayW2);
+            }
             Class[] classArray = new Class[]{Integer.TYPE, Float.TYPE};
             Class<Void> clazz = Void.TYPE;
             boolean bl = true;
@@ -577,7 +603,7 @@ extends Mapping {
         this.c.invokeVoid(null, n);
     }
 
-    
+     
     public static void bindTextureViaGame(MGlStateManager mGlStateManager, int textureId) {
         if (mGlStateManager != null) {
             mGlStateManager.N(textureId);

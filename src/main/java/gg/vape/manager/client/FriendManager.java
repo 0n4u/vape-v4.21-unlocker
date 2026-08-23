@@ -177,6 +177,7 @@ public class FriendManager {
             }
             catch (Exception exception) {
                 
+
             }
         }
     }

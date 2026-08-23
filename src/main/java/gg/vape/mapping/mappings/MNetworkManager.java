@@ -111,6 +111,7 @@ extends Mapping {
             Class<Void> clazz8 = Void.TYPE;
             boolean bl8 = true;
             
+
             String string8 = "send";
             MNetworkManager mNetworkManager8 = this;
             this.O = this.Y(string8, bl8, clazz8, classArray);

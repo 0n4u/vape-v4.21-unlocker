@@ -5,6 +5,8 @@
 #include <windows.h>
 
 
+
+
 #include <objidl.h>
 #include <gdiplus.h>
 
@@ -12,7 +14,6 @@
 #include <string>
 #include <chrono>
 #include <vector>
-#include <unordered_map>
 
 class ControllerUi {
 public:
@@ -22,16 +23,7 @@ public:
     int run(int showCommand);
 
 private:
-    enum class Focus { None, Username, Password, SettingsAutoInject,
-        SettingsCosmetics, SettingsBadges, SettingsEmotes, SettingsSprays,
-        SettingsJams, SettingsLunarPlus, SettingsDebug, SettingsLanguage };
-
-    static constexpr float GearX = 770.0f, GearY = 14.0f, GearSize = 36.0f;
-    static constexpr float ContentX = 62.0f;
-    static constexpr float ContentW = 700.0f;
-    static constexpr float CardPad = 28.0f;
-    static constexpr float RowH = 52.0f;
-    static constexpr float HeaderBottom = 92.0f;
+    enum class Focus { None, Username, Password };
 
     static LRESULT CALLBACK windowProc(HWND window, UINT message,
         WPARAM wParam, LPARAM lParam);
@@ -45,25 +37,6 @@ private:
     void drawLoadingComplete(Gdiplus::Graphics& graphics);
     void drawOutdated(Gdiplus::Graphics& graphics);
     void drawError(Gdiplus::Graphics& graphics);
-    void drawSettings(Gdiplus::Graphics& graphics);
-    void drawGearButton(Gdiplus::Graphics& graphics);
-    void drawSwitch(Gdiplus::Graphics& graphics, float x, float y, float on);
-    void drawSelect(Gdiplus::Graphics& graphics, float x, float y, float w,
-        float h, const std::wstring& text, float hover);
-    struct SettingsItem {
-        const wchar_t* label;
-        const wchar_t* description;
-        bool value;
-        int focus;
-        bool advanced;
-    };
-    struct SettingsSection {
-        const wchar_t* title;
-        std::vector<SettingsItem> items;
-    };
-    std::vector<SettingsSection> settingsSections() const;
-    void cycleLanguage();
-    void toggleSettingsItem(Focus focus);
     void drawLogo(Gdiplus::Graphics& graphics, float y = 100.0f);
     void drawText(Gdiplus::Graphics& graphics, const std::wstring& text,
         float x, float y, float width, float height, float size,
@@ -94,9 +67,6 @@ private:
     std::unique_ptr<Gdiplus::Image> roundedRect_;
     std::vector<IStream*> imageStreams_;
     Focus focus_{Focus::None};
-    ControllerPage settingsReturnPage_{ControllerPage::Login};
-    float settingsScroll_{};
-    float settingsMaxScroll_{};
     float scaleX_{1.0f};
     float scaleY_{1.0f};
     float mouseX_{-1.0f};
@@ -111,14 +81,4 @@ private:
     float logoPosition_{};
     float loadingProgress_{0.05f};
     int previousLoadingStage_{};
-    
-    std::unordered_map<int, float> switchAnim_{};
-    float gearHover_{};
-    float backHover_{};
-    std::unordered_map<int, float> rowHoverAnim_{};
-    std::unordered_map<int, float> rowHoverTarget_{};
-    float selectHover_{};
-    float selectHoverTarget_{};
-    float settingsOpen_{};
-    float settingsScrollTarget_{};
 };

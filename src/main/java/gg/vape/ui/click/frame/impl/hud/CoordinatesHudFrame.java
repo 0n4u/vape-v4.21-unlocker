@@ -98,7 +98,9 @@ extends HudModuleConfigFrameBase {
         WorldClient world = Minecraft.theWorld();
         if (world == null || world.isNull()) {
             
+
             
+
             return "";
         }
         if (ForgeVersion.MC_1_16_5.d()) {

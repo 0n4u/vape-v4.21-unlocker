@@ -11,7 +11,7 @@ public enum SettingsScope {
     ONLINE("online", null);
 
     private final String routeName;
-    private static final  SettingsScope[] ENUM_VALUES;
+    private static final   SettingsScope[] ENUM_VALUES;
     @Nullable
     private final Class<? extends SettingsPayload> defaultPayloadClass;
     public static final List<SettingsScope> VALUES;

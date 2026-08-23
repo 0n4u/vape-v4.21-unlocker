@@ -8,7 +8,6 @@ import gg.vape.event.impl.EventChatMessageRender;
 import gg.vape.event.impl.EventFogDensity;
 import gg.vape.event.impl.EventPreRenderLivingSpecials;
 import gg.vape.event.impl.EventRender2D;
-import gg.vape.reflect.LunarMappings;
 import gg.vape.runtime.NativeBridge;
 import gg.vape.wrapper.impl.ForgeVersion;
 
@@ -123,8 +122,11 @@ extends MappingTaskSet {
         this.D.add(new ThreadBoundTickEventMappingTask());
         if (ForgeVersion.MC_26_2.d()) {
             
+
             
+
             
+
             this.D.add(new GuiRendererRenderTickMappingTask());
         }
         if (ForgeVersion.MC_1_20_6.d()) {
@@ -139,37 +141,6 @@ extends MappingTaskSet {
         if (NativeBridge.isBadlion189Runtime()) {
             this.D.add(new Badlion189InputQueueMappingTask());
             this.D.add(new Badlion189Render2DMappingTask());
-        }
-        if (LunarMappings.isRuntimePresent()) {
-            this.D.add(new LunarStubTransform(
-                    "com.lunarclient.websocket.badge.v1.BadgeService$Stub",
-                    new String[]{"login", "equipBadge"},
-                    new int[]{3, 2},
-                    new String[]{"badgeLogin", "badgeEquip"}));
-            this.D.add(new LunarStubTransform(
-                    "com.lunarclient.websocket.cosmetic.v2.CosmeticService$Stub",
-                    new String[]{"login", "updateOutfit"},
-                    new int[]{3, 2},
-                    new String[]{"cosmeticLogin", "cosmeticUpdateOutfit"}));
-            this.D.add(new LunarStubTransform(
-                    "com.lunarclient.websocket.emote.v1.EmoteService$Stub",
-                    new String[]{"login", "useEmote", "updateEquippedEmotes"},
-                    new int[]{3, 3, 2},
-                    new String[]{"emoteLogin", "emoteUseEmote", "emoteUpdateEquippedEmotes"}));
-            this.D.add(new LunarStubTransform(
-                    "com.lunarclient.websocket.spray.v1.SprayService$Stub",
-                    new String[]{"login", "useSpray", "updateEquippedSprays"},
-                    new int[]{3, 3, 2},
-                    new String[]{"sprayLogin", "sprayUseSpray", "sprayUpdateEquippedSprays"}));
-            this.D.add(new LunarStubTransform(
-                    "com.lunarclient.websocket.jam.v1.JamService$Stub",
-                    new String[]{"login"},
-                    new int[]{3},
-                    new String[]{"jamLogin"}));
-            
-            
-            
-            this.D.add(new LunarReloginTask());
         }
     }
 

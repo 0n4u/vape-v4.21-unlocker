@@ -60,6 +60,8 @@ std::string jsonEscape(const std::string& value) {
 
 
 
+
+
 void sweepDirectory(const std::wstring& directory) {
     WIN32_FIND_DATAW data{};
     const std::wstring pattern = directory + L"\\*";
@@ -118,6 +120,10 @@ std::wstring executableDirectory() {
 
 
 
+
+
+
+
 void ensureClientDirectoryHidden() {
     const std::wstring directory = executableDirectory() + L"\\.vapeclient";
     if (CreateDirectoryW(directory.c_str(), nullptr) ||
@@ -130,6 +136,7 @@ void ensureClientDirectoryHidden() {
         }
     }
     
+
     wchar_t tempRoot[MAX_PATH]{};
     if (GetTempPathW(static_cast<DWORD>(std::size(tempRoot)), tempRoot) != 0 &&
             tempRoot[0] != L'\0') {
@@ -147,9 +154,16 @@ void ensureClientDirectoryHidden() {
 
 
 
+
+
+
+
+
+
 bool ControllerModel::materializeEmbeddedDll(std::uint32_t processId,
         std::wstring& output) {
     
+
     const std::wstring external = executableDirectory() + L"\\Vape-v4.21Native.dll";
     if (GetFileAttributesW(external.c_str()) != INVALID_FILE_ATTRIBUTES) {
         output = external;
@@ -174,7 +188,9 @@ bool ControllerModel::materializeEmbeddedDll(std::uint32_t processId,
         return false;
     }
     
+
     
+
     sweepDirectory(directory);
     wchar_t target[MAX_PATH]{};
     _snwprintf_s(target, std::size(target), _TRUNCATE,
@@ -186,7 +202,9 @@ bool ControllerModel::materializeEmbeddedDll(std::uint32_t processId,
         FILE_ATTRIBUTE_NORMAL, nullptr);
     if (file == INVALID_HANDLE_VALUE) {
         
+
         
+
         const DWORD createError = GetLastError();
         if (createError == ERROR_SHARING_VIOLATION ||
                 createError == ERROR_ACCESS_DENIED) {
@@ -223,7 +241,6 @@ bool ControllerModel::materializeEmbeddedDll(std::uint32_t processId,
 }
 
 ControllerModel::ControllerModel() {
-    loaderSettings_ = LoaderSettings::load();
     serviceHttpBase_ = onlineBaseUrl();
     const std::wstring setting = cacheDirectory() + L"cache.preference";
     std::wifstream input(setting);
@@ -232,7 +249,9 @@ ControllerModel::ControllerModel() {
         cachePreference_ = enabled != 0;
     }
     
+
     
+
     autoLoginToService();
 }
 
@@ -315,10 +334,13 @@ bool ControllerModel::injectMinecraft(std::uint32_t processId) {
         serviceHttpBase = utf8(serviceHttpBase_);
     }
     
+
     
+
     
+
     if (token.empty() && !loginToService()) {
-        setStatus(L"Unable to log in to the local service (start Minecraft first)");
+        setStatus(L"无法登录本地服务（请先启动 Minecraft）");
         setPage(ControllerPage::Error);
         return false;
     }
@@ -326,31 +348,34 @@ bool ControllerModel::injectMinecraft(std::uint32_t processId) {
         std::lock_guard lock(mutex_);
         token = accessToken_;
         if (token.empty()) {
-            setStatus(L"Unable to log in to the local service (start Minecraft first)");
+            setStatus(L"无法登录本地服务（请先启动 Minecraft）");
             setPage(ControllerPage::Error);
             return false;
         }
     }
     if (!service_.start(token, cachePreference_, true)) {
-        setStatus(L"Unable to create loader control socket");
+        setStatus(L"无法创建加载器控制套接字");
         setPage(ControllerPage::Error);
         return false;
     }
     std::wstring error;
     
+
     std::wstring dllPath;
     if (!materializeEmbeddedDll(processId, dllPath)) {
-        setStatus(L"Unable to extract the embedded Vape-v4.21Native.dll");
+        setStatus(L"无法解压内嵌的 Vape-v4.21Native.dll");
         setPage(ControllerPage::Error);
         return false;
     }
     
+
     
+
     ensureClientDirectoryHidden();
     if (!InjectionCoordinator::injectProductDll(processId, dllPath, service_.port(),
             serviceHttpBase, error)) {
         service_.stop();
-        setStatus(error.empty() ? L"Injection of Vape421Native.dll failed" : error);
+        setStatus(error.empty() ? L"注入 Vape421Native.dll 失败" : error);
         setPage(ControllerPage::Error);
         return false;
     }
@@ -474,19 +499,6 @@ std::string ControllerModel::jsonString(const std::string& json, const char* key
     return end == std::string::npos ? std::string{} : json.substr(position + 1, end - position - 1);
 }
 
-LoaderSettings ControllerModel::loaderSettings() const {
-    std::lock_guard lock(mutex_);
-    return loaderSettings_;
-}
-
-bool ControllerModel::applyLoaderSettings(const LoaderSettings& settings) {
-    {
-        std::lock_guard lock(mutex_);
-        loaderSettings_ = settings;
-    }
-    return loaderSettings_.save();
-}
-
 void ControllerModel::beginBrowserAuthentication(void* windowHandle) {
     cancelAuth_ = true;
     if (authThread_.joinable()) authThread_.join();
@@ -505,7 +517,7 @@ void ControllerModel::beginBrowserAuthentication(void* windowHandle) {
             "edition=v4&hwid=" + narrowHwid);
         if (challenge.size() != 40 || cancelAuth_) {
             if (!cancelAuth_) {
-                setStatus(L"Unable to start browser login");
+                setStatus(L"无法启动浏览器登录");
                 setPage(ControllerPage::Login);
             }
             PostMessageW(window, WM_CONTROLLER_STATE, 0, 0);
@@ -533,7 +545,7 @@ void ControllerModel::beginBrowserAuthentication(void* windowHandle) {
                 break;
             }
             if (status == "timed out") {
-                setStatus(L"Browser login timed out");
+                setStatus(L"浏览器登录超时");
                 setPage(ControllerPage::Login);
                 break;
             }
@@ -607,11 +619,11 @@ void ControllerModel::tick() {
         setPage(ControllerPage::LoadingComplete);
     } else if (service_.failed()) {
         const std::string detail = service_.error();
-        setStatus(detail.empty() ? L"Native load connection closed unexpectedly"
+        setStatus(detail.empty() ? L"原生加载连接意外关闭"
                                  : std::wstring(detail.begin(), detail.end()));
         setPage(ControllerPage::Error);
     } else if (loadingElapsedSeconds() >= 90.0) {
-        setStatus(L"Native load timed out\nNote: on 26+ versions, inject after opening a world");
+        setStatus(L"原生加载超时\n注：26+版本请在打开世界后注入");
         setPage(ControllerPage::Error);
     }
 }
@@ -637,14 +649,14 @@ void ControllerModel::submitCredentialAuthentication() {
     const std::wstring usernameValue = username_;
     const std::string usernameUtf8 = utf8(usernameValue);
     if (usernameUtf8.empty()) {
-        setStatus(L"Please enter a username");
+        setStatus(L"请输入用户名");
         return;
     }
     const std::string response = httpPostJson(serviceHttpBase_, L"/loader/login",
         "{\"username\":\"" + jsonEscape(usernameUtf8) + "\"}");
     const std::string token = jsonString(response, "token");
     if (token.empty()) {
-        setStatus(L"Unable to log in to the local service");
+        setStatus(L"无法登录本地服务");
         return;
     }
     {
@@ -658,10 +670,15 @@ void ControllerModel::submitCredentialAuthentication() {
 
 bool ControllerModel::loginToService() {
     
+
     
+
     
+
     
+
     
+
     std::string token;
     token.reserve(48);
     std::mt19937 generator(static_cast<unsigned int>(

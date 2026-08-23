@@ -27,9 +27,13 @@ extends Event {
         }
         if (!xRay.isTargetBlock(this.block)) {
             
+
             
+
             
+
             
+
             if (this.tessellator.w() || ForgeVersion.MC_1_8_9.v()) {
                 this.tessellator.u(255, 255, 255, xRay.getOpacity());
             }

@@ -30,6 +30,7 @@ public class MappingClassBytecodeResolver {
         }
         catch (Throwable throwable) {
             
+
         }
         return null;
     }
@@ -130,7 +131,7 @@ public class MappingClassBytecodeResolver {
         }
     }
 
-    
+     
     private byte[] I(Class<?> clazz) {
         ClassLoader classLoader = clazz.getClassLoader();
         if (classLoader == null) {

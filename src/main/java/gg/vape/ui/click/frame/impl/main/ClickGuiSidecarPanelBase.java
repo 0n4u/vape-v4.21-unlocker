@@ -243,6 +243,7 @@ extends GuiComponent {
                 }
                 catch (Exception exception) {
                     
+
                 }
             }
             this.trailingComponents.remove(guiComponent);

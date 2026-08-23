@@ -7,7 +7,7 @@ import gg.vape.mapping.MappingMethod;
 import gg.vape.ui.click.component.GuiComponent;
 import gg.vape.wrapper.impl.ForgeVersion;
 
-
+ 
 public class MRenderTarget
 extends Mapping {
     public MappingMethod blitToScreenMethod;
@@ -47,15 +47,18 @@ extends Mapping {
         }
         if (!gg.vape.Vape.INSTANCE.isForgeAbsent()) {
             
+
             try {
                 return Class.forName(
                         "com.mojang.blaze3d.pipeline.RenderTarget");
             }
             catch (Throwable throwable) {
                 
+
             }
         }
         
+
         return gg.vape.runtime.NativeBridge.gvc(
                 "com/mojang/blaze3d/pipeline/RenderTarget");
     }
@@ -63,15 +66,20 @@ extends Mapping {
     private void registerBlitToScreen() {
         if (ForgeVersion.MC_1_21_4.d() && ForgeVersion.MC_26_2.v()) {
             
+
             
+
             this.blitToScreenMethod = this.Y("blitToScreen", true, Void.TYPE, new Class[0]);
         } else if (ForgeVersion.MC_1_21_0.d() && ForgeVersion.MC_1_21_4.v()) {
             
+
             Class[] classArray = new Class[]{Integer.TYPE, Integer.TYPE};
             this.blitToScreenMethod = this.Y("blitToScreen", true, Void.TYPE, classArray);
         } else if (ForgeVersion.MC_1_20_1.d() && ForgeVersion.MC_1_21_0.v()) {
             
+
             
+
             Class[] classArray = new Class[]{Integer.TYPE, Integer.TYPE};
             this.blitToScreenMethod = this.Y("blitToScreen", true, Void.TYPE, classArray);
         }

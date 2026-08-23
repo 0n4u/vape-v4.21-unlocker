@@ -49,10 +49,15 @@ extends SimpleTextLabelComponent {
         if (this.wrappedLines == null) {
             SmoothFontRenderer fontRenderer = this.bold ? Vape.INSTANCE.getFontManager().W(this.fontScale, false) : Vape.INSTANCE.getFontManager().E(this.fontScale, false);
             
+
             
+
             
+
             
+
             
+
             String localized = Vape.INSTANCE.getFontSelector().W().s(this.text);
             this.wrappedLines = this.wrapLines(Arrays.asList(localized.split("\n")), fontRenderer);
         }
@@ -73,9 +78,13 @@ extends SimpleTextLabelComponent {
                     double fittingRatio = this.getWrapWidth() / wordWidth;
                     int splitIndex = (int)((double)word.length() * fittingRatio);
                     
+
                     
+
                     
+
                     
+
                     if (splitIndex < 1) splitIndex = 1;
                     if (splitIndex >= word.length()) splitIndex = word.length() - 1;
                     String firstPart = word.substring(0, splitIndex);

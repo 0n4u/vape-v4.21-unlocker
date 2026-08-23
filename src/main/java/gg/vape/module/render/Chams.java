@@ -151,6 +151,7 @@ extends Mod {
             }
             catch (Exception exception) {
                 
+
             }
             this.renderingChamsPass = false;
             OpenGlBackendHolder.backend.enableCapability(2929);
@@ -173,6 +174,7 @@ extends Mod {
             }
             catch (Exception exception) {
                 
+
             }
             finally {
                 this.renderingChamsPass = false;

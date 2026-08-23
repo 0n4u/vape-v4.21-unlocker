@@ -18,6 +18,7 @@ extends EventRenderTickBase {
     }
 
     
+
     public EventPostRenderTick(Object deltaTrackerHandle) {
         super(new gg.vape.wrapper.impl.DeltaTracker(deltaTrackerHandle));
     }

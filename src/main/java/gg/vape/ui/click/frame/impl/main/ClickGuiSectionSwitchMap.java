@@ -14,18 +14,21 @@ class ClickGuiSectionSwitchMap {
         }
         catch (NoSuchFieldError noSuchFieldError) {
             
+
         }
         try {
             ClickGuiSectionSwitchMap.y[ClickGuiSection.FRIENDS.ordinal()] = 2;
         }
         catch (NoSuchFieldError noSuchFieldError) {
             
+
         }
         try {
             ClickGuiSectionSwitchMap.y[ClickGuiSection.PROFILES.ordinal()] = 3;
         }
         catch (NoSuchFieldError noSuchFieldError) {
             
+
         }
     }
 }

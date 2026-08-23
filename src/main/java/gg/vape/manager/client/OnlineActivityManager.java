@@ -44,7 +44,7 @@ public class OnlineActivityManager {
         return this.isTracking(onlineFriend.getUser().getId());
     }
 
-    
+     
     public void startTracking(OnlineFriend onlineFriend) {
         if (onlineFriend.getUser().getId() == Vape.INSTANCE.getOnlineManager().getLocalFriend().getUser().getId()) {
             return;
@@ -95,7 +95,7 @@ public class OnlineActivityManager {
         return this.activityStatesByUserId.values();
     }
 
-    
+     
     public void reset(boolean notifyServer) {
         this.worldChangeCooldowns.clear();
         this.activityStatesByUserId.clear();
@@ -184,7 +184,7 @@ public class OnlineActivityManager {
         return this.activityStatesByUserId.isEmpty();
     }
 
-    
+     
     public void tickNearbyFriends(EntityPlayer localPlayer, World world) {
         if (world.isNull()) {
             return;
@@ -232,7 +232,7 @@ public class OnlineActivityManager {
         this.flushPendingSubscriptionsAndInventory(localPlayer);
     }
 
-    
+     
     public void removeTrackedUser(long userId) {
         this.worldChangeCooldowns.put(userId, System.currentTimeMillis() + 2000L);
         this.activityStatesByUserId.remove(userId);

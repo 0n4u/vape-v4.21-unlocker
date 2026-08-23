@@ -39,7 +39,7 @@ extends Mapping {
     private final MappingField E;
     private MappingField OX;
     private final MappingField S;
-    private final MappingField s;
+    private MappingField s;
     private MethodNodeMatcher k;
     private final MappingField A;
     private MappingMethod OD;
@@ -585,7 +585,9 @@ extends Mapping {
             this.Oy = this.J(string12, bl12, clazz12);
             Class[] classArray = new Class[]{};
             
+
             
+
             Class clazz13 = ForgeVersion.MC_1_20_1.d() ? Boolean.TYPE : Void.TYPE;
             boolean bl13 = true;
             String string13 = ForgeVersion.MC_1_20_1.d() ? "startAttack" : "clickMouse";
@@ -595,6 +597,7 @@ extends Mapping {
             Class<Void> clazz14 = Void.TYPE;
             boolean bl14 = true;
             
+
             String string14 = ForgeVersion.MC_1_20_1.d() ? "startUseItem" : "rightClickMouse";
             MMinecraft mMinecraft14 = this;
             this.g = this.Y(string14, bl14, clazz14, classArray6);
@@ -610,6 +613,7 @@ extends Mapping {
             Class<Void> clazz16 = Void.TYPE;
             boolean bl16 = true;
             
+
             String string16 = ForgeVersion.MC_1_20_1.d() ? "continueAttack" : "sendClickBlockToController";
             MMinecraft mMinecraft16 = this;
             this.Of = this.Y(string16, bl16, clazz16, classArray8);
@@ -653,6 +657,7 @@ extends Mapping {
             Class clazz22 = MappedClasses.Fi;
             boolean bl18 = true;
             
+
             String string22 = ForgeVersion.MC_1_17.d() ? "window" : "mainWindow";
             MMinecraft mMinecraft22 = this;
             this.C = this.J(string22, bl18, clazz22);
@@ -681,6 +686,10 @@ extends Mapping {
                 MMinecraft mMinecraft26 = this;
                 this.OV = this.registerInstanceMethodForOwner(clazz27, string26, bl22, clazz26, classArray11);
             }
+            
+
+            this.s = this.J(ForgeVersion.MC_1_17.d() ? "options" : "gameSettings",
+                    true, MappedClasses.lT);
         } else {
             Class<Boolean> clazz28 = Boolean.TYPE;
             boolean bl = true;
@@ -781,6 +790,7 @@ extends Mapping {
         Class clazz47 = MappedClasses.lT;
         boolean bl37 = true;
         
+
         String string43 = ForgeVersion.MC_1_17.d() ? "options" : "gameSettings";
         MMinecraft mMinecraft43 = this;
         this.s = this.J(string43, bl37, clazz47);

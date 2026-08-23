@@ -191,8 +191,11 @@ implements INamed {
         this.owner = owner;
         this.name = name;
         
+
         
+
         
+
         this.defaultValue = defaultValue;
         this.currentValue = defaultValue;
         if (owner != null) {

@@ -111,7 +111,7 @@ extends Entity {
         MEntityLivingBase.P(EntityLivingBase.vapeInstance.getMappings().hx, this.I, object);
     }
 
-    
+     
     public void swingItem() {
         MEntityLivingBase.swingItem(EntityLivingBase.vapeInstance.getMappings().hx, this.I);
     }

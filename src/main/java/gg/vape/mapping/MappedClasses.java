@@ -1167,9 +1167,13 @@ public class MappedClasses {
         }
         if (ForgeVersion.MC_1_20_1.d()) {
             
+
             
+
             
+
             
+
             R = MappedClasses.m("net/minecraft/core/registries/BuiltInRegistries");
             Fk = MappedClasses.m("net/minecraft/core/Registry");
         }
@@ -1208,13 +1212,17 @@ public class MappedClasses {
         }
         if (ForgeVersion.MC_1_20_1.d()) {
             
+
             l4 = MappedClasses.m("net/minecraft/client/OptionInstance");
             
+
             
+
             qr = MappedClasses.m("org/joml/Matrix4f");
             ZK = MappedClasses.m("net/minecraft/client/renderer/MultiBufferSource");
             Y8 = MappedClasses.m("net/minecraft/client/gui/Font$DisplayMode");
             
+
             ZL = MappedClasses.m("net/minecraft/client/renderer/RenderBuffers");
             lp = MappedClasses.m("net/minecraft/client/renderer/MultiBufferSource");
             q6 = MappedClasses.m("net/minecraft/client/renderer/MultiBufferSource$BufferSource");
@@ -1456,21 +1464,11 @@ public class MappedClasses {
                 return clazz;
             }
             catch (ClassNotFoundException classNotFoundException) {
-                            if (!bl) {
-                                Vape.debugLog("Failed get class " + string);
-                            }
-                            return null;
-                        }
-                        catch (LinkageError linkageError) {
-                            
-                            
-                            
-                            if (!bl) {
-                                Vape.debugLog("Failed link class " + string
-                                    + ": " + linkageError.getClass().getSimpleName());
-                            }
-                            return null;
-                        }
+                if (!bl) {
+                    Vape.debugLog("Failed get class " + string);
+                }
+                return null;
+            }
         }
         if (bl2) {
             Class clazz;
@@ -1483,6 +1481,7 @@ public class MappedClasses {
                 }
                 catch (Exception exception) {
                     
+
                 }
             }
             if ((clazz = NativeBridge.gvc(string)) != null) {
@@ -1494,6 +1493,7 @@ public class MappedClasses {
         Class clazz = NativeBridge.gc(string4);
         if (clazz == null) {
             
+
         }
         return clazz;
     }

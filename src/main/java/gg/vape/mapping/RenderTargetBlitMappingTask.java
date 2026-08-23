@@ -6,7 +6,7 @@ import gg.vape.mapping.MappedClasses;
 import gg.vape.mapping.mappings.MRenderTarget;
 import gg.vape.wrapper.impl.ForgeVersion;
 
-
+ 
 public class RenderTargetBlitMappingTask
 extends JavassistMappingTask {
     public RenderTargetBlitMappingTask() {
@@ -20,15 +20,18 @@ extends JavassistMappingTask {
         }
         if (!gg.vape.Vape.INSTANCE.isForgeAbsent()) {
             
+
             try {
                 return Class.forName(
                         "com.mojang.blaze3d.pipeline.RenderTarget");
             }
             catch (Throwable throwable) {
                 
+
             }
         }
         
+
         return gg.vape.runtime.NativeBridge.gvc(
                 "com/mojang/blaze3d/pipeline/RenderTarget");
     }

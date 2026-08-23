@@ -43,7 +43,7 @@ implements BlockPathSearchStrategy<PlacementTarget> {
         return isPlaceable;
     }
 
-    
+     
     @Override
     public boolean canVisit(BlockData blockData) {
         if (this.excludedBlocks.contains(blockData)) return false;

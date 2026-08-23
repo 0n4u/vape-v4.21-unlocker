@@ -18,7 +18,7 @@ extends ByteToMessageDecoder {
         return corruptedFrameException;
     }
 
-    
+     
     protected void decode(ChannelHandlerContext channelHandlerContext, ByteBuf byteBuf, List<Object> list) {
         if (!channelHandlerContext.channel().isActive()) {
             byteBuf.skipBytes(byteBuf.readableBytes());

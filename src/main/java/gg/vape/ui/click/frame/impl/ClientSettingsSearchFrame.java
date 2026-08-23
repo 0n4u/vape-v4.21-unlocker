@@ -38,9 +38,18 @@ extends ModuleCategoryFrame {
 
 
 
+
+
+
+
+
+
     private final ClientSettingsSearchFrameHeader header;
 
+
     private final List<GuiComponent> defaultMenuComponents = new ArrayList<GuiComponent>();
+
+
 
 
 
@@ -126,15 +135,18 @@ extends ModuleCategoryFrame {
             ClientSettingsFrame settingsFrame = ClientSettings.getFrame(ClientSettingsFrame.class);
             ClientSettingsSectionFrame settingsSectionFrame = ClientSettings.getFrame(ClientSettingsSectionFrame.class);
             
+
             
+
             this.synchronizeWithSettingsFrames(settingsFrame, settingsSectionFrame);
         }
         catch (Throwable ignored) {
             
+
         }
     }
 
-    
+     
 
     private void synchronizeWithSettingsFrames(
             ClientSettingsFrame settingsFrame,

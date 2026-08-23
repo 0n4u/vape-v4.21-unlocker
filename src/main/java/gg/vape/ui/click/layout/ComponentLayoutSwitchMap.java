@@ -16,24 +16,28 @@ class ComponentLayoutSwitchMap {
         }
         catch (NoSuchFieldError noSuchFieldError) {
             
+
         }
         try {
             ComponentLayoutSwitchMap.q[LayoutDock.BOTTOM.ordinal()] = 2;
         }
         catch (NoSuchFieldError noSuchFieldError) {
             
+
         }
         try {
             ComponentLayoutSwitchMap.q[LayoutDock.LEFT.ordinal()] = 3;
         }
         catch (NoSuchFieldError noSuchFieldError) {
             
+
         }
         try {
             ComponentLayoutSwitchMap.q[LayoutDock.RIGHT.ordinal()] = 4;
         }
         catch (NoSuchFieldError noSuchFieldError) {
             
+
         }
         p = new int[LayoutAnchor.values().length];
         try {
@@ -41,18 +45,21 @@ class ComponentLayoutSwitchMap {
         }
         catch (NoSuchFieldError noSuchFieldError) {
             
+
         }
         try {
             ComponentLayoutSwitchMap.p[LayoutAnchor.TOP_LEFT.ordinal()] = 2;
         }
         catch (NoSuchFieldError noSuchFieldError) {
             
+
         }
         try {
             ComponentLayoutSwitchMap.p[LayoutAnchor.OFFSET.ordinal()] = 3;
         }
         catch (NoSuchFieldError noSuchFieldError) {
             
+
         }
     }
 }

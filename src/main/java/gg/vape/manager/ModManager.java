@@ -209,8 +209,7 @@ implements EventListener {
         coreModules[58] = new Timer();
         coreModules[59] = new InventoryFill();
         coreModules[60] = new BedPlates();
-                this.registerModules(Stream.of(coreModules));
-                ModRegistrationBuilder.create().setModule(new BlockHit()).registerWith(this);
+        this.registerModules(Stream.of(coreModules));
         ModRegistrationBuilder.create().setModule(new Explosions()).addVersionConstraint(ForgeVersion.MC_1_16_5.b()).registerWith(this);
         Mod[] versionConstrainedModules = new Mod[2];
         versionConstrainedModules[0] = new Chams();
@@ -443,6 +442,7 @@ implements EventListener {
         ModRegistrationBuilder.create().setModule(new BlockRenderColorOverrideHudModule()).addVersionConstraints(ForgeVersion.MC_1_7_10.N(), ForgeVersion.MC_1_16_5.b()).registerWith(this);
         this.registerModules(Stream.of(new ScoreboardHudModule(), new InventoryBlurHudModule()), ModManager::addMinecraft1206Constraint);
         
+
         ModRegistrationBuilder.create().setModule(new MotionBlur())
                 .addVersionConstraints(ForgeVersion.MC_1_17.n(), ForgeVersion.MC_26_2.b())
                 .registerWith(this);

@@ -70,6 +70,7 @@ public class MathUtil {
         }
         catch (Throwable throwable) {
             
+
         }
         return n2;
     }
@@ -200,6 +201,7 @@ public class MathUtil {
         }
         catch (Throwable throwable) {
             
+
         }
         if (n3 < n2) {
             n3 = n2;
@@ -284,6 +286,7 @@ public class MathUtil {
         }
         catch (Throwable throwable) {
             
+
         }
         if (d3 < d2) {
             d3 = d2;
@@ -318,6 +321,7 @@ public class MathUtil {
         }
         catch (Throwable throwable) {
             
+
         }
         return d2;
     }

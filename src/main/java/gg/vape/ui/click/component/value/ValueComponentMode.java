@@ -4,7 +4,7 @@ public enum ValueComponentMode {
     MAIN,
     STANDALONE;
 
-    private static final  ValueComponentMode[] DECLARED_VALUES;
+    private static final   ValueComponentMode[] DECLARED_VALUES;
 
     static {
         String[] declaredNames = new String[]{"MAIN", "STANDALONE"};

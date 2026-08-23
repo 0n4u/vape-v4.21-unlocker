@@ -48,7 +48,7 @@ extends ActionButtonBase {
         ImageRenderer.drawRes(this.iconColorAnimation.getInterpolatedColor(), (float)(this.double_G() + this.double_A() / 2.0 - (double)(32.0f * this.iconScale / 2.0f)), (float)(this.double_n() + this.double_L() / 2.0 - (double)(32.0f * this.iconScale / 2.0f)), this.iconResource, this.iconScale);
     }
 
-    public  ColorAnimation getIconColorAnimationCompat() {
+    public   ColorAnimation getIconColorAnimationCompat() {
         return this.getIconColorAnimation();
     }
 }

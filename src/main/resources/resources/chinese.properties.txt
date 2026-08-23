@@ -2682,6 +2682,7 @@ smash_only.tooltip=仅在会触发重击时才切换到重锤
 pearlcatch.tooltip=先投掷珍珠，再投掷风弹将其接住
 show_hotbar=显示快捷栏
 
+# ---- PearlCatch ----
 pearlcatch.aim_mode=瞄准模式
 pearlcatch.aim_mode.tooltip=向上 - 将珍珠垂直向上抛出\n当前瞄准 - 向你所看方向抛出风弹
 pearlcatch.aim_speed=瞄准速度
@@ -2691,9 +2692,11 @@ pearlcatch.charge_delay.tooltip=投出珍珠后、抛出风弹前等待的刻数
 upward=向上
 current_aim=当前瞄准
 
+# ---- AutoMace modes ----
 density=密度
 breach_mode=破甲
 
+# ---- InventoryOverlay ----
 inventory_overlay=物品栏覆盖
 render_background.tooltip=渲染并模糊物品栏背后的背景。
 show_hotbar.tooltip=在物品栏下方渲染快捷栏槽位。

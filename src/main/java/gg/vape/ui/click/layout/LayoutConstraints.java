@@ -132,23 +132,23 @@ public class LayoutConstraints {
         }
     }
 
-    public  double G() {
+    public   double G() {
         return this.double_G();
     }
 
-    public  boolean G$src$Z$1xi35hg() {
+    public   boolean G$src$Z$1xi35hg() {
         return this.boolean_G();
     }
 
-    public  int a() {
+    public   int a() {
         return this.int_a();
     }
 
-    public  boolean a$src$Z$1xwdswu() {
+    public   boolean a$src$Z$1xwdswu() {
         return this.boolean_a();
     }
 
-    public  int m() {
+    public   int m() {
         return this.int_m();
     }
 }

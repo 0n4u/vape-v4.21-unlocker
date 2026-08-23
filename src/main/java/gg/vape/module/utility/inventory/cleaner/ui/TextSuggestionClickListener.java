@@ -34,7 +34,7 @@ implements GuiMouseListener {
         this.onRemove = consumer;
     }
 
-    
+     
     private void handleRowClick(TextSuggestionRow textSuggestionRow, Consumer<TextSuggestionRow> consumer, AtomicBoolean atomicBoolean) {
         try {
             this.input.removeRow(textSuggestionRow);

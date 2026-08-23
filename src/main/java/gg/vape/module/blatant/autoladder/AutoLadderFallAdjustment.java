@@ -1,6 +1,6 @@
 package gg.vape.module.blatant.autoladder;
 
-
+ 
 public enum AutoLadderFallAdjustment {
     PHYSICAL(false, false, false, false, false),
     FORWARD(true, true, false, false, false),

@@ -26,9 +26,13 @@ extends JavassistMappingTask {
         if (ForgeVersion.MC_1_21_0.d()
                 && ForgeVersion.MC_1_21_4.v()) {
             
+
             
+
             
+
             
+
             this.insertPreRenderEntityCallbackOnRender();
             return;
         }

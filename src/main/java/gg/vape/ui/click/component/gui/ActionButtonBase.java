@@ -75,7 +75,7 @@ extends InteractiveComponent {
         this(width, height, backgroundColor, 1.0);
     }
 
-    public  void renderButton() {
+    public   void renderButton() {
         this.H();
     }
 }

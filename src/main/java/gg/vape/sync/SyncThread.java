@@ -86,7 +86,7 @@ public class SyncThread {
         }
     }
 
-    
+     
     public void saveLocalSnapshot() {
         try {
             this.prepareActiveProfileForSave();

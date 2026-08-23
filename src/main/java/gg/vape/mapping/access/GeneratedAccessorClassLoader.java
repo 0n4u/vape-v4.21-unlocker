@@ -11,7 +11,7 @@ extends ClassLoader {
         return super.getClassLoadingLock(string);
     }
 
-    
+     
     private Class<?> Z(String string, byte[] byArray) {
         Object object;
         Object object2;
@@ -23,7 +23,7 @@ extends ClassLoader {
         }
     }
 
-    
+     
     public boolean X(String string) {
         Object object;
         Object object2;

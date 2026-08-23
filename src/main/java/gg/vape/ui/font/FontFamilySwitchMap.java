@@ -14,24 +14,28 @@ public class FontFamilySwitchMap {
         }
         catch (NoSuchFieldError noSuchFieldError) {
             
+
         }
         try {
             FontFamilySwitchMap.d[FontFamily.ARIAL.ordinal()] = 2;
         }
         catch (NoSuchFieldError noSuchFieldError) {
             
+
         }
         try {
             FontFamilySwitchMap.d[FontFamily.NOTO.ordinal()] = 3;
         }
         catch (NoSuchFieldError noSuchFieldError) {
             
+
         }
         try {
             FontFamilySwitchMap.d[FontFamily.MINECRAFT.ordinal()] = 4;
         }
         catch (NoSuchFieldError noSuchFieldError) {
             
+
         }
     }
 }

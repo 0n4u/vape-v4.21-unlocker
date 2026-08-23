@@ -132,6 +132,7 @@ public class EnemyManager {
             }
             catch (Exception exception) {
                 
+
             }
         }
         ClientSettings.getFrame(EnemySettingsFrame.class).refreshEntries();

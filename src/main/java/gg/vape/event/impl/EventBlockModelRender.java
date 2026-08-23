@@ -57,6 +57,7 @@ extends Event {
         }
         catch (Exception exception) {
             
+
         }
         return this.isCanceled();
     }

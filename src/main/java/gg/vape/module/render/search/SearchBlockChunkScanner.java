@@ -95,8 +95,11 @@ public class SearchBlockChunkScanner {
         double playerX = entityPlayerSP.z();
         double playerZ = entityPlayerSP.h();
         
+
         
+
         
+
         if (ForgeVersion.MC_1_16_5.d()) {
             return SearchBlockChunkScanner.scanLoadedChunksModern(
                     null, searchBlocks, maxDistance, onlyCaves,
@@ -135,7 +138,7 @@ public class SearchBlockChunkScanner {
         return results;
     }
 
-    
+     
     private static ArrayList<SearchBlockRenderEntry> scanLoadedChunksModern(
             List<Chunk> ignoredChunks, List<SearchBlock> searchBlocks,
             int maxDistance, boolean onlyCaves, WorldClient worldClient,

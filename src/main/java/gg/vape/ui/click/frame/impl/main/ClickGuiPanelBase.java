@@ -42,11 +42,11 @@ extends PanelComponent {
         }
     }
 
-    public  void K() {
+    public   void K() {
         this.void_K();
     }
 
-    public  void Z$src$V$15w0jcm() {
+    public   void Z$src$V$15w0jcm() {
         this.void_Z();
     }
 }

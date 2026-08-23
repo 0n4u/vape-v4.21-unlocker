@@ -620,19 +620,19 @@ implements GuiComponentContract {
         }
     }
 
-    public  double double_G() {
+    public   double double_G() {
         return this.G$src$D$1b2f02a();
     }
 
-    public  double double_n() {
+    public   double double_n() {
         return this.n();
     }
 
-    public  double double_A() {
+    public   double double_A() {
         return this.A();
     }
 
-    public  double double_L() {
+    public   double double_L() {
         return this.L();
     }
 }

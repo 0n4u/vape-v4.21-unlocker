@@ -386,6 +386,7 @@ extends SmoothFontRenderer {
             Vape.logThrowable(exception);
         }
         
+
         ByteBuffer byteBuffer = BufferUtils.createByteBuffer((int)byArray3.length + 128);
         byteBuffer.put(byArray3);
         byteBuffer.flip();

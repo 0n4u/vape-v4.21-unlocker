@@ -19,7 +19,9 @@ extends StringValue {
         UUID onlineId = activeProfile.getOnlineId();
         if (onlineId == null) {
             
+
             
+
             UUID localId = activeProfile.getLocalId();
             if (localId != null) {
                 return localId.toString();

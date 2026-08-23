@@ -121,7 +121,7 @@ extends InteractiveComponent {
                 this.setStatusText("bind removed");
             }
         }
-        
+         
         if (this.pressed && !this.w$src$Z$e457mb()) {
             this.pressed = false;
             if (this.bindStatusStage == 0 && this.statusText != null && !this.statusText.toLowerCase(Locale.ROOT).startsWith("press") && System.currentTimeMillis() > this.statusTimestamp + STATUS_TIMEOUT_MS) {

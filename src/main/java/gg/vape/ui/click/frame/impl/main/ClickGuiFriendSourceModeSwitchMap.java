@@ -14,12 +14,14 @@ public class ClickGuiFriendSourceModeSwitchMap {
         }
         catch (NoSuchFieldError noSuchFieldError) {
             
+
         }
         try {
             ClickGuiFriendSourceModeSwitchMap.Z[ClickGuiFriendSourceMode.MINECRAFT.ordinal()] = 2;
         }
         catch (NoSuchFieldError noSuchFieldError) {
             
+
         }
     }
 }

@@ -37,8 +37,8 @@ public class RenderEntityContextCache {
         return null;
     }
 
-    
-    
+     
+     
     public static void clear() {
         if (contexts.isEmpty()) {
             return;
@@ -48,7 +48,7 @@ public class RenderEntityContextCache {
         }
     }
 
-    
+     
     public static void remove(int ... entityIds) {
         synchronized (lock) {
             for (int entityId : entityIds) {
@@ -58,7 +58,7 @@ public class RenderEntityContextCache {
     }
 
 
-    
+     
     public static Collection<RenderEntityContext> getContexts() {
         synchronized (lock) {
             return new ArrayList<>(contexts.values());
@@ -76,7 +76,7 @@ public class RenderEntityContextCache {
         return context;
     }
 
-    
+     
     @Nullable
     public static ITextComponent getDisplayName(EntityPlayer player) {
         if (displayNameCache.containsKey(player.S())) {
@@ -87,7 +87,7 @@ public class RenderEntityContextCache {
         return displayName;
     }
 
-    
+     
     public static RenderEntityContext getOrCreate(EntityLivingBase entity, EntityPlayerSP viewer) {
         synchronized (lock) {
             return contexts.computeIfAbsent(entity.S(), entityId -> RenderEntityContextCache.createContext(entity, viewer, entityId));

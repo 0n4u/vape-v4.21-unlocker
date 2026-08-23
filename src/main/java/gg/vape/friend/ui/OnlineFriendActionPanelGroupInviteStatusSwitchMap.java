@@ -14,30 +14,35 @@ public class OnlineFriendActionPanelGroupInviteStatusSwitchMap {
         }
         catch (NoSuchFieldError noSuchFieldError) {
             
+
         }
         try {
             OnlineFriendActionPanelGroupInviteStatusSwitchMap.STATUS_MAPPINGS[GroupInviteStatus.TOO_MANY_INVITES.ordinal()] = 2;
         }
         catch (NoSuchFieldError noSuchFieldError) {
             
+
         }
         try {
             OnlineFriendActionPanelGroupInviteStatusSwitchMap.STATUS_MAPPINGS[GroupInviteStatus.NOT_ONLINE.ordinal()] = 3;
         }
         catch (NoSuchFieldError noSuchFieldError) {
             
+
         }
         try {
             OnlineFriendActionPanelGroupInviteStatusSwitchMap.STATUS_MAPPINGS[GroupInviteStatus.ALREADY_INVITED.ordinal()] = 4;
         }
         catch (NoSuchFieldError noSuchFieldError) {
             
+
         }
         try {
             OnlineFriendActionPanelGroupInviteStatusSwitchMap.STATUS_MAPPINGS[GroupInviteStatus.FAILED.ordinal()] = 5;
         }
         catch (NoSuchFieldError noSuchFieldError) {
             
+
         }
     }
 }

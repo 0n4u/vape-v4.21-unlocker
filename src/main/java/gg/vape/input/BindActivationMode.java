@@ -5,7 +5,7 @@ public enum BindActivationMode {
     TOGGLE("Toggle"),
     HELD("Enable while held");
 
-    private static final  BindActivationMode[] legacyValues;
+    private static final   BindActivationMode[] legacyValues;
     private final String displayName;
 
 

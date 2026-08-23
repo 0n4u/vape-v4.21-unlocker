@@ -42,7 +42,7 @@ public class PartyState {
         return this.options;
     }
 
-    
+     
     public void addMember(OnlineFriend onlineFriend) {
         List<OnlineFriend> list = this.members;
         synchronized (list) {
@@ -63,7 +63,7 @@ public class PartyState {
         return this.chatRows;
     }
 
-    
+     
     public void removeInvitedUser(OnlineFriend onlineFriend) {
         List<OnlineFriend> list = this.invitedUsers;
         synchronized (list) {
@@ -95,7 +95,7 @@ public class PartyState {
         }
     }
 
-    
+     
     public void removeInvitedUserSilently(OnlineFriend onlineFriend) {
         List<OnlineFriend> list = this.invitedUsers;
         synchronized (list) {
@@ -103,7 +103,7 @@ public class PartyState {
         }
     }
 
-    
+     
     public void addChatRow(PartyMemberRow partyMemberRow) {
         List<PartyMemberRow> list = this.chatRows;
         synchronized (list) {
@@ -127,7 +127,7 @@ public class PartyState {
         return this.openInvites;
     }
 
-    
+     
     public void addInvitedUser(OnlineFriend onlineFriend) {
         List<OnlineFriend> list = this.invitedUsers;
         synchronized (list) {
@@ -164,7 +164,7 @@ public class PartyState {
         this.partyPanel = partyPanel;
     }
 
-    
+     
     public void removeMember(OnlineFriend onlineFriend) {
         List<OnlineFriend> list = this.members;
         synchronized (list) {

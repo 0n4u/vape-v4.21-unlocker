@@ -116,7 +116,7 @@ extends InteractiveComponent {
         if (this.bindComponent.isCapturing() && (this.statusText == null || !this.statusText.toLowerCase(Locale.ROOT).startsWith("press"))) {
             this.setStatusText("press a key to bind");
         }
-        
+         
         if (this.bindStatusExpiring && System.currentTimeMillis() > this.bindStatusStartedAt + BIND_STATUS_DURATION_MS) {
             this.statusText = null;
             this.bindStatusExpiring = false;

@@ -8,7 +8,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
-
+ 
 public final class NeoForgeObfMap {
     private static volatile Map<String, String> methods1201;
     private static volatile Map<String, String> fields1201;
@@ -83,6 +83,7 @@ public final class NeoForgeObfMap {
         }
         catch (IOException ignored) {
             
+
         }
         return table;
     }

@@ -18,6 +18,7 @@ extends Thread {
         }
         catch (InterruptedException interruptedException) {
             
+
         }
         Minecraft.a_jo_2_T().setTimerSpeed(1.0f);
     }

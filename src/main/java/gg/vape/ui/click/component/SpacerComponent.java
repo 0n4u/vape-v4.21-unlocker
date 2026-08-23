@@ -81,7 +81,7 @@ extends GuiComponent {
     public void F() {
     }
 
-    public  void renderSpacer() {
+    public   void renderSpacer() {
         this.H();
     }
 }

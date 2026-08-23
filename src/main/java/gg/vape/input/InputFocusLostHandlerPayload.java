@@ -15,6 +15,7 @@ implements InputEventHandler {
     @Override
     public boolean handle(long windowHandle, long focusState) {
         
+
         InputEventDispatcher.getInstance().getFocusState().markUnfocused();
         return false;
     }

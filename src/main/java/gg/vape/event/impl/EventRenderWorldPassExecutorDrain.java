@@ -32,9 +32,13 @@ extends Event {
     public boolean fire() {
         try {
             
+
             
+
             
+
             
+
             if (GuiRenderPrimitives.d() && !EventRenderWorldPassExecutorDrain.isGlContextReady()) {
                 if (!EventRenderWorldPassExecutorDrain.contextWarned) {
                     EventRenderWorldPassExecutorDrain.contextWarned = true;
@@ -48,6 +52,10 @@ extends Event {
         }
         catch (Throwable throwable) {
             
+
+            
+
+            gg.vape.Vape.logThrowable(throwable);
         }
         return false;
     }

@@ -326,9 +326,13 @@ implements InventoryActionModule {
             }
             int windowId = localPlayer.F$src$Lgg_vape_wrapper_impl_Container_$152y6lm().getWindowId();
             
+
             
+
             
+
             
+
             boolean creative = guiScreen.isInstance(MappedClasses.n)
                     || localPlayer.C$src$Lgg_vape_wrapper_impl_ModelPlayer_$19uhx86().isCreativeMode();
             if (creative) {

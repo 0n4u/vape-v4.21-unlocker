@@ -81,15 +81,15 @@ extends GuiComponent {
         }
     }
 
-    public  double getMouseDeltaXCompat() {
+    public   double getMouseDeltaXCompat() {
         return this.getMouseDeltaX();
     }
 
-    public  String getLabelCompat() {
+    public   String getLabelCompat() {
         return this.getLabel();
     }
 
-    public  boolean isDraggingCompat() {
+    public   boolean isDraggingCompat() {
         return this.isDragging();
     }
 }

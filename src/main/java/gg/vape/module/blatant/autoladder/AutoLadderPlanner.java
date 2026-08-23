@@ -31,7 +31,7 @@ import java.util.Map;
 import java.util.Set;
 import org.jetbrains.annotations.Nullable;
 
-
+ 
 public final class AutoLadderPlanner {
     private static final int MAX_SIMULATION_TICKS = 30;
     private static final double LADDER_SIDE_ENTRY_DEPTH = 0.28;
@@ -493,7 +493,7 @@ public final class AutoLadderPlanner {
         this.recommendedFallAdjustment = evaluation.trajectory.adjustment;
     }
 
-    
+     
     @Nullable
     private List<CatchPathPoint> simulateControlledCatchPath(List<TrajectoryPoint> trajectory,
                                                               int controlStartTick,
@@ -565,7 +565,7 @@ public final class AutoLadderPlanner {
         return null;
     }
 
-    
+     
     @Nullable
     private ControlledCatch evaluateCatchOnPath(List<CatchPathPoint> path, CellCandidate cell,
                                                 EnumFacing facing, int supportExistsTick,
@@ -816,7 +816,7 @@ public final class AutoLadderPlanner {
         return result;
     }
 
-    
+     
     private boolean isFaceWithinReach(Vec3 eye, BlockData block, EnumFacing facing) {
         if (facing == null) {
             return true;
@@ -1139,7 +1139,7 @@ public final class AutoLadderPlanner {
         }
     }
 
-    
+     
     private static final class CellCandidate {
         private final BlockData ladderBlock;
         private final BlockData supportBlock;
@@ -1162,7 +1162,7 @@ public final class AutoLadderPlanner {
         }
     }
 
-    
+     
     private static final class AnchorCandidate {
         private final PlacementTarget blockTarget;
         private final PlacementOpportunity blockOpportunity;
@@ -1177,7 +1177,7 @@ public final class AutoLadderPlanner {
         }
     }
 
-    
+     
     private static final class CatchPathPoint {
         private final int tick;
         private final double x;
@@ -1292,7 +1292,7 @@ public final class AutoLadderPlanner {
         }
     }
 
-    
+     
     private static final class OpportunityMemo {
         private final Map<OpportunityKey, HitPointMemo> solidHitPoints = new HashMap<>();
         private final Map<OpportunityKey, HitPointMemo> nonSolidHitPoints = new HashMap<>();

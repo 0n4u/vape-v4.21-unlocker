@@ -14,48 +14,56 @@ public class ImageParserFormatSwitchMap {
         }
         catch (NoSuchFieldError noSuchFieldError) {
             
+
         }
         try {
             ImageParserFormatSwitchMap.FORMAT_SWITCH_MAP[ImageParser$Format.RGBA.ordinal()] = 2;
         }
         catch (NoSuchFieldError noSuchFieldError) {
             
+
         }
         try {
             ImageParserFormatSwitchMap.FORMAT_SWITCH_MAP[ImageParser$Format.BGRA.ordinal()] = 3;
         }
         catch (NoSuchFieldError noSuchFieldError) {
             
+
         }
         try {
             ImageParserFormatSwitchMap.FORMAT_SWITCH_MAP[ImageParser$Format.RGB.ordinal()] = 4;
         }
         catch (NoSuchFieldError noSuchFieldError) {
             
+
         }
         try {
             ImageParserFormatSwitchMap.FORMAT_SWITCH_MAP[ImageParser$Format.LUMINANCE.ordinal()] = 5;
         }
         catch (NoSuchFieldError noSuchFieldError) {
             
+
         }
         try {
             ImageParserFormatSwitchMap.FORMAT_SWITCH_MAP[ImageParser$Format.ALPHA.ordinal()] = 6;
         }
         catch (NoSuchFieldError noSuchFieldError) {
             
+
         }
         try {
             ImageParserFormatSwitchMap.FORMAT_SWITCH_MAP[ImageParser$Format.WHITE.ordinal()] = 7;
         }
         catch (NoSuchFieldError noSuchFieldError) {
             
+
         }
         try {
             ImageParserFormatSwitchMap.FORMAT_SWITCH_MAP[ImageParser$Format.LUMINANCE_ALPHA.ordinal()] = 8;
         }
         catch (NoSuchFieldError noSuchFieldError) {
             
+
         }
     }
 }

@@ -24,8 +24,11 @@ public class FontSelector {
     public void N(FontOption fontOption) {
         this.r = fontOption;
         
+
         
+
         
+
         if (ClientSettings.INSTANCE != null) {
             ClientSettings.INSTANCE.requestFrameLayoutRefresh();
         }

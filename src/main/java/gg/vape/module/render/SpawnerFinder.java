@@ -107,7 +107,7 @@ extends Mod {
                     String string3 = ClientSettings.FORMAT_CODE + "a[" + ClientSettings.FORMAT_CODE + "f" + (int)entityPlayerSP.i((double)tileEntityMobSpawner.getX(), (double)tileEntityMobSpawner.getY(), (double)tileEntityMobSpawner.getZ()) + ClientSettings.FORMAT_CODE + "a]" + ClientSettings.FORMAT_CODE + "r";
                     string2 = string2 + string3 + " ";
                 }
-                string2 = string2 + string + " Spawner";
+                string2 = string2 + string + " 刷怪笼";
                 RenderUtil.U(string2, (double)tileEntityMobSpawner.getX() - d + 0.5, (double)tileEntityMobSpawner.getY() - d2 - 1.0, (double)tileEntityMobSpawner.getZ() - d3 + 0.5, (Double)this.scale.getValue(), RotationUtil.p(entityPlayerSP, tileEntityMobSpawner.getX(), tileEntityMobSpawner.getY(), tileEntityMobSpawner.getZ()), -1, this.backgroundColor, 1.4, matrixStack);
             }
             GL11.glDepthMask((boolean)true);
@@ -140,7 +140,7 @@ extends Mod {
                 String string5 = ClientSettings.FORMAT_CODE + "a[" + ClientSettings.FORMAT_CODE + "f" + (int)entityPlayerSP.i((double)tileEntityMobSpawner.getX(), (double)tileEntityMobSpawner.getY(), (double)tileEntityMobSpawner.getZ()) + ClientSettings.FORMAT_CODE + "a]" + ClientSettings.FORMAT_CODE + "r";
                 string4 = string4 + string5 + " ";
             }
-            string4 = string4 + string + " Spawner";
+            string4 = string4 + string + " 刷怪笼";
             RenderUtil.U(string4, (double)tileEntityMobSpawner.getX() - d + 0.5, (double)tileEntityMobSpawner.getY() - d4 - 1.0, (double)tileEntityMobSpawner.getZ() - d5 + 0.5, (Double)this.scale.getValue(), RotationUtil.p(entityPlayerSP, tileEntityMobSpawner.getX(), tileEntityMobSpawner.getY(), tileEntityMobSpawner.getZ()), -1, this.backgroundColor, 1.4, matrixStack);
         }
         GL11.glDepthMask((boolean)true);

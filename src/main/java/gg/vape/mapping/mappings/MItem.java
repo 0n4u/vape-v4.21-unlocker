@@ -200,7 +200,9 @@ extends Mapping {
             boolean bl5 = true;
             String string5 = "ITEM";
             
+
             
+
             Class clazz7 = ForgeVersion.MC_1_20_1.d()
                     ? MappedClasses.R : MappedClasses.Fk;
             MItem mItem5 = this;
@@ -293,6 +295,7 @@ extends Mapping {
         Class<Integer> clazz = Integer.TYPE;
         boolean bl = true;
         
+
         String string = ForgeVersion.MC_1_20_1.d() ? "getId" : "getIdFromItem";
         MItem mItem = this;
         this.F = mItem.registerStaticMethod(string, bl, clazz, classArray);
@@ -300,6 +303,7 @@ extends Mapping {
         Class clazz16 = MappedClasses.lb;
         boolean bl13 = true;
         
+
         String string14 = ForgeVersion.MC_1_20_1.d() ? "byId" : "getItemById";
         MItem mItem14 = this;
         this.f = this.registerStaticMethod(string14, bl13, clazz16, classArray12);
@@ -332,6 +336,7 @@ extends Mapping {
                     boolean bl17 = true;
                     String string18 = "ITEM";
                     
+
                     Class clazz22 = ForgeVersion.MC_1_20_1.d()
                             ? MappedClasses.R : MappedClasses.Fk;
                     MItem mItem18 = this;

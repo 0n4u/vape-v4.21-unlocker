@@ -475,6 +475,7 @@ extends Mod {
             }
             catch (Exception exception) {
                 
+
             }
         }
     }
@@ -505,8 +506,11 @@ extends Mod {
                 this.renderFrames();
                 if (!ForgeVersion.MC_26_2.d()) {
                     
+
                     
+
                     
+
                     NotificationManager notificationManager = Vape.INSTANCE.getNotificationManager();
                     notificationManager.renderNotifications();
                 }
@@ -784,6 +788,7 @@ extends Mod {
             }
             catch (Throwable throwable) {
                 
+
             }
             this.renderFramesAndNotifications();
             OpenGlBackendHolder.backend.popMatrix();
@@ -918,7 +923,7 @@ extends Mod {
         this.smoothFont = new ClientSettingsBooleanValue((Object)this, "Smooth Font", true);
         this.showTooltips = BooleanValue.create((Object)((Object)this), (String)"Show tooltips", (boolean)true, (String)"Toggles visibility of these");
         this.rainbowSpeed = NumberValue.create((Object)((Object)this), (String)"Rainbow speed", (String)"#.#", (String)"", (double)0.1, (double)1.0, (double)10.0, (double)0.1, (String)"Adjusts the speed of rainbow values");
-        this.language = (ModeValue)ModeValue.create((Object)((Object)this), (String)"Language", (ModeSelection)FontSelector.j, (ModeSelection[])new ModeSelection[]{FontSelector.j, FontSelector.c}).setResettable(false);
+        this.language = (ModeValue)ModeValue.create((Object)((Object)this), (String)"Language", (ModeSelection)FontSelector.c, (ModeSelection[])new ModeSelection[]{FontSelector.j, FontSelector.c}).setResettable(false);
         this.showLegitMode = BooleanValue.create((Object)((Object)this), (String)"Show legit mode", (boolean)true, (String)"Shows the button to switch to the legit mod menu");
         this.showEnabledCount = BooleanValue.create((Object)((Object)this), (String)"Show enabled count", (boolean)true, (String)"Shows the number of enabled modules in the standalone gui");
         this.blurRenderer = new BlurRegionRenderer(0, 0);
@@ -994,6 +999,7 @@ extends Mod {
                     this.switchFrameStack(sessionSpoofStack);
                 } else if (this.inputEnabled || !this.getBind().areBoundInputsDown()) {
                     
+
                 }
                 if (this.activeStack.equals(sessionSpoofStack) && !Minecraft.currentScreen().isInstance(MappedClasses.u5)) {
                     this.switchFrameStack(mainStack);

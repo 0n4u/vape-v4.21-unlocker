@@ -61,9 +61,13 @@ extends Mapping {
             if (ForgeVersion.MC_1_21_0.d()
                     && ForgeVersion.MC_1_21_4.v()) {
                 
+
                 
+
                 
+
                 
+
                 Class[] classArray = new Class[]{MappedClasses.zc, Double.TYPE, Double.TYPE, Double.TYPE, Float.TYPE, Float.TYPE, MappedClasses.DQ, MappedClasses.ZK, Integer.TYPE};
                 Class<Void> clazz = Void.TYPE;
                 boolean bl = true;

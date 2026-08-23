@@ -9,7 +9,6 @@ CMAKE_NAMES = ('CMakeLists.txt',)
 BAT_EXTS = ('.bat',)
 
 def strip_java_like(text):
-
     out = []
     i = 0
     in_string = False
@@ -65,28 +64,23 @@ def strip_java_like(text):
     return ''.join(out)
 
 def strip_python(text):
-
     lines = text.splitlines(keepends=True)
     out = []
     in_docstring = False
     doc_char = None
     for idx, line in enumerate(lines):
-
         if idx == 0 and line.startswith('#!'):
             out.append(line)
             continue
-
         stripped = line.strip()
         if not in_docstring and (stripped.startswith('"""') or stripped.startswith("'''")):
             marker = stripped[:3]
-
             rest = stripped[3:]
             if rest.endswith(marker) and len(rest) >= 3:
                 out.append('\n')
                 continue
             in_docstring = True
             doc_char = marker
-
             out.append('\n')
             continue
         if in_docstring:
@@ -94,17 +88,13 @@ def strip_python(text):
                 in_docstring = False
             out.append('\n')
             continue
-
         if stripped.startswith('#'):
             out.append('\n')
             continue
-
-        processed = _strip_python_inline(line)
-        out.append(processed)
+        out.append(_strip_python_inline(line))
     return ''.join(out)
 
 def _strip_python_inline(line):
-
     in_s = False; in_d = False; escape = False
     for i, ch in enumerate(line):
         if escape:
@@ -146,7 +136,6 @@ def strip_batch(text):
 def strip_file(path):
     fname = os.path.basename(path)
     rel = path.replace('\\', '/')
-
     if 'gradle-wrapper' in rel or fname in ('LICENSE', 'README.md', 'README') or fname.endswith(('.md', '.properties.txt', '.csv', '.ttf', '.otf', '.png', '.wav', '.jar', '.map', '.srg')):
         return False
     ext = os.path.splitext(fname)[1].lower()

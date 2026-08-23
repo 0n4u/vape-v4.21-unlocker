@@ -55,11 +55,11 @@ public interface OpenGlBackend {
 
     public void setDepthMask(boolean enabled);
 
-    default public  float getFloat(int parameter) {
+    default public   float getFloat(int parameter) {
         return this.getFloatState(parameter);
     }
 
-    default public  void disableCapability(int capability) {
+    default public   void disableCapability(int capability) {
         this.disableCapabilityState(capability);
     }
 }

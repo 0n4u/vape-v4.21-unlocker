@@ -11,7 +11,7 @@ public enum SettingsDataType {
 
     private final SettingsScope scope;
     private final Class<? extends SettingsPayload> payloadClass;
-    private static final  SettingsDataType[] ENUM_VALUES;
+    private static final   SettingsDataType[] ENUM_VALUES;
 
     static {
         String[] serializedNames = new String[]{"ONLINE", "GLOBAL"};

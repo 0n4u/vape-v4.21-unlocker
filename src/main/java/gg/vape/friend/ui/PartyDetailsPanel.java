@@ -95,6 +95,7 @@ extends PanelComponent {
                 }
                 catch (Exception exception) {
                     
+
                 }
                 ConfirmationDialogComponent confirmationDialog = new ConfirmationDialogComponent("Are you sure you want to disband the party?", "DISBAND", "disband confirm@2x");
                 DimmedCenteredPopupFrame confirmationPopup = ClientSettings.createPopup(this.L$src$Lgg_vape_ui_click_frame_Frame_$1djx6sa(), confirmationDialog, DimmedCenteredPopupFrame.class);

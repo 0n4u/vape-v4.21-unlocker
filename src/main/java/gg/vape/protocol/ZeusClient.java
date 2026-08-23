@@ -482,6 +482,7 @@ extends SimpleChannelInboundHandler<ZeusSerializablePacket> {
         if (this.z == null || !this.z.isOpen()) {
             if (zeusSerializablePacket instanceof ZeusTrackedPacket) {
                 
+
             }
             return;
         }
@@ -489,17 +490,20 @@ extends SimpleChannelInboundHandler<ZeusSerializablePacket> {
             if (zeusSerializablePacket instanceof ZeusTrackedPacket) {
                 if (!(zeusSerializablePacket instanceof HeartbeatPacket)) {
                     
+
                 }
                 if (!this.d.containsKey(((ZeusTrackedPacket)zeusSerializablePacket).o$src$Ljava_util_UUID_$1pm4r8s())) {
                     this.d.put(((ZeusTrackedPacket)zeusSerializablePacket).o$src$Ljava_util_UUID_$1pm4r8s(), OnlineRadarPreviewState.create(ZeusClient::lambda$sendPacket$0, ZeusClient::lambda$sendPacket$1));
                 }
             } else if (!(zeusSerializablePacket instanceof HeartbeatPacket)) {
                 
+
             }
             this.z.writeAndFlush((Object)zeusSerializablePacket);
         }
         catch (Exception exception) {
             
+
         }
     }
 
@@ -740,6 +744,7 @@ extends SimpleChannelInboundHandler<ZeusSerializablePacket> {
     private void r(ServerPartyMemberUpdatePacket serverPartyMemberUpdatePacket) {
         if (serverPartyMemberUpdatePacket.o() == PartyMemberActionType.ADD) {
             
+
         }
         OnlineEventDispatcher.O.G(new PartyMemberUpdateEvent(this, serverPartyMemberUpdatePacket.R(), serverPartyMemberUpdatePacket.o()));
     }

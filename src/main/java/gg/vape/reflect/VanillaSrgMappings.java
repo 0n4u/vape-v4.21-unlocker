@@ -15,7 +15,7 @@ import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
-
+ 
 final class VanillaSrgMappings {
     private final String minecraftVersion;
     private final String resource;
@@ -50,11 +50,21 @@ final class VanillaSrgMappings {
         }
 
         Set<String> candidateNames = new LinkedHashSet<String>();
+        
+
+        
+
+        
+
+        
+
+        
+
+        candidateNames.add(normalizedName);
         String remappedName = this.getData().classNames.get(normalizedName);
         if (remappedName != null) {
             candidateNames.add(remappedName);
         }
-        candidateNames.add(normalizedName);
 
         Set<ClassLoader> loaders = candidateLoaders(preferredLoaders);
         for (String candidateName : candidateNames) {
@@ -65,9 +75,11 @@ final class VanillaSrgMappings {
                 }
                 catch (ClassNotFoundException ignored) {
                     
+
                 }
                 catch (LinkageError ignored) {
                     
+
                 }
             }
         }
@@ -193,11 +205,22 @@ final class VanillaSrgMappings {
     private boolean matchesMinecraftStructure(Class<?> minecraftClass) {
         try {
             Method getter = minecraftClass.getDeclaredMethod(this.runtimeMinecraftGetter);
+            boolean getterOk = Modifier.isStatic(getter.getModifiers())
+                    && getter.getReturnType() == minecraftClass;
+            if (!getterOk) {
+                return false;
+            }
+            if (this.runtimeMinecraftInstanceField == null
+                    || this.runtimeMinecraftInstanceField.isEmpty()) {
+                
+
+                
+
+                return true;
+            }
             Field instance = minecraftClass.getDeclaredField(
                     this.runtimeMinecraftInstanceField);
-            return Modifier.isStatic(getter.getModifiers())
-                    && getter.getReturnType() == minecraftClass
-                    && Modifier.isStatic(instance.getModifiers())
+            return Modifier.isStatic(instance.getModifiers())
                     && instance.getType() == minecraftClass;
         }
         catch (NoSuchMethodException ignored) {
@@ -253,6 +276,7 @@ final class VanillaSrgMappings {
         }
         catch (SecurityException ignored) {
             
+
         }
         return loaders;
     }

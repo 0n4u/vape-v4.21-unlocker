@@ -639,6 +639,7 @@ extends AbstractBlockInMovementController {
         }
         if (this.simulatedPlayer.k$src$Z$15enw27()) {
             
+
         }
         if (this.simulatedPlayer.w$src$Z$1iu64de()) {
             this.simulatedPlayer.C(0.0f);

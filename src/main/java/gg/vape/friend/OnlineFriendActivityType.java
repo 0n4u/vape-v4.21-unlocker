@@ -8,7 +8,7 @@ public enum OnlineFriendActivityType {
     DEAD("Dead"),
     NONE("None");
 
-    private static final  OnlineFriendActivityType[] VALUES_COPY;
+    private static final   OnlineFriendActivityType[] VALUES_COPY;
     final String displayName;
 
     private OnlineFriendActivityType(String displayName) {

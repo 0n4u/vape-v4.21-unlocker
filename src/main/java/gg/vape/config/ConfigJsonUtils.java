@@ -157,7 +157,9 @@ public class ConfigJsonUtils {
             if (element.isJsonNull() || !element.isJsonPrimitive()) continue;
             primitive = element.getAsJsonPrimitive();
             
+
             
+
             try {
                 if (primitive.getAsNumber() == null) continue;
             }
@@ -169,7 +171,7 @@ public class ConfigJsonUtils {
         return values;
     }
 
-    
+     
     public static JsonElement deepCopy(JsonElement element) {
         if (element == null || element.isJsonNull()) {
             return JsonNull.INSTANCE;

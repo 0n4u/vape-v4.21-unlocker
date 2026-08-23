@@ -206,10 +206,6 @@ extends Wrapper {
         return MEntity.X(Entity.vapeInstance.getMappings().Rr, this.I);
     }
 
-    public int getHurtResistantTime() {
-        return this.V$src$I$fk0dv5();
-    }
-
     public float V() {
         return MEntity.r(Entity.vapeInstance.getMappings().Rr, this.I);
     }

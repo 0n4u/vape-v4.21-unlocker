@@ -6,7 +6,7 @@ public enum VertexAttributeType {
     Vec3(3, false, 5126),
     Vec4(4, true, 5126);
 
-    private static final  VertexAttributeType[] DECLARED_VALUES;
+    private static final   VertexAttributeType[] DECLARED_VALUES;
     public final int count;
     public final int type;
     public final boolean normalized;

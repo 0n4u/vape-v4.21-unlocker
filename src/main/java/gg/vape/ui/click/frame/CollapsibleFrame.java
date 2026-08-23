@@ -5,11 +5,11 @@ public interface CollapsibleFrame {
 
     public boolean q();
 
-    default public  void void_w() {
+    default public   void void_w() {
         this.w();
     }
 
-    default public  boolean boolean_q() {
+    default public   boolean boolean_q() {
         return this.q();
     }
 }

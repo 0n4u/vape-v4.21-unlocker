@@ -324,6 +324,7 @@ extends ClickGuiPageBase {
             }
             if (this.friendsPanel.f().isEmpty()) {
                 
+
             }
             return;
         }
@@ -684,6 +685,7 @@ extends ClickGuiPageBase {
         }
         if (this.searchResultsPanel != null) {
             
+
         }
         if (this.friendsPanel != null) {
             this.friendsPanel.removeMarkedChildren();

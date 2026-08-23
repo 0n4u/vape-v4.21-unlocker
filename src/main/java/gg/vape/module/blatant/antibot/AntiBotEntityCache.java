@@ -86,6 +86,7 @@ public class AntiBotEntityCache {
         }
         catch (Exception exception) {
             
+
         }
         try {
             componentValue = component.getFormattedText();
@@ -95,6 +96,7 @@ public class AntiBotEntityCache {
         }
         catch (Exception exception) {
             
+
         }
         return null;
     }
@@ -118,6 +120,7 @@ public class AntiBotEntityCache {
         }
         catch (Exception exception) {
             
+
         }
         return null;
     }
@@ -151,6 +154,7 @@ public class AntiBotEntityCache {
         }
         catch (Exception exception) {
             
+
         }
         return null;
     }

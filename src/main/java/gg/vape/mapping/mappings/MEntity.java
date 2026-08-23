@@ -2213,7 +2213,7 @@ extends Mapping {
         return mEntity.l(object, f);
     }
 
-    
+     
     static MethodHandle cfr_ldc_0() {
         try {
             return MethodHandles.lookup().findStatic(MEntity.class, "b", MethodType.fromMethodDescriptorString("(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/invoke/MutableCallSite;Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/Object;", null));

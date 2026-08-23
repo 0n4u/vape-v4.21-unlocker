@@ -10,7 +10,7 @@ public enum PublicProfileSortMode {
 
     private final String queryValue;
     public static final List<PublicProfileSortMode> VALUES;
-    private static final  PublicProfileSortMode[] ENUM_VALUES;
+    private static final   PublicProfileSortMode[] ENUM_VALUES;
     private final String displayName;
 
     public String getDisplayName() {

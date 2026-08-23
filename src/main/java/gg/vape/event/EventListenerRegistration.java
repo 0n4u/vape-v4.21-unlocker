@@ -70,6 +70,7 @@ public class EventListenerRegistration {
         }
         catch (Exception exception) {
             
+
         }
     }
 

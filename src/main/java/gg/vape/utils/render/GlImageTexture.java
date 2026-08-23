@@ -37,7 +37,7 @@ public class GlImageTexture {
     public int wrapS;
     private final int textureTarget;
 
-    
+     
     public GlImageTexture(InputStream inputStream, int requestedFilter, int wrapMode, ImageParser$Format format) throws IOException {
         this.defaultWrapMode = 10497;
         this.textureTarget = 3553;

@@ -9,7 +9,7 @@ public enum NotificationType {
     ERROR("Error Message", new Color(240, 100, 100), new Color(165, 33, 37));
 
     private static boolean F;
-    private static final  NotificationType[] u;
+    private static final   NotificationType[] u;
     Color b;
     Color D;
     int M;

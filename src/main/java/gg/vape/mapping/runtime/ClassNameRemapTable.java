@@ -12,7 +12,7 @@ public class ClassNameRemapTable {
         return controlFlowState;
     }
 
-    
+     
     public void Q(String sourceClassName, String targetClassName) {
         String previousTarget = this.classNameMappings.get(sourceClassName);
         this.classNameMappings.put(sourceClassName, targetClassName);

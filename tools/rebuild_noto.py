@@ -33,6 +33,8 @@ def collect_unicodes(properties_path: Path) -> set:
         for ch in value:
             if ch not in ("\r", "\n"):
                 needed.add(ord(ch))
+
+
     for hi in range(0xB0, 0xD8):
         for lo in range(0xA1, 0xFF):
             if hi == 0xD7 and lo > 0xF9:
@@ -42,6 +44,7 @@ def collect_unicodes(properties_path: Path) -> set:
                 needed.add(ord(char))
             except UnicodeDecodeError:
                 continue
+
     for ch in "鱿鳕蝾螈鹦鹉蝙蝠疣鲑鲨鳐鲤鲶鳝鲈鳗鳖蜥蜴蚯蚓萤火虫蟑螂蜈蚣蝎":
         needed.add(ord(ch))
     return needed

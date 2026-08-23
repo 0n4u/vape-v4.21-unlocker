@@ -333,7 +333,9 @@ extends Mod {
         this.zJitter = new SilentAuraAimJitter(-0.15, 0.15);
         this.perfectSwing.whenEqualTo(false).applyTo(this.attackRate);
         
+
         
+
         if (ForgeVersion.MC_1_7_10.L()) {
             this.aimSpeed.setHidden(true);
         }
@@ -373,7 +375,7 @@ extends Mod {
     public void onTick(EventPrePlayerTick eventPrePlayerTick) {
     }
 
-    
+     
     @EventHandler(priority = EventPriority.HIGH)
     public void onSyntheticAttack(SyntheticAttackRequestEvent event) {
         if (event.getSource() == this) {
@@ -563,11 +565,17 @@ extends Mod {
 
     private void updateAim() {
         
+
         
+
         
+
         
+
         
+
         
+
         if (ForgeVersion.MC_1_7_10.L()) {
             this.updateAimLegacy();
             return;
@@ -664,7 +672,7 @@ extends Mod {
         }
     }
 
-    
+     
     private void updateAimLegacy() {
         if (Minecraft.theWorld().isNull()) {
             this.resetTargeting();

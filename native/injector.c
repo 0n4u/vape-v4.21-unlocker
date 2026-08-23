@@ -37,14 +37,14 @@ static void print_last_error(const wchar_t *operation) {
                     | FORMAT_MESSAGE_FROM_SYSTEM
                     | FORMAT_MESSAGE_IGNORE_INSERTS,
             NULL, error, 0, (wchar_t *)&message, 0, NULL);
-    fwprintf(stderr, L"%ls failed (%lu): %ls\n", operation,
-            (unsigned long)error, message == NULL ? L"unknown error" : message);
+    fwprintf(stderr, L"%ls 失败 (%lu): %ls\n", operation,
+            (unsigned long)error, message == NULL ? L"未知错误" : message);
     if (message != NULL) {
         LocalFree(message);
     }
 }
 
-
+ 
 static void sweep_directory_contents(const wchar_t *directory) {
     WIN32_FIND_DATAW data;
     wchar_t pattern[MAX_PATH];
@@ -89,7 +89,7 @@ static int materialize_embedded_dll(
     DWORD offset = 0;
     int result = 0;
 
-    
+     
     if (GetModuleFileNameW(NULL, exe_path, MAX_PATH) != 0
             && exe_path[0] != L'\0') {
         separator = wcsrchr(exe_path, L'\\');
@@ -115,7 +115,7 @@ static int materialize_embedded_dll(
     if (bytes == NULL || size < 4) {
         return 0;
     }
-    
+     
     if (GetModuleFileNameW(NULL, exe_path, MAX_PATH) == 0
             || exe_path[0] == L'\0') {
         return 0;
@@ -146,7 +146,7 @@ static int materialize_embedded_dll(
             && GetLastError() != ERROR_ALREADY_EXISTS) {
         return 0;
     }
-    
+     
     sweep_directory_contents(directory);
     _snwprintf_s(output, capacity, _TRUNCATE,
             L"%ls\\Vape-v4.21Native-%lu.dll", directory,
@@ -243,7 +243,7 @@ static size_t enumerate_candidates(
     context.count = count;
     EnumWindows(capture_window_title, (LPARAM)&context);
 
-    
+     
     for (read_index = 0; read_index < count; ++read_index) {
         if (candidates[read_index].title[0] != L'\0') {
             if (write_index != read_index) {
@@ -282,11 +282,11 @@ static void render_selector(const process_candidate *candidates, size_t count,
         SetConsoleCursorPosition(output, home);
         previous_rows = rows;
     }
-    wprintf(L"Vape Injector\n");
+    wprintf(L"Vape 注入器\n");
     wprintf(L"DLL: %ls\n\n", dll_path);
-    wprintf(L"Select a Java game window (up/down to select, Enter to inject, Esc to quit)\n\n");
+    wprintf(L"选择一个 Java 游戏窗口（↑/↓ 选择，回车注入，Esc 退出）\n\n");
     if (count == 0) {
-        wprintf(L"  No visible java.exe/javaw.exe window found, waiting...\n");
+        wprintf(L"  未发现可见的 java.exe/javaw.exe 窗口，等待中...\n");
     } else {
         for (index = 0; index < count; ++index) {
             wprintf(L"%lc [%5lu] %-9ls  %ls\n",
@@ -452,7 +452,7 @@ static int inject_library(DWORD process_id, const wchar_t *dll_path) {
         goto cleanup;
     }
     if (!require_x64_target(process)) {
-        fwprintf(stderr, L"Target process is not x64; injection refused.\n");
+        fwprintf(stderr, L"目标进程不是 x64；已拒绝注入。\n");
         goto cleanup;
     }
     remote_path = VirtualAllocEx(process, NULL, path_bytes,
@@ -471,7 +471,7 @@ static int inject_library(DWORD process_id, const wchar_t *dll_path) {
     local_load_library = GetProcAddress(local_kernel, "LoadLibraryW");
     remote_kernel = remote_module_base(process_id, L"kernel32.dll");
     if (local_kernel == NULL || local_load_library == NULL || remote_kernel == 0) {
-        fwprintf(stderr, L"Failed to resolve remote kernel32!LoadLibraryW.\n");
+        fwprintf(stderr, L"无法解析远程 kernel32!LoadLibraryW。\n");
         goto cleanup;
     }
     load_library_offset = (uintptr_t)local_load_library - (uintptr_t)local_kernel;
@@ -485,7 +485,7 @@ static int inject_library(DWORD process_id, const wchar_t *dll_path) {
     }
     wait_result = WaitForSingleObject(thread, 30000);
     if (wait_result != WAIT_OBJECT_0) {
-        fwprintf(stderr, L"Remote LoadLibraryW did not finish within 30 seconds.\n");
+        fwprintf(stderr, L"远程 LoadLibraryW 未在 30 秒内完成。\n");
         goto cleanup;
     }
     for (attempt = 0; attempt < 100; ++attempt) {
@@ -496,8 +496,8 @@ static int inject_library(DWORD process_id, const wchar_t *dll_path) {
         Sleep(50);
     }
     if (result == 0) {
-        fwprintf(stderr, L"LoadLibraryW returned, but the DLL was not mapped. "
-                        L"Check the bootstrap failure info in vape421-native.log.\n");
+        fwprintf(stderr, L"LoadLibraryW 已返回，但 DLL 未被映射。"
+                L"请检查 vape421-native.log 中的引导失败信息。\n");
         goto cleanup;
     }
 
@@ -512,11 +512,11 @@ cleanup:
 
 static void usage(const wchar_t *program) {
     fwprintf(stderr,
-            L"Usage: %ls\n"
+            L"用法: %ls\n"
             L"      %ls <minecraft-pid>\n"
-            L"When no PID is given, an auto-refreshing Java window picker is shown.\n"
-            L"This program always uses the embedded Vape-v4.21Native.dll and never loads an external DLL.\n"
-            L"The embedded DLL is extracted to <exe>\\.vapeclient\\Vape-v4.21Recovery before injection.\n",
+            L"不指定 PID 时，会显示自动刷新的 Java 窗口选择器。\n"
+            L"本程序始终使用内嵌的 Vape-v4.21Native.dll，不加载外部 DLL。\n"
+            L"内嵌 DLL 会解压到 <exe>\\.vapeclient\\Vape-v4.21Recovery 后注入。\n",
             program, program);
 }
 
@@ -524,7 +524,7 @@ int console_main(int argc, wchar_t **argv) {
     wchar_t dll_path[MAX_PATH];
     wchar_t *end = NULL;
     unsigned long process_id = 0;
-    
+     
     SetConsoleOutputCP(CP_UTF8);
     _setmode(_fileno(stdout), _O_U8TEXT);
     _setmode(_fileno(stderr), _O_U8TEXT);
@@ -536,13 +536,13 @@ int console_main(int argc, wchar_t **argv) {
     if (argc == 1) {
         process_id = wcstoul(argv[0], &end, 10);
         if (process_id == 0 || end == argv[0] || *end != L'\0') {
-            fwprintf(stderr, L"Invalid process ID: %ls\n", argv[0]);
+            fwprintf(stderr, L"无效的进程 ID: %ls\n", argv[0]);
             return 2;
         }
     }
-    
+     
     if (!materialize_embedded_dll((DWORD)process_id, dll_path, MAX_PATH)) {
-        fwprintf(stderr, L"Failed to extract the embedded Vape-v4.21Native.dll.\n");
+        fwprintf(stderr, L"无法解压内嵌的 Vape-v4.21Native.dll。\n");
         return 2;
     }
     if (argc != 1) {
@@ -557,12 +557,12 @@ int console_main(int argc, wchar_t **argv) {
             return 3;
         }
         if (injection_result == 2) {
-            wprintf(L"%ls is already loaded in PID %lu; no second bootstrap requested.\n",
+            wprintf(L"%ls 已在 PID %lu 中加载；未请求二次引导。\n",
                     dll_path, process_id);
             return 0;
         }
     }
-    wprintf(L"Injected %ls into PID %lu; Java bootstrap is running asynchronously.\n",
+    wprintf(L"已将 %ls 注入 PID %lu；Java 引导正在异步运行。\n",
             dll_path, process_id);
     return 0;
 }

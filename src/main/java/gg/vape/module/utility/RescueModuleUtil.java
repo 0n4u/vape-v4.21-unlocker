@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-
+ 
 public final class RescueModuleUtil {
     public static final List<String> PREFERRED_BLOCK_NAMES = Collections.unmodifiableList(
             Arrays.asList("Wool", "Stone", "Wood Planks", "Red Sandstone",

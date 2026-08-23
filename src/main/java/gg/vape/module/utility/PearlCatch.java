@@ -19,7 +19,7 @@ import gg.vape.wrapper.impl.ItemStack;
 import gg.vape.wrapper.impl.KeyBinding;
 import gg.vape.wrapper.impl.Minecraft;
 
-
+ 
 public class PearlCatch extends UtilityMod {
     private static final double PROJECTILE_SPEED = 1.5;
     private static final double PEARL_DRAG = 0.99;

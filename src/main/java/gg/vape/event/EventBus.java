@@ -131,6 +131,7 @@ public class EventBus {
                             }
                             catch (Throwable throwable) {
                                 
+
                             }
                         }
                     }
@@ -139,6 +140,7 @@ public class EventBus {
         }
         catch (Throwable throwable) {
             
+
         }
         if (timingEnabled) {
             dispatchTrace.finish();

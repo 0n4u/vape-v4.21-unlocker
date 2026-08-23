@@ -13,7 +13,7 @@ import gg.vape.wrapper.impl.GameSettings;
 import gg.vape.wrapper.impl.Minecraft;
 import gg.vape.wrapper.impl.World;
 
-
+ 
 public final class AutoLadderMovementController {
     private static final double LEGACY_LADDER_THICKNESS = 0.125;
     private static final double MODERN_LADDER_THICKNESS = 0.1875;
@@ -56,7 +56,7 @@ public final class AutoLadderMovementController {
                 ladderBlock, facing);
     }
 
-    
+     
     private static double[] resolveCenteringTarget(EntityPlayer player, double centerX, double centerZ,
                                                    BlockData ladderBlock, EnumFacing facing) {
         if (!requiresLadderContact() || ladderBlock == null || facing == null) {
@@ -86,7 +86,7 @@ public final class AutoLadderMovementController {
         return ForgeVersion.MC_1_8_9.d() || ForgeVersion.MC_1_12_2.d();
     }
 
-    
+     
     static double getSupportClearanceMargin() {
         return requiresLadderContact() ? -CONTACT_PRESS_OVERLAP : 0.04;
     }
@@ -95,7 +95,7 @@ public final class AutoLadderMovementController {
         return requiresLadderContact() ? -CONTACT_PRESS_OVERLAP : 0.002;
     }
 
-    
+     
     private static CenterInput chooseCenteringAnalytic(EntityPlayer player,
                                                        double centerX, double centerZ,
                                                        BlockData ladderBlock,
@@ -143,7 +143,7 @@ public final class AutoLadderMovementController {
                 rightProjection > AXIS_PRESS_THRESHOLD);
     }
 
-    
+     
     private static boolean maintainsLadderPress(EntityPlayer player, BlockData ladderBlock,
                                                 EnumFacing facing, double centerX, double centerZ) {
         if (ladderBlock == null || facing == null) {

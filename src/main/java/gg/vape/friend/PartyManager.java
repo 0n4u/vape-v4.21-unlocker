@@ -25,7 +25,7 @@ public class PartyManager {
         obfuscationState = state;
     }
 
-    
+     
     @Nullable
     public PartyInvite getInvite(OnlineFriend onlineFriend) {
         Map<OnlineFriend, PartyInvite> map = this.invites;
@@ -50,7 +50,7 @@ public class PartyManager {
         Vape.INSTANCE.getOnlineManager().getInventoryTracker().reset();
     }
 
-    
+     
     public void removeInvite(PartyInvite partyInvite) {
         Map<OnlineFriend, PartyInvite> map = this.invites;
         synchronized (map) {
@@ -59,7 +59,7 @@ public class PartyManager {
         ClientSettings.getFrame(OnlineFriendsFrame.class).getPartyInvitesPanel().removeInvite(partyInvite);
     }
 
-    
+     
     public void addInvite(PartyInvite partyInvite) {
         Map<OnlineFriend, PartyInvite> map = this.invites;
         synchronized (map) {

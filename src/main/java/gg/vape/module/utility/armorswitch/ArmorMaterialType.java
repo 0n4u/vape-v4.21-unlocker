@@ -9,7 +9,7 @@ public enum ArmorMaterialType {
     NETHERITE("netherite"),
     CHAINMAIL("chainmail");
 
-    private static final  ArmorMaterialType[] VALUES;
+    private static final   ArmorMaterialType[] VALUES;
     private static boolean initialized;
     private final String materialName;
 

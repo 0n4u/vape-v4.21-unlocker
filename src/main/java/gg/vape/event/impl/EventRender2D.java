@@ -53,7 +53,7 @@ extends Event {
         }
     }
 
-    
+     
     public static void createHud() {
         if (OffscreenRenderContext.isRenderingOffscreen()) {
             return;
@@ -71,7 +71,7 @@ extends Event {
         GuiRenderPrimitives.L(displayWidth, displayHeight);
     }
 
-    
+     
     public static void createGui() {
         if (OffscreenRenderContext.isRenderingOffscreen()) {
             return;
@@ -87,7 +87,9 @@ extends Event {
                 .getMod(ClientSettings.class);
         if (clientSettings.isInputEnabled()) {
             
+
             
+
             NotificationManager notificationManager = Vape.INSTANCE.getNotificationManager();
             if (notificationManager != null) {
                 notificationManager.renderNotifications();

@@ -5,7 +5,7 @@ public enum ClickGuiOverlayPlacement {
     DOCKED,
     DOCKED_SHIFT;
 
-    private static final  ClickGuiOverlayPlacement[] P;
+    private static final   ClickGuiOverlayPlacement[] P;
 
     static {
         String[] stringArray = new String[]{"DOCKED_SHIFT", "DOCKED", "OVERLAY"};

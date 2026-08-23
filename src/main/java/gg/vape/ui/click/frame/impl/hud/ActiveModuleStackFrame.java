@@ -88,18 +88,30 @@ extends Frame {
         double centerX;
         ScaledResolution scaledResolution = Minecraft.G();
         
+
         
+
         
+
         
+
         
+
         
+
         SmoothFontRenderer smoothFontRenderer = Vape.INSTANCE.getFontManager().p(1.5);
         
+
         
+
         
+
         
+
         
+
         
+
         centerX = (float)Minecraft.J() / 2.0f
                 / (2.0f * (float)Vape.INSTANCE.getClientSettings().getGuiScaleFactor());
         centerY = (float)Minecraft.h() / 2.0f

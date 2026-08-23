@@ -293,6 +293,7 @@ public class BlockPathPlanner {
                 }
                 catch (Exception exception) {
                     
+
                 }
             }
             this.rotationUpdateAccumulator -= updateCount;

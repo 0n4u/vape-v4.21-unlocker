@@ -36,6 +36,7 @@ extends Event {
         }
         catch (Throwable throwable) {
             
+
         }
         return super.fire();
     }

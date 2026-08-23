@@ -14,18 +14,21 @@ public class TutorialStateSwitchMap {
         }
         catch (NoSuchFieldError noSuchFieldError) {
             
+
         }
         try {
             TutorialStateSwitchMap.D[TutorialState.COMPLETED_ALL.ordinal()] = 2;
         }
         catch (NoSuchFieldError noSuchFieldError) {
             
+
         }
         try {
             TutorialStateSwitchMap.D[TutorialState.COMPLETED_TUTORIAL.ordinal()] = 3;
         }
         catch (NoSuchFieldError noSuchFieldError) {
             
+
         }
     }
 }

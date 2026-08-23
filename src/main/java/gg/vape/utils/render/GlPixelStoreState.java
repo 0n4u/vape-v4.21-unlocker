@@ -2,7 +2,7 @@ package gg.vape.utils.render;
 
 import org.lwjgl.opengl.GL11;
 
-
+ 
 public final class GlPixelStoreState {
     private static boolean packSwapBytes;
     private static boolean packLsbFirst;

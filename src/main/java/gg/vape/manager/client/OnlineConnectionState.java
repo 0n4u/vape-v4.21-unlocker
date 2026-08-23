@@ -8,7 +8,7 @@ public enum OnlineConnectionState {
     CONNECTING,
     ONLINE;
 
-    private static final  OnlineConnectionState[] cachedValues;
+    private static final   OnlineConnectionState[] cachedValues;
     private static String[] obfuscationState;
 
     public static void setObfuscationState(String[] state) {

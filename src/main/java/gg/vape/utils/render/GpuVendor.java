@@ -6,7 +6,7 @@ public enum GpuVendor {
     INTEL,
     UNKNOWN;
 
-    private static final  GpuVendor[] VALUES;
+    private static final   GpuVendor[] VALUES;
 
     static {
         String[] legacyEnumNames = new String[]{"UNKNOWN", "NVIDIA", "AMD", "INTEL"};

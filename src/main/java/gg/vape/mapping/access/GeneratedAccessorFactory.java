@@ -222,6 +222,7 @@ public class GeneratedAccessorFactory {
             }
             if (c == null) {
                 
+
             }
             for (Method method : GeneratedEventHandlerInvokerMarker.class.getDeclaredMethods()) {
                 if (!"(Ljava/lang/Object;Ljava/lang/Object;)V".equals(DescUtils.genMethodDesc(method.getReturnType(), method.getParameterTypes()))) continue;
@@ -230,6 +231,7 @@ public class GeneratedAccessorFactory {
             }
             if (G == null) {
                 
+
             }
         }
         if (Y == null || a == null) {
@@ -242,9 +244,11 @@ public class GeneratedAccessorFactory {
             }
             if (Y == null) {
                 
+
             }
             if (a == null) {
                 
+
             }
         }
         return c;
@@ -339,6 +343,7 @@ public class GeneratedAccessorFactory {
                 generatorAdapter.visitMethodInsn(184, "java/lang/Double", "valueOf", "(D)Ljava/lang/Double;", false);
             } else if (DescUtils.getKnownDescriptor(method.getReturnType()) == null) {
                 
+
             }
             generatorAdapter.visitInsn(176);
         }

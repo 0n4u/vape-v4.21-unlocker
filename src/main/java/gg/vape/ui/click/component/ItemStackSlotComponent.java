@@ -57,6 +57,7 @@ extends GuiComponent {
                 }
                 catch (Exception exception) {
                     
+
                 }
                 String itemSummary = armorItem ? "+" + (int)ItemStackScoreUtil.L(this.itemStack) + " Protection\n" : "+" + (int)ItemStackScoreUtil.I$src$F$dh3k81(this.itemStack) + " Damage\n";
                 String tooltipText = itemSummary + durabilityText + enchantmentText;

@@ -33,7 +33,6 @@ dependencies {
     implementation 'org.lwjgl.lwjgl:lwjgl:2.9.3'
     implementation 'org.lwjgl.lwjgl:lwjgl_util:2.9.3'
     compileOnly 'org.jetbrains:annotations:24.1.0'
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.11.4'
 }
 
 configurations.configureEach {
@@ -140,6 +139,11 @@ tasks.named('check') {
 
 
 
+
+
+
+
+
 def fontCheckClassDirectory = layout.buildDirectory.dir('fontCheck')
 def fontCheckSource = file('tools/FontCoverageCheck.java')
 
@@ -182,12 +186,19 @@ tasks.register('injectionJar', com.github.jengelman.gradle.plugins.shadow.tasks.
     from(sourceSets.main.output)
     configurations = [project.configurations.runtimeClasspath]
     
+
     
+
     
+
     
+
     
+
     
+
     
+
     relocate 'javassist', 'gg.vape.shaded.javassist'
     relocate 'org.objectweb.asm', 'gg.vape.shaded.org.objectweb.asm'
     exclude 'META-INF/*.SF', 'META-INF/*.DSA', 'META-INF/*.RSA'
@@ -379,6 +390,7 @@ tasks.register('prepareInjectionBundle', Sync) {
         include 'Vape-v4.21.exe'
         include 'Vape-v4.21Native.dll'
     }
+    from(file('native/README.md'))
     into(injectionBundleDirectory)
     doLast {
         def injector = injectionBundleDirectory.get().file('Vape-v4.21.exe').asFile

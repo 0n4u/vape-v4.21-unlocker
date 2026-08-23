@@ -14,18 +14,21 @@ public class ValueDisplayNameModeSwitchMap {
         }
         catch (NoSuchFieldError noSuchFieldError) {
             
+
         }
         try {
             ValueDisplayNameModeSwitchMap.T[ValueDisplayNameMode.SIMPLE.ordinal()] = 2;
         }
         catch (NoSuchFieldError noSuchFieldError) {
             
+
         }
         try {
             ValueDisplayNameModeSwitchMap.T[ValueDisplayNameMode.FULL.ordinal()] = 3;
         }
         catch (NoSuchFieldError noSuchFieldError) {
             
+
         }
     }
 }

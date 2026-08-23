@@ -62,6 +62,7 @@ implements Cloneable {
             this.resolvedStack = mappingEntry.resolveItemStack();
             if (this.resolvedStack == null || this.resolvedStack.isNull()) {
                 
+
             }
         }
     }
