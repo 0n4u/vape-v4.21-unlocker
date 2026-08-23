@@ -27,10 +27,9 @@ dependencies {
     implementation 'org.ow2.asm:asm-analysis:9.7.1'
     implementation 'org.ow2.asm:asm-util:9.7.1'
     implementation 'org.ow2.asm:asm-commons:9.7.1'
-    implementation 'com.google.guava:guava:17.0'
+    implementation 'com.google.guava:guava:32.1.3-jre'
     implementation 'com.google.code.gson:gson:2.10.1'
-    implementation 'io.netty:netty-all:4.0.23.Final'
-    implementation 'commons-io:commons-io:2.4'
+    implementation 'io.netty:netty-all:4.0.56.Final'
     implementation 'org.lwjgl.lwjgl:lwjgl:2.9.3'
     implementation 'org.lwjgl.lwjgl:lwjgl_util:2.9.3'
     compileOnly 'org.jetbrains:annotations:24.1.0'
@@ -62,6 +61,17 @@ tasks.withType(JavaCompile).configureEach {
         options.release = (project.findProperty('targetRelease') ?: '17') as int
     }
     options.compilerArgs += ['-Xmaxerrs', '10000', '-Xdiags:verbose']
+    // Report-only lint: surface the deprecation/unchecked details the JDK
+    // otherwise summarizes into a single note. Not -Werror: decompiled
+    // recovered sources are triaged, not gated, on these.
+    options.compilerArgs += ['-Xlint:deprecation', '-Xlint:unchecked', '-Xlint:rawtypes']
+}
+
+// Deterministic archive output (jar + shadowJar): fixed entry order and
+// timestamps so the injection payload is byte-reproducible per source state.
+tasks.withType(AbstractArchiveTask).configureEach {
+    preserveFileTimestamps = false
+    reproducibleFileOrder = true
 }
 
 tasks.named('test') {
@@ -199,7 +209,6 @@ tasks.register('verifyInjectionPayload') {
                 'com/google/gson/',
                 'com/google/common/',
                 'io/netty/',
-                'org/apache/commons/io/',
                 'org/lwjgl/'
         ]
         def prefixCounts = requiredPrefixes.collectEntries { [(it): 0] }
@@ -231,7 +240,7 @@ tasks.register('verifyInjectionPayload') {
                     'gg/vape/mapping/runtime/ClassNameRemapTableV50.class',
                     'gg/vape/mapping/runtime/MemberNameRemapTableV50.class',
                     'gg/vape/event/impl/EventRenderWorldPassExecutorDrain.class'
-            ]
+        ]
             def missingClasses = requiredClasses.findAll {
                 archive.getEntry(it) == null
             }
