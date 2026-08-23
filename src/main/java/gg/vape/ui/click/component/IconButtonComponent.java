@@ -5,7 +5,6 @@ import gg.vape.utils.render.GuiRenderPrimitives;
 import gg.vape.utils.render.ImageRenderer;
 import java.awt.Color;
 
-@Deprecated
 public class IconButtonComponent
 extends InteractiveComponent {
     private String iconResource;

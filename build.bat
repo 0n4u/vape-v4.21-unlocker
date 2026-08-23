@@ -6,7 +6,6 @@ cd /d "%~dp0"
 set "SCRIPT_DIR=%~dp0"
 set "LOG=%SCRIPT_DIR%build.log"
 set "SRC_DIR=%SCRIPT_DIR%"
-set "PATCH=%SCRIPT_DIR%..\english-localization.patch"
 set "BUILT_DIR=%SCRIPT_DIR%..\"
 
 set "CHECK_ONLY=0"

@@ -177,8 +177,9 @@ bool ControllerUi::pointerIn(float x, float y, float width, float height) const 
 
 void ControllerUi::updateFrame() {
     const auto now = std::chrono::steady_clock::now();
-    const double delta = std::clamp(std::chrono::duration<double>(now - lastFrame_).count(),
-        0.0, 0.1);
+    const float delta = static_cast<float>(std::clamp(
+            std::chrono::duration<double>(now - lastFrame_).count(),
+            0.0, 0.1));
     lastFrame_ = now;
     model_.tick();
 
