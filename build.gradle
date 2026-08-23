@@ -61,14 +61,19 @@ tasks.withType(JavaCompile).configureEach {
         options.release = (project.findProperty('targetRelease') ?: '17') as int
     }
     options.compilerArgs += ['-Xmaxerrs', '10000', '-Xdiags:verbose']
-    // Report-only lint: surface the deprecation/unchecked details the JDK
-    // otherwise summarizes into a single note. Not -Werror: decompiled
-    // recovered sources are triaged, not gated, on these.
+    
+
+    
+
+    
+
     options.compilerArgs += ['-Xlint:deprecation', '-Xlint:unchecked', '-Xlint:rawtypes']
 }
 
-// Deterministic archive output (jar + shadowJar): fixed entry order and
-// timestamps so the injection payload is byte-reproducible per source state.
+
+
+
+
 tasks.withType(AbstractArchiveTask).configureEach {
     preserveFileTimestamps = false
     reproducibleFileOrder = true

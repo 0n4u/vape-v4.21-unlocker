@@ -23,9 +23,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class ApiHttpClient {
     private static boolean opaqueState;
-    /** SimpleDateFormat is not thread-safe; API responses are parsed on the
-     *  ForkJoin common pool (CompletableFuture.supplyAsync), so a shared
-     *  instance would race. One formatter per thread. */
+     
     private static final ThreadLocal<DateFormat> API_DATE_FORMAT =
             ThreadLocal.withInitial(() ->
                     new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX"));
@@ -56,10 +54,7 @@ public class ApiHttpClient {
             connection.setConnectTimeout(10000);
             connection.setReadTimeout(15000);
             connection.setRequestProperty("User-Agent", "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.4; en-US; rv:1.9.2.2) Gecko/20100316 Firefox/3.6.2");
-            /* SECURITY: the original code installed a trust-all X509 trust
-             * manager plus a hostname verifier that accepts any host. That
-             * makes every HTTPS API request vulnerable to man-in-the-middle
-             * interception. Default JVM verification is used instead. */
+             
             return requestHandler.apply(connection);
         }
         catch (Throwable error) {

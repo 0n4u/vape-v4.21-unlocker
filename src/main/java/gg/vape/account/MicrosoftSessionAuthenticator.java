@@ -128,13 +128,7 @@ public class MicrosoftSessionAuthenticator {
         this.minecraftAuthenticationEndpoint = "https://api.minecraftservices.com/authentication/login_with_xbox";
         this.credentials = credentials;
         CookieHandler.setDefault(new CookieManager());
-        /* SECURITY: the original code installed a trust-all SSL socket
-         * factory as the JVM default (PermissiveX509TrustManager) and then
-         * POSTed the user's real Microsoft username+password to
-         * login.live.com. A network attacker could present a forged
-         * certificate and capture the credentials. Microsoft's endpoints
-         * use valid public certificates, so default verification works;
-         * removed the permissive manager and the JVM-wide default change. */
+         
     }
 
     private String[] requestMicrosoftOAuthTokens() throws IOException {

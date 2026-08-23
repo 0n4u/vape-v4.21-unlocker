@@ -4,7 +4,7 @@
 #include <windows.h>
 #include "../loader_bootstrap.h"
 
-/* Test helpers */
+ 
 static int tests_passed = 0;
 static int tests_failed = 0;
 

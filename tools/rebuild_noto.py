@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
-"""Regenerates resources/noto.ttf from the system Noto Sans SC variable font.
 
-Covers every character used by chinese.properties.txt (values only, mirroring
-tools/FontCoverageCheck.java) plus ASCII 32-126 and Latin-1 160-255, then
-flattens the variable font to a static instance (removing the variable tables)
-so the stb renderer can consume it directly.
 
-Usage: python tools/rebuild_noto.py
-"""
+
+
+
+
+
+
+
 
 import argparse
 import re
@@ -20,7 +20,7 @@ from fontTools.ttLib import TTFont
 from fontTools.varLib import instancer
 
 DEFAULT_SOURCE = r"C:\Windows\Fonts\NotoSansSC-VF.ttf"
-WEIGHT = 600  # SemiBold: the previous release used this weight for legibility
+WEIGHT = 600
 
 
 def collect_unicodes(properties_path: Path) -> set:
@@ -48,13 +48,13 @@ def collect_unicodes(properties_path: Path) -> set:
 
 
 def pin_weight(font: TTFont, weight: int) -> TTFont:
-    """Pin the variable font to a specific weight (default instance).
 
-    NotoSansSC-VF defaults to Thin (100), which renders illegibly in the GUI;
-    the previous release shipped a SemiBold (600) subset. instancer freezes the
-    wght axis and removes the variable tables so stb can consume the static
-    outline directly.
-    """
+
+
+
+
+
+
     if "fvar" in font:
         font = instancer.instantiateVariableFont(font, {"wght": weight},
                                                  inplace=False)
@@ -69,7 +69,7 @@ def pin_weight(font: TTFont, weight: int) -> TTFont:
 
 
 def flatten_variable_font(font: TTFont) -> TTFont:
-    """Drop any remaining variable tables (defensive; pin_weight handles them)."""
+
     for table_tag in ("fvar", "gvar", "avar", "STAT", "cvar", "HVAR", "MVAR"):
         if table_tag in font:
             del font[table_tag]
