@@ -8,6 +8,17 @@
 ![License](https://img.shields.io/badge/license-CC0--1.0-lightgrey)
 ![Minecraft](https://img.shields.io/badge/Minecraft-1.8.9%2B-62B47A)
 
+> [!CAUTION]
+> # WARNING
+>
+> If you're triggered by AI, look away.
+>
+> Some parts of this project were coded with AI, and I use AI to help push commits too.
+>
+> Mostly because GitHub's 100-file limit is fucking annoying.
+>
+> You've been warned.
+
 A reconstructed and extended Vape v4.21 codebase for Minecraft, combining the recovered Vape Java/native architecture with a Lunar Client cosmetic unlocker.
 
 The project contains the recovered client source, Windows x64 native loader, Java injection payload, runtime mappings, GUI/module infrastructure, and Lunar Client integration.
