@@ -192,7 +192,8 @@ implements EventListener {
             }
             this.playerStates.put(player.S(), new TrackedPlayerAttackState(player));
         }
-         
+        /* Prune states for players no longer in the loaded world — prevents
+         * unbounded growth on servers with player join/leave churn. */
         java.util.HashSet<Integer> currentIds = new java.util.HashSet<>();
         for (Object entityHandle : world.z()) {
             if (!MappedClasses.Yl.isAssignableFrom(entityHandle.getClass())

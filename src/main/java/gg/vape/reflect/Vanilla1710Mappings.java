@@ -3,7 +3,7 @@ package gg.vape.reflect;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
- 
+
 public final class Vanilla1710Mappings {
     private static final VanillaSrgMappings MAPPINGS = new VanillaSrgMappings(
             "Minecraft 1.7.10",

@@ -11,6 +11,7 @@ import gg.vape.api.ApiServices;
 import gg.vape.asm.helper.DescUtils;
 import gg.vape.combat.AttackStrengthTracker;
 import gg.vape.config.ConfigJsonUtils;
+import gg.vape.config.LoaderLanguageSettings;
 import gg.vape.config.ModuleProfileMetadataCodec;
 import gg.vape.config.Profile;
 import gg.vape.config.PublicProfileSettings;
@@ -101,15 +102,12 @@ import java.util.function.Predicate;
 
 public class Vape {
     private static int opaqueState; 
-
     public static Vape INSTANCE;
     public static boolean mappingsLoaded;
     public boolean enabled;
     public static boolean renderReady;
     public static final boolean DEBUG = false; 
-
     public static final boolean DEV = false; 
-
     public static final String VERSION;
     static TimerUtil loadTimer;
     private boolean forgeAbsent;
@@ -118,9 +116,7 @@ public class Vape {
     private boolean renderInitialized;
     private boolean vanillaMinecraftChecked;
     private boolean pendingTickAction; 
-
     private boolean unclassifiedFlag463; 
-
     private FriendManager friendManager;
     private FontManager fontManager;
     private ItemHelper itemHelper;
@@ -155,7 +151,6 @@ public class Vape {
     private Object directoryCleanupCallback;
     private SyncThread syncThread;
     
-
     private static Date buildDate;
     private static int[] supportedVersionIds;
 
@@ -180,11 +175,8 @@ public class Vape {
         } else {
             Vape.debugLog("profilesData is NULL!");
             
-
             
-
             
-
             this.profilesManager.loadJson(new JsonObject());
         }
         JsonArray otherData = ConfigJsonUtils.getJsonArray(configRoot, useNewOtherDataKey ? "otherData" : "otherdata");
@@ -255,7 +247,7 @@ public class Vape {
         StringWriter stackTraceWriter = new StringWriter();
         PrintWriter stackTracePrinter = new PrintWriter(stackTraceWriter);
         error.printStackTrace(stackTracePrinter);
-        return "\n异常 " + error.getClass().getCanonicalName() + " " + stackTraceWriter.toString();
+        return "\nException " + error.getClass().getCanonicalName() + " " + stackTraceWriter.toString();
     }
 
     public FriendManager getFriendManager() {
@@ -340,9 +332,7 @@ public class Vape {
             return false;
         }
         
-
         
-
         if (NativeBridge.isNeoForge1201Runtime()
                 || NativeBridge.isNeoForge1211Runtime()) {
             return false;
@@ -361,18 +351,18 @@ public class Vape {
             ApiResponse<AccountInfoResponse> response = ApiServices.getInstance().getAccountInfo().join();
             if (response == null || !response.isSuccessful() || response.getData() == null) {
                 String error = response == null ? "empty response" : response.getError();
-                Vape.logError("初始化账户信息失败1: " + error);
+                Vape.logError("Failed to initialize account info 1: " + error);
                 return false;
             }
             AccountInfo initializedAccount = AccountInfo.fromResponse(response.getData());
             if (initializedAccount == null) {
-                Vape.logError("初始化账户信息失败1: 账户数据为空");
+                Vape.logError("Failed to initialize account info 1: account data is empty");
                 return false;
             }
             this.accountInfo = initializedAccount;
         }
         catch (CancellationException | CompletionException error) {
-            Vape.logError("初始化账户信息失败2: " + Vape.formatThrowable(error));
+            Vape.logError("Failed to initialize account info 2: " + Vape.formatThrowable(error));
             return false;
         }
         return true;
@@ -406,7 +396,7 @@ public class Vape {
         this.searchManager = new SearchManager();
         this.clientSettings = new gg.vape.config.ClientSettings();
         this.publicProfileSettings = new PublicProfileSettings();
-        this.getFontSelector().N((FontOption)this.publicProfileSettings.language.getValue());
+        LoaderLanguageSettings.apply(this.publicProfileSettings, this.getFontSelector());
         this.modManager = new ModManager();
         this.modManager.init();
         this.clientSettings.antiBot = this.modManager.getMod(AntiBot.class);
@@ -421,7 +411,6 @@ public class Vape {
         }
         catch (Throwable ignored) {
             
-
         }
         PotionRegistry.d();
         this.inventoryFilterPresetRegistry = new InventoryFilterPresetRegistry();
@@ -644,7 +633,7 @@ public class Vape {
     private void showLoadCompleteNotification() {
         ClientSettings clientSettingsModule = INSTANCE.getModManager().getMod(ClientSettings.class);
         if (clientSettingsModule.guiBindIndicator.getEffectiveValue().booleanValue()) {
-            this.notificationManager.showInfo("加载完成", "按 " + clientSettingsModule.getBind().getBindText() + " 打开 GUI", 5000L);
+            this.notificationManager.showInfo("Load complete", "Press " + clientSettingsModule.getBind().getBindText() + " to open the GUI", 5000L);
         }
     }
 
@@ -732,7 +721,7 @@ public class Vape {
         loadTimer = new TimerUtil();
     }
 
-     
+    
     private void initPrimaryMappingTasks() {
         int opaqueSeed = Vape.opaquePredicate();
         this.primaryMappingTaskSet = new PrimaryMappingTaskSet();

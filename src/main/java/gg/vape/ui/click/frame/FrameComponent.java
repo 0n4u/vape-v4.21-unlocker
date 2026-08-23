@@ -678,7 +678,6 @@ extends GuiComponent {
         double d2 = this.l$src$Lgg_vape_ui_click_layout_ComponentLayout_$di1tij().y();
         if (ClientSettings.activeComponent != null || d2 < this.K || !this.NU) {
             
-
         }
         this.b(d);
     }

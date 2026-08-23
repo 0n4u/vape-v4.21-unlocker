@@ -42,7 +42,7 @@ static void injector_diag(const wchar_t *format, ...) {
     _vsnwprintf_s(message, sizeof(message) / sizeof(message[0]),
             _TRUNCATE, format, arguments);
     va_end(arguments);
-     
+    
     length = GetModuleFileNameW(g_module, path, MAX_PATH);
     if (length == 0 || length >= MAX_PATH) {
         wcscpy(path, L".");
@@ -61,7 +61,7 @@ static void injector_diag(const wchar_t *format, ...) {
     }
 }
 
- 
+
 static int injector_directory(wchar_t *output, size_t capacity) {
     wchar_t *marker;
     wchar_t *last = NULL;
@@ -73,7 +73,7 @@ static int injector_directory(wchar_t *output, size_t capacity) {
         injector_diag(L"injector_directory: no module directory");
         return 0;
     }
-     
+    
     for (marker = wcsstr(output, L"\\.vapeclient\\");
             marker != NULL;
             marker = wcsstr(marker + 1, L"\\.vapeclient\\")) {
@@ -84,7 +84,7 @@ static int injector_directory(wchar_t *output, size_t capacity) {
         injector_diag(L"injector_directory: resolved [%ls]", output);
         return 1;
     }
-     
+    
     injector_diag(L"injector_directory: resolved (dev layout) [%ls]", output);
     return 1;
 }
@@ -95,7 +95,7 @@ static int client_directory(wchar_t *output, size_t capacity) {
     if (output == NULL || capacity == 0) {
         return 0;
     }
-     
+    
     if (!injector_directory(output, capacity)) {
         if (!module_directory(output, capacity)) {
             length = GetEnvironmentVariableW(L"APPDATA", output,
@@ -114,7 +114,7 @@ static int client_directory(wchar_t *output, size_t capacity) {
             && GetLastError() != ERROR_ALREADY_EXISTS) {
         return 0;
     }
-     
+    
     {
         DWORD attributes = GetFileAttributesW(output);
         if (attributes != INVALID_FILE_ATTRIBUTES
@@ -164,7 +164,7 @@ static void set_vape_directory_property(JNIEnv *env) {
     if (env == NULL) {
         return;
     }
-     
+    
     if (!injector_directory(directory,
             sizeof(directory) / sizeof(directory[0]))) {
         if (!module_directory(directory,
@@ -390,7 +390,7 @@ static jobject find_client_class_loader(JNIEnv *env) {
     return result;
 }
 
- 
+
 static int install_modular_payload_loader(
         JNIEnv *env, jobject *loader, jclass url_loader_class,
         jclass url_class, jobject url) {
@@ -424,7 +424,7 @@ static int install_modular_payload_loader(
         if ((*env)->ExceptionCheck(env)) {
             (*env)->ExceptionClear(env);
         }
-         
+        
         package_routes_field = (*env)->GetFieldID(env, runtime_loader_class,
                 "parentLoaders", "Ljava/util/Map;");
     }
@@ -458,7 +458,7 @@ static int install_modular_payload_loader(
     }
     (*env)->SetObjectArrayElement(env, urls, 0, url);
 
-     
+    
     bootstrap_loader = (*env)->NewObject(env, url_loader_class,
             url_loader_init, urls, *loader);
     payload_loader_name = (*env)->NewStringUTF(env,
@@ -500,7 +500,7 @@ static int install_modular_payload_loader(
         return -1;
     }
 
-     
+    
     target_event_name = (*env)->NewStringUTF(env,
             "gg.vape.event.impl.EventRenderWorldPassExecutorDrain");
     target_event_class = target_event_name == NULL ? NULL
@@ -540,7 +540,7 @@ static int install_modular_payload_loader(
     return 1;
 }
 
- 
+
 static int install_system_payload_search(
         JNIEnv *env, jobject loader, const wchar_t *jar_path) {
     jclass loader_class;
@@ -608,7 +608,7 @@ static int install_system_payload_search(
     return 1;
 }
 
- 
+
 static int install_fabric_payload_search(
         JNIEnv *env, jobject *loader, jobject file) {
     jclass loader_class;

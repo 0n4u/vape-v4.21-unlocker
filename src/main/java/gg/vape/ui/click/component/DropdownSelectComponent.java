@@ -155,7 +155,7 @@ implements FocusableComponent {
     public void I() {
     }
 
-     
+    
     public void togglePopup() {
         PopupFrame popupFrame = this.popupFrame;
         OptionTextFormatter<T> optionTextFormatter = this.optionFormatter;
@@ -270,7 +270,7 @@ implements FocusableComponent {
         this.pressed = true;
     }
 
-     
+    
     public void closePopup() {
         OptionTextFormatter<T> optionTextFormatter = this.optionFormatter;
         synchronized (optionTextFormatter) {

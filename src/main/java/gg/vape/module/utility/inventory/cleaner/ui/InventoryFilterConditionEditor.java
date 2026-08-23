@@ -274,7 +274,6 @@ extends ScrollableFrameComponent {
         }
         catch (NumberFormatException numberFormatException) {
             
-
         }
     }
 

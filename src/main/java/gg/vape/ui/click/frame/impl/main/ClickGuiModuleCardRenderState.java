@@ -41,11 +41,11 @@ public final class ClickGuiModuleCardRenderState {
         this.t = color;
     }
 
-    public   String n() {
+    public  String n() {
         return this.java_lang_String_n();
     }
 
-    public   boolean n$src$Z$1c2q0zn() {
+    public  boolean n$src$Z$1c2q0zn() {
         return this.boolean_n();
     }
 }

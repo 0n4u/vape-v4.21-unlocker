@@ -12,7 +12,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 
- 
+
 public final class LocalConfigStore {
     private static final String FILE_NAME = "config.json";
     private static final String TMP_NAME = "config.json.tmp";
@@ -52,7 +52,6 @@ public final class LocalConfigStore {
         }
         catch (Exception ignored) {
             
-
         }
     }
 
@@ -93,11 +92,8 @@ public final class LocalConfigStore {
         try (InputStreamReader reader = new InputStreamReader(
                 new FileInputStream(file), StandardCharsets.UTF_8)) {
             
-
             
-
             
-
             return new JsonParser().parse(reader).getAsJsonObject();
         }
         catch (Exception ignored) {

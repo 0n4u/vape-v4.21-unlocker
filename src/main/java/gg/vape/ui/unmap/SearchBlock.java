@@ -37,7 +37,6 @@ public class SearchBlock {
         }
         catch (NumberFormatException numberFormatException) {
             
-
         }
     }
 

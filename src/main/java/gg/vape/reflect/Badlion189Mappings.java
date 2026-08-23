@@ -6,7 +6,7 @@ import java.net.URL;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
- 
+
 public final class Badlion189Mappings {
     private static final String[] MARKER_RESOURCES = {
             "net/badlion/client/Wrapper.class",
@@ -46,11 +46,9 @@ public final class Badlion189Mappings {
                 }
                 catch (RuntimeException ignored) {
                     
-
                 }
                 catch (LinkageError ignored) {
                     
-
                 }
             }
         }
@@ -83,7 +81,6 @@ public final class Badlion189Mappings {
         }
         catch (SecurityException ignored) {
             
-
         }
         return loaders;
     }

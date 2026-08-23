@@ -178,7 +178,6 @@ extends Mod {
             if (itemStack != null) {
                 if (bl2) {
                     
-
                 }
                 if (((Wrapper)(object = itemStack.getItem())).isNotNull()) {
                     ItemIconRenderer.renderItemStack(itemStack, (Item)object, n, n2, 16, 16, (float)d, 1.0f, true);
@@ -568,7 +567,6 @@ extends Mod {
             }
             catch (Exception exception) {
                 
-
             }
             OpenGlBackendHolder.backend.popMatrix();
         }
@@ -635,7 +633,6 @@ extends Mod {
         }
         catch (Exception exception) {
             
-
         }
         if ((n3 = item.a()) > 0 && (d3 = 1.0 - (d2 = (double)itemStack.L() / (double)n3)) < 1.0) {
             GuiRenderPrimitives.U = false;

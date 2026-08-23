@@ -140,7 +140,6 @@ extends ClickerMod {
         if (ForgeVersion.c() == ForgeVersion.MC_1_8_9.i() && this.breakingBlock
                 && gg.vape.config.ClientSettings.isAttackButtonDown()) {
             
-
             Minecraft.r(0);
         }
     }

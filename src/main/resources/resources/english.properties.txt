@@ -2667,7 +2667,6 @@ smash_only.tooltip=Only swap to mace if will smash
 pearlcatch.tooltip=Throws a pearl, then throws a wind charge to catch it
 show_hotbar=Show Hotbar
 
-# ---- PearlCatch ----
 pearlcatch.aim_mode=Aim mode
 pearlcatch.aim_mode.tooltip=Upward - throws the pearl straight up\nCurrent aim - throws the wind charge where you were looking
 pearlcatch.aim_speed=Aim speed
@@ -2677,11 +2676,9 @@ pearlcatch.charge_delay.tooltip=Ticks to wait after the pearl before throwing th
 upward=Upward
 current_aim=Current aim
 
-# ---- AutoMace modes ----
 density=Density
 breach_mode=Breach
 
-# ---- InventoryOverlay ----
 inventory_overlay=Inventory Overlay
 render_background.tooltip=Renders and blurs the background behind the inventory.
 show_hotbar.tooltip=Renders the hotbar slots below the inventory.

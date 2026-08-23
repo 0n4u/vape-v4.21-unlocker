@@ -411,9 +411,7 @@ extends Mapping {
             String string47;
             if (ForgeVersion.MC_1_21_0.d()) {
                 
-
                 
-
                 classArray41 = new Class[]{MappedClasses.zc};
                 string47 = "addEntity";
             } else {

@@ -14,7 +14,6 @@ extends ThresholdFixedRotationController {
         if (complete) {
             if (this.clutch.getRotationClaim().release(this.clutch)) {
                 
-
             }
             this.clutch.setSavedYaw(-999.0);
         }

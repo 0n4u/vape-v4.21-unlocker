@@ -189,7 +189,7 @@ extends Wrapper {
         }
     }
 
-     
+    
     static MethodHandle cfr_ldc_0() {
         try {
             return MethodHandles.lookup().findStatic(RenderItem.class, "a", MethodType.fromMethodDescriptorString("(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/invoke/MutableCallSite;Ljava/lang/String;[Ljava/lang/Object;)I", null));

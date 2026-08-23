@@ -99,9 +99,7 @@ extends GuiComponent {
     @Override
     public void c() {
         
-
         
-
         FontOption.setTranslationDisabled(true);
         try {
             super.c();

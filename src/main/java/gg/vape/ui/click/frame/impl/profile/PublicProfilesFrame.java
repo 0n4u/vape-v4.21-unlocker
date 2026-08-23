@@ -71,7 +71,7 @@ implements EventListener {
     private PanelComponent profileListPanel;
     @Nullable
     private PopupFrame activePopup;
-     
+    
 
     private static ApiResponse lambda$openWithEditor$23(Throwable throwable) {
         return null;

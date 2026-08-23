@@ -73,11 +73,9 @@ extends SubModule<AimAssist> {
         int verticalStep = this.randomOffsetY;
         if (this.random.nextInt(10) < 2) {
             
-
         }
         if (this.random.nextInt(10) < 2) {
             
-
         }
         if (this.random.nextInt(10) < 2) {
             horizontalStep = 0;

@@ -3,7 +3,6 @@ package gg.vape.runtime;
 import gg.vape.Vape;
 import gg.vape.reflect.Badlion189Mappings;
 import gg.vape.reflect.Fabric12111Mappings;
-import gg.vape.reflect.Vanilla1165Mappings;
 import gg.vape.reflect.Fabric262Mappings;
 import gg.vape.reflect.NeoForge1201Mappings;
 import gg.vape.reflect.NeoForge1211Mappings;
@@ -18,7 +17,6 @@ import gg.vape.reflect.Vanilla189Mappings;
 import gg.vape.reflect.Vanilla262Mappings;
 import gg.vape.ui.click.GuiScreenNativeCallbackBridge;
 import gg.vape.utils.Base64Util;
-import gg.vape.wrapper.impl.ForgeVersion;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.nio.FloatBuffer;
@@ -48,19 +46,6 @@ public class NativeBridge {
     private static volatile boolean neoForge1201Runtime;
     private static volatile boolean neoForge1211Runtime;
     private static volatile boolean fabric262Runtime;
-
-     
-    public static boolean isFabricRuntime() {
-        try {
-            Class<?> knot = Class.forName(
-                    "net.fabricmc.loader.impl.launch.knot.KnotClassLoader",
-                    false, NativeBridge.class.getClassLoader());
-            return knot != null;
-        }
-        catch (Throwable throwable) {
-            return false;
-        }
-    }
 
     public static boolean isNeoForge1201Runtime() {
         return neoForge1201Runtime;
@@ -193,46 +178,35 @@ public class NativeBridge {
     }
 
     
-
     
-
     public static Object grh() {
         return null;
     }
 
     
-
     
-
     public static int mf(int fontId, int style, String text) {
         return 0;
     }
 
     
-
     public static void exit(boolean forced) {
         System.out.println("exit " + forced);
     }
 
     
-
     
-
     public static byte[] gt(String key) {
         return new byte[0];
     }
 
     
-
     
-
     public static void dc() {
     }
 
     
-
     
-
     public static String[] gcf(Class<?> targetClass) {
         if (targetClass == null) {
             return new String[0];
@@ -254,7 +228,6 @@ public class NativeBridge {
     }
 
     
-
     public static double[] trn(double worldX, double worldY, double worldZ) {
         FloatBuffer modelViewMatrix = BufferUtils.createFloatBuffer(16);
         FloatBuffer projectionMatrix = BufferUtils.createFloatBuffer(16);
@@ -273,22 +246,17 @@ public class NativeBridge {
     }
 
     
-
     public static native String gkn(long keyCode);
 
     
-
     public static void mb(int messageCode) {
         
-
     }
 
     
-
     public static native short gks(int keyCode);
 
     
-
     public static void rs(int phase, double width, double height) {
         GL11.glClear((int)256);
         GL11.glMatrixMode((int)5889);
@@ -310,7 +278,6 @@ public class NativeBridge {
     }
 
     
-
     public static Class<?> gc(String internalName) {
         try {
             return Class.forName(internalName.replace("/", "."));
@@ -321,29 +288,25 @@ public class NativeBridge {
     }
 
     
-
     public static native String gat();
 
     
-
     
-
     
-
     public static Object[] gco(Class<?> targetClass) {
         return new Object[0];
     }
 
     
-
     public static native byte[] gcb(Class<?> targetClass);
+
+    
+    public static native int dch();
 
     public static native void trs(int state);
 
     
-
     
-
     public static String cs(int stringId) {
         return "";
     }
@@ -354,7 +317,6 @@ public class NativeBridge {
     }
 
     
-
     public static Class<?> gcj(String descriptor) {
         try {
             return descriptor.startsWith("[")
@@ -367,7 +329,6 @@ public class NativeBridge {
     }
 
     
-
     public static String gp(String key) {
         if ("all".equals(key)) {
             return Base64Util.encodeUtf8Base64(DEFAULT_CONFIG_JSON);
@@ -379,15 +340,12 @@ public class NativeBridge {
     }
 
     
-
     
-
     public static double gshv2(int fontId, String text) {
         return 0.0;
     }
 
     
-
     public static String gcs(Class<?> targetClass) {
         if (targetClass == null) {
             return "";
@@ -396,176 +354,35 @@ public class NativeBridge {
     }
 
     
-
     public static native int mvk(int virtualKey, int scanCode);
 
     
-
     
-
     public static double gsh(int fontId, String text) {
         return 0.0;
     }
 
     public static void start() throws Throwable {
         
-
         
-
         
-
-        
-
-        
-
-        long startupWaitStart = System.currentTimeMillis();
-        while (findGameThreadClassLoader() == null
-                && System.currentTimeMillis() - startupWaitStart < 180000L) {
-            try {
-                Thread.sleep(50L);
-            }
-            catch (InterruptedException interrupted) {
-                Thread.currentThread().interrupt();
-                break;
-            }
-        }
-        
-
-        
-
-        
-
         detectVanillaMappingVersion(
                 Thread.currentThread().getContextClassLoader(),
                 NativeBridge.class.getClassLoader());
         forgeAbsent = !isClassPresent("net.minecraftforge.common.ForgeVersion")
                 && !isClassPresent("net.minecraftforge.fml.loading.FMLLoader");
-        
-
-        
-
-        
-
-        int detectedGameVersion = ForgeVersion.c();
-        if ((detectedGameVersion == 47 || detectedGameVersion == 52)
-                && NativeBridge.isFabricRuntime()) {
-            NativeBridge.sce("UNSUPPORTED: Minecraft " + detectedGameVersion
-                    + " Fabric 不受支持（Fabric Knot 类加载隔离 + slf4j 冲突），"
-                    + "请使用对应版本的 Forge / NeoForge 或 1.21.11+ / 26.x 版本");
-            return;
+        Vape vape = new Vape();
+        NativeBridge.invokeVoidInit(vape, "loadMappings");
+        if (badlion189Runtime) {
+            NativeBridge.sce("Runtime profile: Badlion Client 1.8.9 (vanilla SRG namespace)");
         }
-        
-
-        
-
-        
-
-        
-
-        
-
-        ClassLoader originalContext = Thread.currentThread().getContextClassLoader();
-        ClassLoader gameLoader = NativeBridge.resolveGameClassLoader();
-        if (gameLoader != null && gameLoader != originalContext) {
-            Thread.currentThread().setContextClassLoader(gameLoader);
+        NativeBridge.sce("LOAD initAccountInfo");
+        if (!vape.initAccountInfo()) {
+            NativeBridge.sce("WARN initAccountInfo; continuing without account information");
+        } else {
+            NativeBridge.sce("OK initAccountInfo");
         }
-        try {
-            Vape vape = new Vape();
-            NativeBridge.invokeVoidInit(vape, "loadMappings");
-            if (badlion189Runtime) {
-                NativeBridge.sce("Runtime profile: Badlion Client 1.8.9 (vanilla SRG namespace)");
-            }
-            NativeBridge.sce("LOAD initAccountInfo");
-            if (!vape.initAccountInfo()) {
-                NativeBridge.sce("WARN initAccountInfo; continuing without account information");
-            } else {
-                NativeBridge.sce("OK initAccountInfo");
-            }
-            NativeBridge.invokeVoidInit(vape, "initializeManagers");
-        }
-        finally {
-            if (gameLoader != null && gameLoader != originalContext) {
-                Thread.currentThread().setContextClassLoader(originalContext);
-            }
-        }
-    }
-
-     
-    private static ClassLoader resolveGameClassLoader() {
-        ClassLoader gameThreadLoader = findGameThreadClassLoader();
-        if (gameThreadLoader != null) {
-            try {
-                if (Class.forName("gfj", false, gameThreadLoader) != null
-                        || Class.forName("net.minecraft.client.Minecraft", false, gameThreadLoader) != null) {
-                    return gameThreadLoader;
-                }
-            }
-            catch (Throwable ignored) {
-                
-
-            }
-        }
-        try {
-            Class<?> minecraft = Class.forName("net.minecraft.client.Minecraft");
-            ClassLoader loader = minecraft.getClassLoader();
-            if (loader != null) {
-                return loader;
-            }
-        }
-        catch (Throwable ignored) {
-            
-
-        }
-        
-
-        try {
-            Class<?> minecraft = Class.forName("net.minecraft.class_310");
-            ClassLoader loader = minecraft.getClassLoader();
-            if (loader != null) {
-                return loader;
-            }
-        }
-        catch (Throwable ignored) {
-            
-
-        }
-        try {
-            
-
-            Class<?> builtin = Class.forName("jb");
-            ClassLoader loader = builtin.getClassLoader();
-            if (loader != null) {
-                return loader;
-            }
-        }
-        catch (Throwable ignored) {
-            
-
-        }
-        return Thread.currentThread().getContextClassLoader();
-    }
-
-     
-    private static ClassLoader findGameThreadClassLoader() {
-        try {
-            for (Thread thread : Thread.getAllStackTraces().keySet()) {
-                String name = thread.getName();
-                if (name == null) {
-                    continue;
-                }
-                if (name.equals("Render thread") || name.equals("Client thread")) {
-                    ClassLoader loader = thread.getContextClassLoader();
-                    if (loader != null) {
-                        return loader;
-                    }
-                }
-            }
-        }
-        catch (Throwable ignored) {
-            
-
-        }
-        return null;
+        NativeBridge.invokeVoidInit(vape, "initializeManagers");
     }
 
     private static void invokeVoidInit(Vape vape, String name) {
@@ -600,38 +417,29 @@ public class NativeBridge {
     }
 
     
-
     
-
     public static double gswv2(int fontId, String text) {
         return 0.0;
     }
 
     
-
     
-
     public static int ds(int fontId, String text, double x, double y, int color) {
         return 0;
     }
 
     
-
     
-
     public static double gsw(int fontId, String text) {
         return 0.0;
     }
 
     
-
     
-
     public static void su(String username) {
     }
 
     
-
     public static native void cpy(String text);
 
     public static long smpm(boolean pressed, long windowHandle, int button,
@@ -640,16 +448,12 @@ public class NativeBridge {
     }
 
     
-
     
-
     public static void rl() {
     }
 
     
-
     
-
     public static String[] gcm(Class<?> targetClass) {
         if (targetClass == null) {
             return new String[0];
@@ -711,7 +515,6 @@ public class NativeBridge {
         }
 
         
-
         try {
             Object forgeVersion = readStaticField(
                     "net.minecraftforge.common.ForgeVersion", "forgeVersion");
@@ -743,6 +546,7 @@ public class NativeBridge {
         int vanillaVersion = detectVanillaMappingVersion(
                 Thread.currentThread().getContextClassLoader(),
                 NativeBridge.class.getClassLoader());
+        NativeBridge.sce("DBG gmv vanillaVersion=" + vanillaVersion);
         if (vanillaVersion != 0) {
             return vanillaVersion;
         }
@@ -776,53 +580,40 @@ public class NativeBridge {
         boolean vanilla189 = badlion189
                 || Vanilla189Mappings.isRuntimePresent(preferredLoaders);
         boolean vanilla1122 = Vanilla1122Mappings.isRuntimePresent(preferredLoaders);
-        boolean vanilla1165 = Vanilla1165Mappings.isRuntimePresent(preferredLoaders);
         boolean vanilla1201 = Vanilla1201Mappings.isRuntimePresent(preferredLoaders);
         boolean neoForge1211Detected = NeoForge1211Mappings.isRuntimePresent(preferredLoaders);
         boolean neoForge1201Detected = NeoForge1201Mappings.isRuntimePresent(preferredLoaders);
+        NativeBridge.sce("DBG nf1201raw=" + neoForge1201Detected + " v1201raw=" + vanilla1201
+                + " nf1211raw=" + neoForge1211Detected);
         
-
         
-
         
-
         
-
         boolean vanilla262 = Vanilla262Mappings.isRuntimePresent(preferredLoaders);
         boolean fabric262 = Fabric262Mappings.isRuntimePresent(preferredLoaders);
         boolean excludesModern = vanilla262 || fabric262;
-        boolean vanilla12111 = Vanilla12111Mappings.isRuntimePresent(preferredLoaders);
-        boolean fabric12111 = Fabric12111Mappings.isRuntimePresent(preferredLoaders);
+        boolean neoForge1211 = neoForge1211Detected && !excludesModern;
         
-
         
-
-        
-
-        
-
-        
-
-        
-
-        boolean obfuscated12111 = vanilla12111 || fabric12111;
-        boolean neoForge1211 = neoForge1211Detected && !excludesModern && !obfuscated12111;
-        
-
-        
-
-        boolean neoForge1201 = neoForge1201Detected && !neoForge1211 && !excludesModern
-                && !obfuscated12111;
+        boolean neoForge1201 = neoForge1201Detected && !neoForge1211 && !excludesModern;
         boolean vanilla1211 = Vanilla1211Mappings.isRuntimePresent(preferredLoaders);
         boolean vanilla1206 = Vanilla1206Mappings.isRuntimePresent(preferredLoaders);
+        boolean vanilla12111 = Vanilla12111Mappings.isRuntimePresent(preferredLoaders);
+        boolean fabric12111 = Fabric12111Mappings.isRuntimePresent(preferredLoaders);
         int matchingVersions = (vanilla1710 ? 1 : 0)
                 + (vanilla189 ? 1 : 0) + (vanilla1122 ? 1 : 0)
-                + (vanilla1165 ? 1 : 0)
                 + (vanilla1201 || neoForge1201 ? 1 : 0)
                 + (vanilla1211 || neoForge1211 ? 1 : 0)
                 + (vanilla1206 ? 1 : 0)
                 + (vanilla12111 || fabric12111 ? 1 : 0)
                 + (vanilla262 || fabric262 ? 1 : 0);
+        NativeBridge.sce("DBG detect: v1710=" + vanilla1710 + " v189=" + vanilla189
+                + " v1122=" + vanilla1122 + " v1201=" + vanilla1201
+                + " nf1201=" + neoForge1201 + " v1211=" + vanilla1211
+                + " nf1211=" + neoForge1211 + " v1206=" + vanilla1206
+                + " v12111=" + vanilla12111 + " fabric12111=" + fabric12111
+                + " v262=" + vanilla262 + " fabric262=" + fabric262
+                + " matching=" + matchingVersions);
         if (matchingVersions == 1) {
             badlion189Runtime = badlion189;
             fabric12111Runtime = fabric12111;
@@ -835,8 +626,6 @@ public class NativeBridge {
                 detectedVersion = 15;
             } else if (vanilla1122) {
                 detectedVersion = 23;
-            } else if (vanilla1165) {
-                detectedVersion = 36;
             } else if (vanilla1201 || neoForge1201) {
                 detectedVersion = 47;
             } else if (vanilla1211 || neoForge1211) {
@@ -855,6 +644,7 @@ public class NativeBridge {
         if (detectedVersion != 0) {
             vanillaMappingVersion = detectedVersion;
         }
+        NativeBridge.sce("DBG detect result=" + detectedVersion);
         return detectedVersion;
     }
 
@@ -927,17 +717,13 @@ public class NativeBridge {
     }
 
     
-
     public static native int scb(Class<?> targetClass, byte[] bytecode);
 
     
-
     
-
     public static native int mfv2(int fontId, int style, String text);
 
     
-
     @Deprecated
     public static native void ss(String value);
 
@@ -946,7 +732,6 @@ public class NativeBridge {
     }
 
     
-
     public static Class<?> gvc(String internalName) {
         ClassLoader contextLoader = Thread.currentThread().getContextClassLoader();
         ClassLoader bridgeLoader = NativeBridge.class.getClassLoader();
@@ -962,14 +747,6 @@ public class NativeBridge {
         }
         if (mappingVersion == 23) {
             return Vanilla1122Mappings.resolveClass(
-                    internalName, contextLoader, bridgeLoader);
-        }
-        if (mappingVersion == 35 || mappingVersion == 36) {
-            
-
-            
-
-            return Vanilla1165Mappings.resolveClass(
                     internalName, contextLoader, bridgeLoader);
         }
         if (mappingVersion == 47) {
@@ -1016,7 +793,6 @@ public class NativeBridge {
     }
 
     
-
     public static native void sce(String message);
 
     public static native Object inv(Method method, Object target, Object ... arguments);

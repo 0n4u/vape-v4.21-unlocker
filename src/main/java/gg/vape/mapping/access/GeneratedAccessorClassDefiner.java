@@ -10,7 +10,7 @@ public class GeneratedAccessorClassDefiner {
     private static String[] x;
     public static final GeneratedAccessorClassDefiner o;
 
-     
+    
     public Class<?> defineGeneratedAccessorClass(ClassLoader classLoader, String string, byte[] byArray) {
         GeneratedAccessorClassLoader generatedAccessorClassLoader = this.t.computeIfAbsent(classLoader, GeneratedAccessorClassLoader::new);
         Object object = generatedAccessorClassLoader.getClassLoadingLock(string);

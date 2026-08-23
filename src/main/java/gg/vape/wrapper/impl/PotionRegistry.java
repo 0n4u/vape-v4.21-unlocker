@@ -112,7 +112,6 @@ public class PotionRegistry {
             }
             catch (Throwable throwable) {
                 
-
             }
             if (potionEntry == null) continue;
             b.put(potionEntry.getLegacyId(), potionEntry);

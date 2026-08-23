@@ -142,7 +142,6 @@ public final class ClientSettingsComponentFactory {
         }
         catch (Exception exception) {
             
-
         }
         Vape.INSTANCE.getNotificationManager().showInfo("Cleared", "Cleared ItemStack Cache", 3000L);
     }

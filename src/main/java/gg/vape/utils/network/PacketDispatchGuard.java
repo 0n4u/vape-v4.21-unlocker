@@ -123,7 +123,6 @@ implements EventListener {
             }
             catch (Exception exception) {
                 
-
             }
             this.J(packet);
         } else {

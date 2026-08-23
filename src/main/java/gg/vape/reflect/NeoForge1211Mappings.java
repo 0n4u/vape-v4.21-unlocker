@@ -3,7 +3,7 @@ package gg.vape.reflect;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
- 
+
 public final class NeoForge1211Mappings {
     private static final VanillaSrgMappings MAPPINGS = new VanillaSrgMappings(
             "Minecraft 1.21.1 NeoForge",
@@ -16,9 +16,7 @@ public final class NeoForge1211Mappings {
             "net/minecraft/client/player/AbstractClientPlayer",
             "net/minecraft/world/level/Level",
             
-
             
-
             "net/minecraft/world/item/component/ItemContainerContents");
 
     private NeoForge1211Mappings() {

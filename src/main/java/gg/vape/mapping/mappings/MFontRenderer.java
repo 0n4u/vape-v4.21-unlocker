@@ -117,11 +117,8 @@ extends Mapping {
         } else {
             if (ForgeVersion.MC_1_20_1.d()) {
                 
-
                 
-
                 
-
                 Class[] classArray = new Class[]{String.class, Float.TYPE, Float.TYPE, Integer.TYPE, Boolean.TYPE, MappedClasses.qr, MappedClasses.ZK, MappedClasses.Y8, Integer.TYPE, Integer.TYPE};
                 Class<Integer> clazz = Integer.TYPE;
                 boolean bl = true;

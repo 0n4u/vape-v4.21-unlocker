@@ -14,7 +14,7 @@ import java.util.Set;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
- 
+
 public final class ForgePayloadClassLoader extends URLClassLoader {
     private static final String PAYLOAD_CLASS_PREFIX = "gg.vape.";
     private static final String AUXILIARY_CLASS_PREFIX = "func.skidline.";
@@ -35,9 +35,7 @@ public final class ForgePayloadClassLoader extends URLClassLoader {
             Class<?> loaded = this.findLoadedClass(name);
             if (loaded == null && isPayloadClass(name)) {
                 
-
                 
-
                 loaded = this.findClass(name);
             }
             if (loaded == null) {
@@ -50,7 +48,7 @@ public final class ForgePayloadClassLoader extends URLClassLoader {
         }
     }
 
-     
+    
     public Map<String, ClassLoader> buildPackageRoutingMap(
             Map<String, ClassLoader> currentRoutes) throws IOException {
         Map<String, ClassLoader> routes = new HashMap<String, ClassLoader>();

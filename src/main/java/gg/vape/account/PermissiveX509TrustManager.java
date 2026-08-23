@@ -4,7 +4,12 @@ import gg.vape.account.MicrosoftSessionAuthenticator;
 import java.security.cert.X509Certificate;
 import javax.net.ssl.X509TrustManager;
 
- 
+/**
+ * Retained for reference — formerly used as a trust-all manager by
+ * MicrosoftSessionAuthenticator. It is intentionally NOT used anymore:
+ * trusting every certificate lets a network attacker impersonate
+ * login.live.com and capture the user's real Microsoft credentials.
+ */
 
 class PermissiveX509TrustManager
 implements X509TrustManager {

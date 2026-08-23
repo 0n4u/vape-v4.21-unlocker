@@ -272,7 +272,6 @@ extends SliderComponentBase {
         this.valuePerPercent = (this.maximum - this.minimum) / 100.0;
         if (channelType.equals((Object)ColorChannelType.RAINBOW)) {
             
-
         }
         this.valueScale = (float)(this.maximum / colorValue.getHueMaximum());
     }
@@ -349,7 +348,7 @@ extends SliderComponentBase {
         if ((this.channelType.equals((Object)ColorChannelType.RAINBOW) || this.channelType.equals((Object)ColorChannelType.BLOCK_CHILD)) && this.lastClickTimestamp + 300L > System.currentTimeMillis()) {
             this.colorValue.setRainbowEnabled(!this.colorValue.isRainbowEnabled());
         }
-         
+        
         if ((interactionBounds = new RectData(this.G$src$D$1b2f02a(), this.handleBounds.W(), this.A(), this.handleBounds.R())).J(mouseEvent.getX(), mouseEvent.getY())) {
             this.dragStartMousePosition = RenderUtils.h();
             this.dragging = true;

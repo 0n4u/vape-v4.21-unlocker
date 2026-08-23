@@ -1,6 +1,6 @@
 package gg.vape.reflect;
 
- 
+
 public final class Fabric262Mappings {
     private static final String FABRIC_LAUNCHER_CLASS =
             "net/fabricmc/loader/impl/launch/FabricLauncherBase";

@@ -247,7 +247,6 @@ extends Wrapper {
 
     public int h(String string, double d, double d2, int n, boolean bl, RenderMatrix4f renderMatrix4f, SharedMonsterAttributes sharedMonsterAttributes) {
         
-
         if (ForgeVersion.MC_26_2.d()) {
             SmoothFontRenderer smoothFontRenderer = Vape.INSTANCE.getFontManager().p(1.0);
             if (smoothFontRenderer instanceof StbSmoothFontRenderer) {
@@ -316,7 +315,7 @@ extends Wrapper {
         MFontRenderer.A(FontRenderer.vapeInstance.getMappings().R7, this.I, matrixStack.getObject(), iTextComponent.getObject(), f, f2, n);
     }
 
-     
+    
     static MethodHandle cfr_ldc_0() {
         try {
             return MethodHandles.lookup().findStatic(FontRenderer.class, "a", MethodType.fromMethodDescriptorString("(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/invoke/MutableCallSite;Ljava/lang/String;[Ljava/lang/Object;)I", null));

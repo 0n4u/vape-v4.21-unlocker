@@ -81,11 +81,9 @@ extends Wrapper {
             Enchantment enchantment3 = Enchantment.smite();
             if (enchantment3 == null || enchantment3.isNull() || (n3 = EnchantmentHelper.q(enchantment3.getId(), itemStack)) > 0) {
                 
-
             }
             if ((enchantment2 = Enchantment.baneOfArthropods()) == null || enchantment2.isNull() || (n2 = EnchantmentHelper.q(enchantment2.getId(), itemStack)) > 0) {
                 
-
             }
         }
         return f;

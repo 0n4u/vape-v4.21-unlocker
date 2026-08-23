@@ -381,7 +381,6 @@ extends MemberNameRemapTable {
     protected void i0() {
         if (this.isVanillaMinecraftAbsent()) {
             
-
         }
     }
 
@@ -961,7 +960,6 @@ extends MemberNameRemapTable {
     protected void qg() {
         if (this.isVanillaMinecraftAbsent()) {
             
-
         }
     }
 

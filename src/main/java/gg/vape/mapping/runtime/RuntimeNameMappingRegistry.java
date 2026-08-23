@@ -1,12 +1,10 @@
 package gg.vape.mapping.runtime;
 
 import gg.vape.Vape;
-import gg.vape.reflect.MappingRegistry;
 import gg.vape.runtime.NativeBridge;
 import gg.vape.wrapper.impl.ForgeVersion;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Set;
 import org.jetbrains.annotations.Nullable;
 
 public class RuntimeNameMappingRegistry {
@@ -32,46 +30,15 @@ public class RuntimeNameMappingRegistry {
         MemberLookupSignature signature = memberNameRemapTable.lookupMethodMapping(ownerClass, methodName);
         if (signature == null) {
             
-
             
-
             
-
             
-
             
-
             
-
             if (!NativeBridge.isForgeAbsent()) {
                 return null;
             }
             int version = ForgeVersion.c();
-            
-
-            
-
-            
-
-            
-
-            if ((version == 35 || version == 36)
-                    && (methodName.startsWith("func_") || methodName.startsWith("method_"))) {
-                MemberLookupSignature reversed =
-                        memberNameRemapTable.lookupMethodMappingByRuntimeName(methodName);
-                if (reversed != null) {
-                    return reversed;
-                }
-                
-
-                
-
-                MemberLookupSignature bridged = lookupVanilla1165SrgBridge(
-                        methodName, ownerClass, false);
-                if (bridged != null) {
-                    return bridged;
-                }
-            }
             if (version == 47 && !NativeBridge.isNeoForge1201Runtime()) {
                 String obfuscated = NeoForgeObfMap.lookupMethod1201(
                         ownerClass, methodName, buildParamDesc(parameterTypes));
@@ -88,13 +55,9 @@ public class RuntimeNameMappingRegistry {
             return null;
         }
         
-
         
-
         
-
         
-
         if (!NativeBridge.isForgeAbsent()) {
             return signature;
         }
@@ -117,36 +80,12 @@ public class RuntimeNameMappingRegistry {
         return signature;
     }
 
-     
+    
     private static Class<?>[] descTypes(MemberLookupSignature signature, Class<?>[] parameterTypes) {
         if (signature.parameterTypes != null && signature.parameterTypes.length > 0) {
             return signature.parameterTypes;
         }
         return parameterTypes;
-    }
-
-     
-    @Nullable
-    private static MemberLookupSignature lookupVanilla1165SrgBridge(
-            String srgName, Class<?> ownerClass, boolean field) {
-        if (memberNameRemapTable == null) {
-            return null;
-        }
-        Set<String> readableNames = field
-                ? MappingRegistry.FIELDS_REVERSED.get(srgName)
-                : MappingRegistry.METHODS_REVERSED.get(srgName);
-        if (readableNames == null || readableNames.isEmpty()) {
-            return null;
-        }
-        for (String readableName : readableNames) {
-            MemberLookupSignature signature = field
-                    ? memberNameRemapTable.lookupFieldMapping(ownerClass, readableName)
-                    : memberNameRemapTable.lookupMethodMapping(ownerClass, readableName);
-            if (signature != null) {
-                return signature;
-            }
-        }
-        return null;
     }
 
     private static String buildParamDesc(Class<?>[] parameterTypes) {
@@ -157,9 +96,7 @@ public class RuntimeNameMappingRegistry {
         for (Class<?> parameterType : parameterTypes) {
             if (parameterType == null) {
                 
-
                 
-
                 continue;
             }
             if (parameterType == Integer.TYPE) {
@@ -203,42 +140,14 @@ public class RuntimeNameMappingRegistry {
         MemberLookupSignature signature = memberNameRemapTable.lookupFieldMapping(ownerClass, fieldName);
         if (signature == null) {
             
-
             
-
             
-
             
-
             
-
             if (!NativeBridge.isForgeAbsent()) {
                 return null;
             }
             int version = ForgeVersion.c();
-            
-
-            
-
-            
-
-            
-
-            if ((version == 35 || version == 36)
-                    && (fieldName.startsWith("field_") || fieldName.startsWith("f_"))) {
-                MemberLookupSignature reversed =
-                        memberNameRemapTable.lookupFieldMappingByRuntimeName(fieldName);
-                if (reversed != null) {
-                    return reversed;
-                }
-                
-
-                MemberLookupSignature bridged = lookupVanilla1165SrgBridge(
-                        fieldName, ownerClass, true);
-                if (bridged != null) {
-                    return bridged;
-                }
-            }
             if (version == 47 && !NativeBridge.isNeoForge1201Runtime()) {
                 String obfuscated = NeoForgeObfMap.lookupField1201(ownerClass, fieldName);
                 if (obfuscated != null) {
@@ -253,9 +162,7 @@ public class RuntimeNameMappingRegistry {
             return null;
         }
         
-
         
-
         if (NativeBridge.isNeoForge1211Runtime()) {
             String mojmap = NeoForgeFieldMap.lookup1211(ownerClass, signature.runtimeName);
             if (mojmap != null) {
@@ -268,13 +175,9 @@ public class RuntimeNameMappingRegistry {
             }
         } else {
             
-
             
-
             
-
             
-
             if (!NativeBridge.isForgeAbsent()) {
                 return signature;
             }
@@ -310,7 +213,6 @@ public class RuntimeNameMappingRegistry {
             }
             case 47: {
                 
-
                 memberNameRemapTable = new MemberNameRemapTableV50();
                 break;
             }
@@ -324,7 +226,6 @@ public class RuntimeNameMappingRegistry {
             }
             case 52: {
                 
-
                 memberNameRemapTable = new MemberNameRemapTableV51();
                 break;
             }
@@ -384,9 +285,7 @@ public class RuntimeNameMappingRegistry {
             }
             case 47: {
                 
-
                 
-
                 classNameRemapTable = new ClassNameRemapTableV50();
                 break;
             }
@@ -400,9 +299,7 @@ public class RuntimeNameMappingRegistry {
             }
             case 52: {
                 
-
                 
-
                 classNameRemapTable = new ClassNameRemapTableV51();
                 break;
             }
@@ -451,16 +348,12 @@ public class RuntimeNameMappingRegistry {
         boolean mojmapRuntime = NativeBridge.isNeoForge1201Runtime()
                 || NativeBridge.isNeoForge1211Runtime()
                 
-
                 
-
                 || (!NativeBridge.isForgeAbsent() && ForgeVersion.c() == 47);
         if (mapped != null) {
             if (mojmapRuntime) {
                 
-
                 
-
                 String mojmap = NativeBridge.isNeoForge1211Runtime()
                         ? NeoForgeClassMap.lookupObfuscated1211(mapped)
                         : NeoForgeClassMap.lookupObfuscated1201(mapped);
@@ -469,9 +362,7 @@ public class RuntimeNameMappingRegistry {
             return mapped;
         }
         
-
         
-
         boolean forge1201Mojmap = !NativeBridge.isForgeAbsent()
                 && ForgeVersion.c() == 47;
         if (NativeBridge.isNeoForge1211Runtime()) {

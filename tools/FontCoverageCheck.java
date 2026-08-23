@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
- 
+
 public final class FontCoverageCheck {
     private static final int ASCII_START = 32;
     private static final int ASCII_END = 126;
@@ -89,7 +89,7 @@ public final class FontCoverageCheck {
         return needed;
     }
 
-     
+    
     private static Set<Integer> parseCmap(byte[] font) {
         Set<Integer> covered = new HashSet<>();
         int numTables = u16(font, 4);

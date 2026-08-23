@@ -34,11 +34,11 @@ extends OnlineEvent {
         this.h = string;
     }
 
-    public   long b() {
+    public  long b() {
         return this.long_b();
     }
 
-    public   String b$src$Ljava_lang_String_$171yzxt() {
+    public  String b$src$Ljava_lang_String_$171yzxt() {
         return this.java_lang_String_b();
     }
 }

@@ -14,42 +14,36 @@ class MinecraftVersionComparisonOperatorSwitchMap {
         }
         catch (NoSuchFieldError noSuchFieldError) {
             
-
         }
         try {
             MinecraftVersionComparisonOperatorSwitchMap.operatorOrdinals[MinecraftVersionComparisonOperator.NOT_EQUAL.ordinal()] = 2;
         }
         catch (NoSuchFieldError noSuchFieldError) {
             
-
         }
         try {
             MinecraftVersionComparisonOperatorSwitchMap.operatorOrdinals[MinecraftVersionComparisonOperator.GREATER_THAN.ordinal()] = 3;
         }
         catch (NoSuchFieldError noSuchFieldError) {
             
-
         }
         try {
             MinecraftVersionComparisonOperatorSwitchMap.operatorOrdinals[MinecraftVersionComparisonOperator.GREATHER_THAN_OR_EQUAL.ordinal()] = 4;
         }
         catch (NoSuchFieldError noSuchFieldError) {
             
-
         }
         try {
             MinecraftVersionComparisonOperatorSwitchMap.operatorOrdinals[MinecraftVersionComparisonOperator.LESS_THAN.ordinal()] = 5;
         }
         catch (NoSuchFieldError noSuchFieldError) {
             
-
         }
         try {
             MinecraftVersionComparisonOperatorSwitchMap.operatorOrdinals[MinecraftVersionComparisonOperator.LESS_THAN_OR_EQUAL.ordinal()] = 6;
         }
         catch (NoSuchFieldError noSuchFieldError) {
             
-
         }
     }
 }

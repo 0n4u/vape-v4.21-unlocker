@@ -9,6 +9,7 @@
 #include <vector>
 
 #include "local_controller_service.h"
+#include "loader_settings.h"
 
 enum class ControllerPage {
     Login,
@@ -18,7 +19,8 @@ enum class ControllerPage {
     CachePrompt,
     LoadingComplete,
     OutdatedLauncher,
-    Error
+    Error,
+    Settings
 };
 
 struct MinecraftProcess {
@@ -43,6 +45,8 @@ public:
 
     void refreshMinecraftProcesses();
     bool injectMinecraft(std::uint32_t processId);
+    LoaderSettings loaderSettings() const;
+    bool applyLoaderSettings(const LoaderSettings& settings);
     void beginBrowserAuthentication(void* windowHandle);
     void reopenBrowserAuthentication();
     void cancelBrowserAuthentication();
@@ -72,6 +76,7 @@ private:
     std::wstring username_;
     std::wstring password_;
     std::vector<MinecraftProcess> minecraftProcesses_;
+    LoaderSettings loaderSettings_{};
     std::vector<std::uint32_t> injectedProcesses_;
     std::string accessToken_;
     std::wstring serviceHttpBase_;

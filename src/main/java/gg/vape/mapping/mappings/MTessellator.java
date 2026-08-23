@@ -53,11 +53,8 @@ extends Mapping {
 
     public boolean K(Object object) {
         
-
         
-
         
-
         if (this.A == null || this.A.hasResolutionFailed()) {
             return false;
         }

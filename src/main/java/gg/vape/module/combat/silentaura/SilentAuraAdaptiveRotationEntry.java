@@ -14,21 +14,18 @@ public class SilentAuraAdaptiveRotationEntry {
         }
         catch (NoSuchFieldError noSuchFieldError) {
             
-
         }
         try {
             SilentAuraAdaptiveRotationEntry.MODE_ORDINALS[SilentAuraRotationMode.ATTACKING.ordinal()] = 2;
         }
         catch (NoSuchFieldError noSuchFieldError) {
             
-
         }
         try {
             SilentAuraAdaptiveRotationEntry.MODE_ORDINALS[SilentAuraRotationMode.IDLE.ordinal()] = 3;
         }
         catch (NoSuchFieldError noSuchFieldError) {
             
-
         }
     }
 }

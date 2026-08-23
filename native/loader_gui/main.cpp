@@ -7,14 +7,7 @@
 
 
 
-
-
-
 extern "C" int console_main(int argc, wchar_t **argv);
-
-
-
-
 
 
 
@@ -29,7 +22,6 @@ static int console_argv(wchar_t **outArgv, wchar_t (*outBuf)[128],
         return 0;
     }
     
-
     const int stripped = argc - 2;
     const size_t count = static_cast<size_t>(stripped) < outCount
             ? static_cast<size_t>(stripped) : outCount;
@@ -43,11 +35,8 @@ static int console_argv(wchar_t **outArgv, wchar_t (*outBuf)[128],
 
 int APIENTRY wWinMain(HINSTANCE instance, HINSTANCE, wchar_t*, int showCommand) {
     
-
     
-
     
-
     int argc = 0;
     wchar_t **argv = CommandLineToArgvW(GetCommandLineW(), &argc);
     const bool noGui = argv != nullptr && argc >= 2
@@ -58,15 +47,10 @@ int APIENTRY wWinMain(HINSTANCE instance, HINSTANCE, wchar_t*, int showCommand) 
 
     if (noGui) {
         
-
         
-
         
-
         
-
         
-
         AllocConsole();
         FILE *dummy = nullptr;
         freopen_s(&dummy, "CONOUT$", "w", stdout);

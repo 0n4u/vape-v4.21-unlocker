@@ -66,7 +66,6 @@ extends Mapping {
         if (n != 0) {
             if (ForgeVersion.MC_1_7_10.Y()) {
                 
-
             }
             if (ForgeVersion.MC_1_16_5.d()) {
                 Class<ByteBuffer> clazz = ByteBuffer.class;
@@ -108,7 +107,6 @@ extends Mapping {
         }
         if (ForgeVersion.MC_1_7_10.Y()) {
             
-
         }
         if (ForgeVersion.MC_1_16_5.d()) {
             Class<ByteBuffer> clazz = ByteBuffer.class;

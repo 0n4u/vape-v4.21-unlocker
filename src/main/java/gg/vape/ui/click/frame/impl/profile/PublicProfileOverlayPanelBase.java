@@ -23,7 +23,7 @@ extends SplitPanelComponent {
     protected PanelComponent headerPanel;
     protected PanelComponent contentPanel;
     protected boolean showHeader = true;
-     
+    
     @Deprecated protected PanelComponent gb;
     @Deprecated protected PanelComponent gg;
     @Deprecated protected boolean gZ = true;

@@ -73,7 +73,6 @@ extends PanelComponent {
             }
             if (this.creatingNew) {
                 
-
             }
             this.updateControlPanelHeight();
             this.nameInput.getActionButton().setVisible(bl3);
@@ -107,7 +106,6 @@ extends PanelComponent {
         }
         if (this.creatingNew) {
             
-
         }
         this.updateControlPanelHeight();
         this.nameInput.getActionButton().setVisible(bl3);

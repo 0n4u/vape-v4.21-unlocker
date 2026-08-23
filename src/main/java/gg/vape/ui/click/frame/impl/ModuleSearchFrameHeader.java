@@ -175,7 +175,6 @@ extends FrameHeaderComponent {
         double d = this.G$src$D$1b2f02a() + 6.0;
         if (this.v.V$src$Z$1xhop3l()) {
             
-
         }
         this.K.K(d);
         this.K.S(this.n());

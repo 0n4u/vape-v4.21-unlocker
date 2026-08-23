@@ -137,7 +137,6 @@ implements EventListener {
             if (this.lastServerAddress != null) {
                 if (this.lastServerAddress != null) {
                     
-
                 }
             } else {
                 OnlineActivityManager onlineActivityManager2 = Vape.INSTANCE.getOnlineManager().getActivityManager();
@@ -160,7 +159,6 @@ implements EventListener {
         }
         if (this.lastServerAddress == null) {
             
-
         }
         if (this.lastServerAddress != null && !(onlineActivityManager = Vape.INSTANCE.getOnlineManager().getActivityManager()).isEmpty()) {
             onlineActivityManager.resetForWorldChange();

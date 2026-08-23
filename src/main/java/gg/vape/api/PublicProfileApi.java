@@ -31,7 +31,6 @@ public class PublicProfileApi {
         }
         catch (InterruptedException ignored) {
             
-
         }
         try {
             return ApiHttpClient.getApiResponse(this.baseUrl + "/api/v1/" + accessToken + "/profile/public/review/view/" + profileId + "/" + page, PublicProfileApi::parseReviewPageWithApiParser);

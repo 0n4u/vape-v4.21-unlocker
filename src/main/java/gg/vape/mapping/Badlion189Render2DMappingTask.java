@@ -7,7 +7,7 @@ import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.MethodInsnNode;
 import org.objectweb.asm.tree.MethodNode;
 
- 
+
 public final class Badlion189Render2DMappingTask extends ClassTransformer {
     private static final String DISPLAY_CLASS = "org.lwjgl.opengl.Display";
     private static final String DISPLAY_OWNER = "org/lwjgl/opengl/Display";

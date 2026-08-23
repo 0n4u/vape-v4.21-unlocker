@@ -134,7 +134,7 @@ extends SmoothFontRenderer {
         return 8.0f * ((float)this.D / 16.0f);
     }
 
-     
+    
     private void w(byte[] byArray, int n, String string) {
         HashSet<Integer> hashSet;
         block20: {

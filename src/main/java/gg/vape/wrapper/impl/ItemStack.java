@@ -64,7 +64,6 @@ extends Wrapper {
             }
             catch (Throwable throwable) {
                 
-
             }
             return new ItemStack(null);
         }
@@ -118,7 +117,6 @@ extends Wrapper {
             }
             catch (Throwable throwable) {
                 
-
             }
         }
         return ItemStack.S(item);

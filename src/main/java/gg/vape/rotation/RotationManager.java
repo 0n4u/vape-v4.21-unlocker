@@ -247,7 +247,6 @@ implements EventListener {
             }
             catch (Exception exception) {
                 
-
             }
             ++this.controllerUpdatesThisTick;
         }
@@ -606,19 +605,12 @@ implements EventListener {
                 float packetPitch = positionLookPacket.getPitch();
                 if (ForgeVersion.MC_1_7_10.Y()) {
                     
-
                     
-
                     
-
                     
-
                     
-
                     
-
                     
-
                 }
             }
         }

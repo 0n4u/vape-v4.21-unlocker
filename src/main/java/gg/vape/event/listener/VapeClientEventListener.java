@@ -78,11 +78,9 @@ implements EventListener {
                     this.resourcePackChangePending = true;
                     if (this.resourcePackChangePending) {
                         
-
                     }
                     if (!this.resourcePackChangePending) {
                         
-
                     }
                     if (this.resourceMap == null) {
                         this.resourceMap = currentResourceMap;
@@ -109,11 +107,9 @@ implements EventListener {
                 }
                 if (this.resourcePackChangePending) {
                     
-
                 }
                 if (!this.resourcePackChangePending) {
                     
-
                 }
                 if (this.resourceMap == null) {
                     this.resourceMap = currentResourceMap;
@@ -133,11 +129,9 @@ implements EventListener {
                 this.resourcePackChangePending = true;
                 if (this.resourcePackChangePending) {
                     
-
                 }
                 if (!this.resourcePackChangePending) {
                     
-
                 }
                 if (this.resourceMap == null) {
                     this.resourceMap = currentResourceMap;
@@ -147,11 +141,9 @@ implements EventListener {
             boolean resourceMapChanged = false;
             if (this.resourcePackChangePending) {
                 
-
             }
             if (!this.resourcePackChangePending) {
                 
-
             }
             if (this.resourceMap == null) {
                 this.resourceMap = currentResourceMap;
@@ -201,7 +193,6 @@ implements EventListener {
         }
         catch (Exception exception) {
             
-
         }
     }
 }

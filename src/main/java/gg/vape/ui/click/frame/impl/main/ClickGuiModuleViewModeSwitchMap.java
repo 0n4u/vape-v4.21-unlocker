@@ -14,21 +14,18 @@ public class ClickGuiModuleViewModeSwitchMap {
         }
         catch (NoSuchFieldError noSuchFieldError) {
             
-
         }
         try {
             ClickGuiModuleViewModeSwitchMap.C[ClickGuiModuleViewMode.LEGIT.ordinal()] = 2;
         }
         catch (NoSuchFieldError noSuchFieldError) {
             
-
         }
         try {
             ClickGuiModuleViewModeSwitchMap.C[ClickGuiModuleViewMode.MODULE_CATEGORY.ordinal()] = 3;
         }
         catch (NoSuchFieldError noSuchFieldError) {
             
-
         }
     }
 }

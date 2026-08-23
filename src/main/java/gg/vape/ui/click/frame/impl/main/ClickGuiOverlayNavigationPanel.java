@@ -150,7 +150,6 @@ extends ClickGuiContentPanel {
             }
             catch (Exception exception) {
                 
-
             }
             this.sidecar = new ClickGuiOverlayNavigationPanelEntry(this.closeAction);
             this.addChildren(this.sidecar);
@@ -173,7 +172,6 @@ extends ClickGuiContentPanel {
             }
             catch (Exception exception) {
                 
-
             }
             this.sidecar = clickGuiSidecarPanelBase;
             this.sidecar.setCloseAction(this.closeAction);

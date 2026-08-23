@@ -62,16 +62,12 @@ extends SmoothFontRenderer {
         }
         catch (Exception exception) {
             
-
         }
         if (fontIdentity != -1) {
             if (fontIdentity == this.V && this.w.u$src$Z$1yysxfx()) {
                 
-
                 
-
                 
-
                 return;
             }
             this.V = fontIdentity;
@@ -110,7 +106,6 @@ extends SmoothFontRenderer {
         }
         catch (Exception exception) {
             
-
         }
     }
 
@@ -228,9 +223,7 @@ extends SmoothFontRenderer {
         if (!this.w.u$src$Z$1yysxfx() && !this.x()) {
             if (ForgeVersion.MC_26_1.d()) {
                 
-
                 
-
                 return;
             }
             this.y(string2, d, d2, n, true);

@@ -4,7 +4,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
- 
+
 final class NamedLegacyRuntimeDetector {
     private static final String MINECRAFT_CLASS =
             "net/minecraft/client/Minecraft";

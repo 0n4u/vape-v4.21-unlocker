@@ -26,7 +26,6 @@ public class StbGlyphCache {
             return stbGlyphCacheEntry.i;
         }
         
-
         if (ForgeVersion.MC_26_2.d() && c == ' ') {
             return Minecraft.getFontRenderer().getStringWidth(" ");
         }

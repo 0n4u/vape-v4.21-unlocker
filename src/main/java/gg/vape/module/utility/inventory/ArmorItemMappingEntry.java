@@ -4,7 +4,7 @@ import gg.vape.mapping.ItemMappingEntry;
 import gg.vape.module.utility.armorswitch.ArmorMaterialType;
 import org.jetbrains.annotations.Nullable;
 
- 
+
 public class ArmorItemMappingEntry extends ItemMappingEntry {
     private final ArmorMaterialType armorMaterial;
 

@@ -159,7 +159,6 @@ extends Mapping {
                 Class<Void> clazz = Void.TYPE;
                 boolean bl = true;
                 
-
                 String string = "displayScoreboardSidebar";
                 MTitledScreen mTitledScreen = this;
                 this.renderScoreboardMethod = mTitledScreen.Y(string, bl, clazz, classArray);

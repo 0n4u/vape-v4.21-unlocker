@@ -23,6 +23,7 @@ typedef struct PersistedClassDefinition {
 static SRWLOCK g_persisted_class_lock = SRWLOCK_INIT;
 static PersistedClassDefinition *g_persisted_classes = NULL;
 static volatile LONG g_retain_class_transforms = 0;
+static volatile LONG g_class_file_load_hook_enabled = 0;
 static SRWLOCK g_redefinition_lock = SRWLOCK_INIT;
 static volatile LONG g_redefinition_active = 0;
 static jclass g_redefinition_class = NULL;
@@ -365,6 +366,7 @@ jint vape_initialize_jvmti(JavaVM *vm) {
         vape_log(L"Enable ClassFileLoadHook failed: %d", error);
         return JNI_ERR;
     }
+    InterlockedExchange(&g_class_file_load_hook_enabled, 1);
     InterlockedExchange(&g_retain_class_transforms,
             detect_badlion_189_runtime() ? 1 : 0);
     return JNI_OK;
@@ -413,6 +415,34 @@ static jint JNICALL native_scb(
     (*env)->ReleaseByteArrayElements(env, class_bytes, bytes, JNI_ABORT);
     log_jvmti_failure(L"scb RedefineClasses", error, target);
     return error;
+}
+
+static jint JNICALL native_dch(JNIEnv *env, jclass bridge) {
+    jvmtiError error;
+    (void)env;
+    (void)bridge;
+    if (g_jvmti == NULL) {
+        vape_log(L"dch skipped: JVMTI environment unavailable");
+        return (jint)JVMTI_ERROR_INVALID_ENVIRONMENT;
+    }
+    if (InterlockedCompareExchange(&g_retain_class_transforms, 0, 0) != 0) {
+        vape_log(L"dch skipped: ClassFileLoadHook retained by runtime");
+        return (jint)JVMTI_ERROR_NOT_AVAILABLE;
+    }
+    if (InterlockedCompareExchange(
+            &g_class_file_load_hook_enabled, 0, 1) == 0) {
+        vape_log(L"dch: ClassFileLoadHook already disabled");
+        return (jint)JVMTI_ERROR_NONE;
+    }
+    error = (*g_jvmti)->SetEventNotificationMode(g_jvmti, JVMTI_DISABLE,
+            JVMTI_EVENT_CLASS_FILE_LOAD_HOOK, NULL);
+    if (error == JVMTI_ERROR_NONE) {
+        vape_log(L"dch: disabled ClassFileLoadHook");
+    } else {
+        InterlockedExchange(&g_class_file_load_hook_enabled, 1);
+        log_jvmti_failure(L"dch Disable ClassFileLoadHook", error, NULL);
+    }
+    return (jint)error;
 }
 
 static void JNICALL native_smd(
@@ -1096,7 +1126,7 @@ static jobject JNICALL native_inv(
     return box(env, return_kind, returned);
 }
 
- 
+
 static void JNICALL native_sce(JNIEnv *env, jclass bridge, jstring message) {
     const char *chars;
     (void)bridge;
@@ -1160,6 +1190,7 @@ jint vape_register_native_bridge(JNIEnv *env, jclass bridge_class) {
         {"mvk", "(II)I", (void *)native_mvk},
         {"cpy", "(Ljava/lang/String;)V", (void *)native_cpy},
         {"gcb", "(Ljava/lang/Class;)[B", (void *)native_gcb},
+        {"dch", "()I", (void *)native_dch},
         {"gfb", "(Ljava/lang/String;)[B", (void *)native_gfb},
         {"trs", "(I)V", (void *)native_trs},
         {"inv", "(Ljava/lang/reflect/Method;Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;",
@@ -1191,7 +1222,7 @@ jint vape_register_native_bridge(JNIEnv *env, jclass bridge_class) {
         vape_log_pending_exception(env, L"resolve NativeBridge input callbacks");
         return JNI_ERR;
     }
-    vape_log(L"registered NativeBridge methods (9 sample + gat + cpy + 5 stub)");
+    vape_log(L"registered NativeBridge methods (including dch)");
     return JNI_OK;
 }
 
@@ -1200,6 +1231,7 @@ void vape_release_native_bridge(JNIEnv *env) {
         (*g_jvmti)->SetEventNotificationMode(g_jvmti, JVMTI_DISABLE,
                 JVMTI_EVENT_CLASS_FILE_LOAD_HOOK, NULL);
     }
+    InterlockedExchange(&g_class_file_load_hook_enabled, 0);
     clear_persisted_classes(env);
     InterlockedExchange(&g_retain_class_transforms, 0);
     if (g_lwjgl3_window != NULL && g_lwjgl3_original_wndproc != NULL

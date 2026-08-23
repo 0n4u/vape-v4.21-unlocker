@@ -104,9 +104,6 @@ public final class MappingRegistry {
         if (VANILLA_MAPPING_VERSION == 23) {
             return Vanilla1122Mappings.lookupMethodSrgName(method);
         }
-        if (VANILLA_MAPPING_VERSION == 35 || VANILLA_MAPPING_VERSION == 36) {
-            return Vanilla1165Mappings.lookupMethodSrgName(method);
-        }
         if (VANILLA_MAPPING_VERSION == 47) {
             return Vanilla1201Mappings.lookupMethodSrgName(method);
         }
@@ -134,9 +131,6 @@ public final class MappingRegistry {
         }
         if (VANILLA_MAPPING_VERSION == 23) {
             return Vanilla1122Mappings.lookupFieldSrgName(field);
-        }
-        if (VANILLA_MAPPING_VERSION == 35 || VANILLA_MAPPING_VERSION == 36) {
-            return Vanilla1165Mappings.lookupFieldSrgName(field);
         }
         if (VANILLA_MAPPING_VERSION == 47) {
             return Vanilla1201Mappings.lookupFieldSrgName(field);

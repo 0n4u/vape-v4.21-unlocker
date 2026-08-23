@@ -71,9 +71,7 @@ extends Mapping {
             }
         } else if (ForgeVersion.MC_1_20_1.d()) {
             
-
             
-
             this.renderLevelMethod = this.Y("renderLevel", true, Void.TYPE,
                     MappedClasses.DQ, Float.TYPE, Long.TYPE, Boolean.TYPE,
                     MappedClasses.lt, MappedClasses.FW, MappedClasses.zH, MappedClasses.qr);

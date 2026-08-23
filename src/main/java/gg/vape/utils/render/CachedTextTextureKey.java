@@ -20,7 +20,7 @@ class CachedTextTextureKey {
         return this.color;
     }
 
-     
+    
     public boolean equals(Object object) {
         if (!(object instanceof CachedTextTextureKey)) return false;
         CachedTextTextureKey other = (CachedTextTextureKey)object;

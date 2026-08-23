@@ -335,11 +335,8 @@ extends MemberNameRemapTable {
 
     protected void AC() {
         
-
         
-
         
-
         if (this.isVanillaMinecraftAbsent()
                 && NativeBridge.isForgeAbsent()) {
             this.f(MappedClasses.U, "state", "a", false);
@@ -509,11 +506,8 @@ extends MemberNameRemapTable {
 
     protected void C$src$V$r2isui() {
         
-
         
-
         
-
         if (this.isVanillaMinecraftAbsent()
                 && NativeBridge.isForgeAbsent()) {
             this.f(MappedClasses.Zn, "binding", "a", false);

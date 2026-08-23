@@ -14,35 +14,30 @@ class ColorChannelTypeSwitchMap {
         }
         catch (NoSuchFieldError noSuchFieldError) {
             
-
         }
         try {
             ColorChannelTypeSwitchMap.CHANNEL_CASES[ColorChannelType.RAINBOW.ordinal()] = 2;
         }
         catch (NoSuchFieldError noSuchFieldError) {
             
-
         }
         try {
             ColorChannelTypeSwitchMap.CHANNEL_CASES[ColorChannelType.SATURATION.ordinal()] = 3;
         }
         catch (NoSuchFieldError noSuchFieldError) {
             
-
         }
         try {
             ColorChannelTypeSwitchMap.CHANNEL_CASES[ColorChannelType.VIBRANCE.ordinal()] = 4;
         }
         catch (NoSuchFieldError noSuchFieldError) {
             
-
         }
         try {
             ColorChannelTypeSwitchMap.CHANNEL_CASES[ColorChannelType.OPACITY.ordinal()] = 5;
         }
         catch (NoSuchFieldError noSuchFieldError) {
             
-
         }
     }
 }

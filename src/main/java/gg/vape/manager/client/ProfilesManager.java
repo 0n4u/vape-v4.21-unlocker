@@ -43,7 +43,6 @@ public class ProfilesManager {
         for (Mod object : Vape.INSTANCE.getModManager().getAllModules()) {
             if (object.getCategory() == Category.NONE && !(object instanceof Search) || object.isEnabled()) {
                 
-
             }
             if (object.getBind().usesOwnKeybindStorage()) {
                 object.getBind().getBoundInputs().clear();
@@ -138,7 +137,6 @@ public class ProfilesManager {
         }
         catch (Throwable throwable) {
             
-
         }
         ProfilesSettingsFrame.refreshProfileList();
     }

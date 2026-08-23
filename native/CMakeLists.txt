@@ -59,11 +59,6 @@ target_compile_definitions(Vape421Native PRIVATE
 target_compile_options(Vape421Native PRIVATE /W4 /utf-8)
 target_link_libraries(Vape421Native PRIVATE user32 ws2_32)
 
-
-
-
-
-
 set(VAPE421_LOADER_GUI_DIR "${CMAKE_CURRENT_SOURCE_DIR}/loader_gui")
 file(GLOB VAPE421_LOADER_GUI_SOURCES
         CONFIGURE_DEPENDS
@@ -92,9 +87,6 @@ target_link_libraries(Vape421LoaderGui PRIVATE
 )
 target_include_directories(Vape421LoaderGui PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/loader_gui")
 
-
-
-
 set(VAPE421_LOADER_GUI_DLL_RC
         "${CMAKE_CURRENT_BINARY_DIR}/generated/loader_gui_dll.rc")
 add_custom_command(
@@ -107,6 +99,49 @@ add_custom_command(
         COMMENT "Embedding Vape421Native.dll into the GUI loader")
 target_sources(Vape421LoaderGui PRIVATE "${VAPE421_LOADER_GUI_DLL_RC}")
 
+include(CTest)
+if(BUILD_TESTING)
+    add_executable(Vape421BootstrapTest
+            tests/loader_bootstrap_test.c
+            loader_bootstrap.c)
+    target_include_directories(Vape421BootstrapTest PRIVATE
+            "${CMAKE_CURRENT_SOURCE_DIR}")
+    target_compile_definitions(Vape421BootstrapTest PRIVATE
+            WIN32_LEAN_AND_MEAN
+            _CRT_SECURE_NO_WARNINGS)
+    target_compile_options(Vape421BootstrapTest PRIVATE /W4 /utf-8)
+    target_link_libraries(Vape421BootstrapTest PRIVATE ws2_32)
+    add_test(NAME Vape421BootstrapStandalone
+            COMMAND Vape421BootstrapTest standalone)
+    add_test(NAME Vape421BootstrapHandoff COMMAND Vape421BootstrapTest)
+    add_test(NAME Vape421BootstrapRejectsInvalid
+            COMMAND Vape421BootstrapTest invalid)
+
+    add_executable(LoaderSettingsTest
+            tests/loader_settings_test.cpp
+            loader_gui/loader_settings.cpp)
+    target_include_directories(LoaderSettingsTest PRIVATE
+            "${CMAKE_CURRENT_SOURCE_DIR}/loader_gui")
+    target_compile_features(LoaderSettingsTest PRIVATE cxx_std_17)
+    target_compile_definitions(LoaderSettingsTest PRIVATE
+            WIN32_LEAN_AND_MEAN
+            UNICODE _UNICODE NOMINMAX)
+    target_compile_options(LoaderSettingsTest PRIVATE /W4 /permissive- /utf-8)
+    set_property(TARGET LoaderSettingsTest PROPERTY
+            MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL")
+    add_test(NAME LoaderSettings COMMAND LoaderSettingsTest)
+
+    add_executable(AutoInjectReadinessTest
+            tests/auto_inject_readiness_test.cpp
+            loader_gui/auto_inject_readiness.cpp)
+    target_include_directories(AutoInjectReadinessTest PRIVATE
+            "${CMAKE_CURRENT_SOURCE_DIR}/loader_gui")
+    target_compile_features(AutoInjectReadinessTest PRIVATE cxx_std_17)
+    target_compile_options(AutoInjectReadinessTest PRIVATE /W4 /permissive- /utf-8)
+    set_property(TARGET AutoInjectReadinessTest PROPERTY
+            MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL")
+    add_test(NAME AutoInjectReadiness COMMAND AutoInjectReadinessTest)
+endif()
 
 set_property(TARGET Vape421Native Vape421LoaderGui
         PROPERTY

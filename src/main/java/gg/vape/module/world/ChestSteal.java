@@ -146,7 +146,6 @@ implements InventoryActionModule {
             }
             catch (Exception exception) {
                 
-
             }
         }
         this.queueInitialized = true;

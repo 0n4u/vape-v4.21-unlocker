@@ -33,6 +33,7 @@ dependencies {
     implementation 'org.lwjgl.lwjgl:lwjgl:2.9.3'
     implementation 'org.lwjgl.lwjgl:lwjgl_util:2.9.3'
     compileOnly 'org.jetbrains:annotations:24.1.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.11.4'
 }
 
 configurations.configureEach {
@@ -60,19 +61,14 @@ tasks.withType(JavaCompile).configureEach {
         options.release = (project.findProperty('targetRelease') ?: '17') as int
     }
     options.compilerArgs += ['-Xmaxerrs', '10000', '-Xdiags:verbose']
-    
-
-    
-
-    
-
+    // Report-only lint: surface the deprecation/unchecked details the JDK
+    // otherwise summarizes into a single note. Not -Werror: decompiled
+    // recovered sources are triaged, not gated, on these.
     options.compilerArgs += ['-Xlint:deprecation', '-Xlint:unchecked', '-Xlint:rawtypes']
 }
 
-
-
-
-
+// Deterministic archive output (jar + shadowJar): fixed entry order and
+// timestamps so the injection payload is byte-reproducible per source state.
 tasks.withType(AbstractArchiveTask).configureEach {
     preserveFileTimestamps = false
     reproducibleFileOrder = true
@@ -139,11 +135,6 @@ tasks.named('check') {
 
 
 
-
-
-
-
-
 def fontCheckClassDirectory = layout.buildDirectory.dir('fontCheck')
 def fontCheckSource = file('tools/FontCoverageCheck.java')
 
@@ -186,19 +177,12 @@ tasks.register('injectionJar', com.github.jengelman.gradle.plugins.shadow.tasks.
     from(sourceSets.main.output)
     configurations = [project.configurations.runtimeClasspath]
     
-
     
-
     
-
     
-
     
-
     
-
     
-
     relocate 'javassist', 'gg.vape.shaded.javassist'
     relocate 'org.objectweb.asm', 'gg.vape.shaded.org.objectweb.asm'
     exclude 'META-INF/*.SF', 'META-INF/*.DSA', 'META-INF/*.RSA'
@@ -390,7 +374,6 @@ tasks.register('prepareInjectionBundle', Sync) {
         include 'Vape-v4.21.exe'
         include 'Vape-v4.21Native.dll'
     }
-    from(file('native/README.md'))
     into(injectionBundleDirectory)
     doLast {
         def injector = injectionBundleDirectory.get().file('Vape-v4.21.exe').asFile

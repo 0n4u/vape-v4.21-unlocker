@@ -23,9 +23,7 @@ extends Wrapper {
                 return block;
             }
             
-
             
-
             String registryName = "minecraft:" + string.substring("block.minecraft.".length());
             Item item = Item.L(registryName);
             if (item != null && item.isInstance(MappedClasses.Vw)) {

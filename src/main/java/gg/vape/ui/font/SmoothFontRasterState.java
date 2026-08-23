@@ -26,7 +26,7 @@ public class SmoothFontRasterState {
     public static final int n;
     public static final int M;
     public static final int b = 1;
-    static final   boolean G;
+    static final  boolean G;
     public static final int z;
     public static final int m;
     public static final int Fc;

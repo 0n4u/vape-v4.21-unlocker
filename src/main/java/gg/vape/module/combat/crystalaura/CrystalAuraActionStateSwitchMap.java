@@ -14,21 +14,18 @@ public class CrystalAuraActionStateSwitchMap {
         }
         catch (NoSuchFieldError noSuchFieldError) {
             
-
         }
         try {
             CrystalAuraActionStateSwitchMap.stateOrdinals[CrystalAuraActionState.PLACING_CRYSTAL.ordinal()] = 2;
         }
         catch (NoSuchFieldError noSuchFieldError) {
             
-
         }
         try {
             CrystalAuraActionStateSwitchMap.stateOrdinals[CrystalAuraActionState.PLACING_OBSIDIAN.ordinal()] = 3;
         }
         catch (NoSuchFieldError noSuchFieldError) {
             
-
         }
     }
 }

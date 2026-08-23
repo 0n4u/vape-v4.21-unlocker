@@ -14,28 +14,24 @@ public class PrimitiveTopologySwitchMap {
         }
         catch (NoSuchFieldError noSuchFieldError) {
             
-
         }
         try {
             PrimitiveTopologySwitchMap.TOPOLOGY_SWITCH_MAP[PrimitiveTopology.QUADS.ordinal()] = 2;
         }
         catch (NoSuchFieldError noSuchFieldError) {
             
-
         }
         try {
             PrimitiveTopologySwitchMap.TOPOLOGY_SWITCH_MAP[PrimitiveTopology.TRIANGLES.ordinal()] = 3;
         }
         catch (NoSuchFieldError noSuchFieldError) {
             
-
         }
         try {
             PrimitiveTopologySwitchMap.TOPOLOGY_SWITCH_MAP[PrimitiveTopology.LINES_LOOP.ordinal()] = 4;
         }
         catch (NoSuchFieldError noSuchFieldError) {
             
-
         }
     }
 }

@@ -69,7 +69,6 @@ implements EventListener {
                 }
                 catch (Exception exception) {
                     
-
                 }
                 this.stateByKey.remove(key);
                 this.pendingEntityIds.add(player.S());

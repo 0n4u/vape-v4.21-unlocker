@@ -23,7 +23,6 @@ public class OnlineEventDispatcher {
         }
         catch (Throwable throwable) {
             
-
         }
     }
 

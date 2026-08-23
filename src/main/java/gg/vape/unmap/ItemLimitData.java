@@ -90,7 +90,6 @@ implements ToggleableListEntry {
                 }
                 catch (Exception exception) {
                     
-
                 }
                 if (slotNumber >= 1 && Minecraft.thePlayer().V$src$Lgg_vape_wrapper_impl_InventoryPlayer_$erqak6().v() + 1 == slotNumber) {
                     return true;
@@ -151,7 +150,6 @@ implements ToggleableListEntry {
             }
             catch (Exception exception) {
                 
-
             }
         }
     }

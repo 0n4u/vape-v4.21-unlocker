@@ -12,7 +12,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
- 
+
 public final class Vanilla262Mappings {
     private static final String MINECRAFT_CLASS =
             "net/minecraft/client/Minecraft";
@@ -47,7 +47,7 @@ public final class Vanilla262Mappings {
         return Vanilla262Mappings.protocolVersion(preferredLoaders) != 0;
     }
 
-     
+    
     public static int protocolVersion(ClassLoader... preferredLoaders) {
         for (ClassLoader loader : candidateLoaders(preferredLoaders)) {
             Class<?> minecraftClass = resolveRuntimeClass(
@@ -195,7 +195,6 @@ public final class Vanilla262Mappings {
         }
         catch (SecurityException ignored) {
             
-
         }
         return loaders;
     }

@@ -195,7 +195,7 @@ public class ImageParser {
         }
     }
 
-     
+    
     public ImageParser(InputStream inputStream) throws IOException {
         this.ihdrChunkType = 1229472850;
         this.plteChunkType = 1347179589;
@@ -321,7 +321,7 @@ public class ImageParser {
         }
     }
 
-     
+    
     public void decode(ByteBuffer output, int stride, ImageParser$Format outputFormat) throws IOException {
         int initialPosition = output.position();
         int scanlineByteCount = (this.imageWidth * this.bitDepth + 7) / 8 * this.bytesPerPixel;

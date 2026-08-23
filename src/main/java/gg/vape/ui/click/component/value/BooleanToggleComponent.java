@@ -217,13 +217,9 @@ implements BooleanStateAdapter<BooleanToggleComponent> {
         String currentLanguage = Vape.INSTANCE.getFontSelector().W().getSerializedName();
         if (this.wrappedLabelLanguage == null || !currentLanguage.equals(this.wrappedLabelLanguage)) {
             
-
             
-
             
-
             
-
             this.wrappedLabelSource = "";
             this.wrappedLabelLanguage = currentLanguage;
         }

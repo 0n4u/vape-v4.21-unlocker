@@ -104,7 +104,7 @@ extends FrameHeaderComponent {
             float f5 = (float)ImageRenderer.getImageHeight("v4") / f;
             ImageRenderer.drawImage(Color.WHITE, (float)this.G$src$D$1b2f02a() + 6.0f, (float)this.n() + 5.0f, "vapelogo", f2, f3, false);
             ImageRenderer.drawImage(J.z(), (float)this.G$src$D$1b2f02a() + 6.0f + 27.0f, (float)this.n() + 5.0f, "v4", f4, f5, false);
-             
+            
             if (!Vape.INSTANCE.getPublicProfileSettings().autoSave.getEffectiveValue().booleanValue() && Vape.INSTANCE.getSyncThread().hasPendingSave() && System.currentTimeMillis() > Vape.INSTANCE.getSyncThread().getLastSaveTime() + 60000L) {
                 this.G.setVisible(true);
                 this.G.K(d);

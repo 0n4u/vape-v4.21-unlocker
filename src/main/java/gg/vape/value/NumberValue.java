@@ -113,11 +113,8 @@ extends Value<Double, NumberValue> {
     public Double getValue() {
         Double current = super.getValue();
         
-
             
-
         
-
         return current != null ? current : this.getDefaultValue();
     }
 

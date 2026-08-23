@@ -64,9 +64,7 @@ extends Mod {
 
     private void updateSearchResults() {
         
-
         
-
         if (ForgeVersion.MC_1_16_5.d() || this.pendingScanEntries == null) {
             return;
         }
@@ -104,11 +102,8 @@ extends Mod {
     @Override
     public void onScheduledAction() {
         
-
         
-
         
-
         if (ForgeVersion.MC_1_16_5.d()) {
             return;
         }

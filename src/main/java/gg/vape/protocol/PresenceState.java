@@ -5,7 +5,7 @@ public enum PresenceState {
     AWAY,
     OFFLINE;
 
-    private static final   PresenceState[] Q;
+    private static final  PresenceState[] Q;
 
     static {
         String[] stringArray = new String[]{"OFFLINE", "AWAY", "ONLINE"};

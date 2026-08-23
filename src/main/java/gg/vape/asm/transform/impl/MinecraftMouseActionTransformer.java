@@ -32,11 +32,8 @@ extends ClassTransformer {
         }
         if (ForgeVersion.MC_1_20_1.d()) {
             
-
             
-
             
-
             return;
         }
         this.injectEventAtEntry(Vape.INSTANCE.getMappings().U.g, EventRightClickMouse.class, new ITramsformNode[0]);

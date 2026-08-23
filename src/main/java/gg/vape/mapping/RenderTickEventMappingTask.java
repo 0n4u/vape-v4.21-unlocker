@@ -21,13 +21,9 @@ extends ClassTransformer {
             this.injectEventAtEntry(mappingMethod, EventPreRenderTick.class, new TypedIndexedLocal(1, DescUtils.getDescriptor(MappedClasses.uy)).setDescriptorClass(Object.class));
             if (!ForgeVersion.MC_26_2.d()) {
                 
-
                 
-
                 
-
                 
-
                 this.injectEventAtExit(mappingMethod, EventPostRenderTick.class, new ITramsformNode[0]);
             }
         }

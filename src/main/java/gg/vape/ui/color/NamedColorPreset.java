@@ -48,7 +48,7 @@ public enum NamedColorPreset {
     private final String v;
     private final double[] H;
     public static final List<NamedColorPreset> VALUES;
-    private static final   NamedColorPreset[] n;
+    private static final  NamedColorPreset[] n;
     private static String[] r;
     private final Color E;
 

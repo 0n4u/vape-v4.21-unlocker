@@ -150,7 +150,7 @@ extends Wrapper {
         return new AxisAlignedBB(MAxisAlignedBB.v(AxisAlignedBB.vapeInstance.getMappingsCompat().RQ, this.I, d));
     }
 
-     
+    
     public boolean isVecInside(Vec3 vec3) {
         if (!(vec3.getX() > this.getMinX())) return false;
         if (!(vec3.getX() < this.getMaxX())) return false;

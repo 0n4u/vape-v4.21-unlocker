@@ -256,7 +256,6 @@ public class GuiRenderPrimitives {
             return;
         }
         
-
         GL11.glEnable(GL11.GL_TEXTURE_2D);
         GL11.glEnable(GL11.GL_ALPHA_TEST);
         GL11.glAlphaFunc(GL11.GL_GREATER, 0.1f);
@@ -914,15 +913,7 @@ public class GuiRenderPrimitives {
     }
 
     public static boolean d() {
-        
-
-        
-
-        
-
-        
-
-        return ForgeVersion.MC_1_16_5.d();
+        return ForgeVersion.MC_1_17.d();
     }
 
     public static void p(double d, double d2, double d3, double d4, Color color, boolean bl, float f, float f2, float f3, Color color2, int n) {

@@ -171,7 +171,6 @@ extends Wrapper {
     public int T() {
         if (ForgeVersion.MC_1_20_1.d()) {
             
-
             GameSettingsValue gameSettingsValue = new GameSettingsValue(MGameSettings.r(GameSettings.vapeInstance.getMappings().RM, this.getObject()));
             return (Integer)gameSettingsValue.i();
         }
@@ -214,9 +213,7 @@ extends Wrapper {
     public float b() {
         if (ForgeVersion.MC_1_20_1.d()) {
             
-
             
-
             GameSettingsValue gameSettingsValue = new GameSettingsValue(MGameSettings.H$src$Ljava_lang_Object_$1jqua4d(GameSettings.vapeInstance.getMappings().RM, this.I));
             return (float)((Double)gameSettingsValue.i()).doubleValue();
         }

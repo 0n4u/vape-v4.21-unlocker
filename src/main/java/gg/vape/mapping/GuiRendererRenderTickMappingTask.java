@@ -6,7 +6,7 @@ import gg.vape.mapping.MappedClasses;
 import javassist.CannotCompileException;
 import javassist.CtBehavior;
 
- 
+
 public class GuiRendererRenderTickMappingTask
 extends JavassistMappingTask {
     public GuiRendererRenderTickMappingTask() {

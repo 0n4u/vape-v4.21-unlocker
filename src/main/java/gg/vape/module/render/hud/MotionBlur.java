@@ -19,7 +19,7 @@ import org.lwjgl.opengl.GL15;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
 
- 
+
 public class MotionBlur
 extends HudModule {
     private static final int MODULE_COLOR = new Color(52, 120, 246).getRGB();
@@ -147,11 +147,8 @@ extends HudModule {
         }
         if (ForgeVersion.MC_1_20_1.d()) {
             
-
             
-
             
-
             return;
         }
         try {
@@ -159,7 +156,6 @@ extends HudModule {
         }
         catch (Throwable throwable) {
             
-
             Vape.logThrowable(throwable);
             this.destroyResources();
             this.setEnabled(false);
@@ -173,7 +169,6 @@ extends HudModule {
         }
         if (!ForgeVersion.MC_1_20_1.d()) {
             
-
             return;
         }
         try {
@@ -181,7 +176,6 @@ extends HudModule {
         }
         catch (Throwable throwable) {
             
-
             Vape.logThrowable(throwable);
             this.destroyResources();
             this.setEnabled(false);
@@ -222,13 +216,9 @@ extends HudModule {
         }
 
         
-
         
-
         
-
         
-
         MotionBlur.bindFramebufferViaGame(36008, 0);
         MotionBlur.bindFramebufferViaGame(36009, 0);
         this.copyToCurrent();
@@ -252,17 +242,14 @@ extends HudModule {
         this.copyToHistory();
 
         
-
         
-
         
-
         MotionBlur.bindFramebufferViaGame(36160, previousFramebuffer);
         GL11.glViewport(viewport.get(0), viewport.get(1),
                 viewport.get(2), viewport.get(3));
     }
 
-     
+    
     private static void bindFramebufferViaGame(int target, int framebufferId) {
         try {
             gg.vape.mapping.mappings.MGlStateManager m =
@@ -274,7 +261,6 @@ extends HudModule {
         }
         catch (Throwable throwable) {
             
-
         }
         GL30.glBindFramebuffer((int)target, (int)framebufferId);
     }
@@ -325,7 +311,6 @@ extends HudModule {
         }
         catch (Throwable ignored) {
             
-
         }
         GL11.glBindTexture((int)3553, (int)0);
     }
@@ -399,7 +384,7 @@ extends HudModule {
                 (int)0, (int)0, this.textureWidth, this.textureHeight);
     }
 
-     
+    
     private static void bindTextureViaGame(int textureId) {
         try {
             gg.vape.mapping.mappings.MGlStateManager m =
@@ -411,7 +396,6 @@ extends HudModule {
         }
         catch (Throwable throwable) {
             
-
         }
         GL11.glBindTexture((int)3553, (int)textureId);
     }
@@ -424,11 +408,8 @@ extends HudModule {
         int previousProgram = GL11.glGetInteger((int)35725);
         int previousActiveUnit = GL11.glGetInteger((int)34016);
         
-
         
-
         
-
         int savedUnit0 = MotionBlur.readBoundTexture(0);
         int savedUnit1 = MotionBlur.readBoundTexture(1);
         int savedSampler0 = MotionBlur.readBoundSampler(0);
@@ -436,20 +417,15 @@ extends HudModule {
 
         GL20.glUseProgram(this.shaderProgram);
         
-
         
-
         
-
         
-
         try {
             org.lwjgl.opengl.GL33.glBindSampler(0, 0);
             org.lwjgl.opengl.GL33.glBindSampler(1, 0);
         }
         catch (Throwable ignored) {
             
-
         }
         MotionBlur.setActiveTextureViaGame(0);
         MotionBlur.bindTextureViaGame(this.currentTexture);
@@ -460,11 +436,8 @@ extends HudModule {
         GL20.glUniform1i(GL20.glGetUniformLocation(this.shaderProgram,
                 (CharSequence)"historyTexture"), 1);
         
-
         
-
         
-
         float blurredFactor = this.curBlurriness * 2.0f / 11.0f;
         if (blurredFactor > 0.95f) {
             blurredFactor = 0.95f;
@@ -483,9 +456,7 @@ extends HudModule {
         GL30.glBindVertexArray((int)0);
 
         
-
         
-
         MotionBlur.setActiveTextureViaGame(0);
         MotionBlur.bindTextureViaGame(savedUnit0);
         MotionBlur.setActiveTextureViaGame(1);
@@ -504,7 +475,7 @@ extends HudModule {
         }
     }
 
-     
+    
     private static void setActiveTextureViaGame(int unit) {
         try {
             gg.vape.mapping.mappings.MGlStateManager m =
@@ -516,12 +487,11 @@ extends HudModule {
         }
         catch (Throwable throwable) {
             
-
         }
         GL13.glActiveTexture((int)(33984 + unit));
     }
 
-     
+    
     private static int readBoundTexture(int unit) {
         try {
             GL13.glActiveTexture((int)(33984 + unit));
@@ -533,7 +503,7 @@ extends HudModule {
         }
     }
 
-     
+    
     private static int readBoundSampler(int unit) {
         try {
             GL13.glActiveTexture((int)(33984 + unit));
@@ -544,14 +514,13 @@ extends HudModule {
         }
     }
 
-     
+    
     private static void restoreBoundSampler(int unit, int samplerId) {
         try {
             org.lwjgl.opengl.GL33.glBindSampler(unit, samplerId);
         }
         catch (Throwable throwable) {
             
-
         }
     }
 

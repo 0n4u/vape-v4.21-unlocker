@@ -1,6 +1,5 @@
 package gg.vape.utils;
 
-import gg.vape.Vape;
 import gg.vape.wrapper.impl.Enchantment;
 import gg.vape.wrapper.impl.EnchantmentHelper;
 import gg.vape.wrapper.impl.EnchantmentHelperBridge;
@@ -82,18 +81,7 @@ public class EnchantmentUtil {
 
     private static EnchantmentRegistryAccess z() {
         if (j == null) {
-            
-
-            
-
-            
-
-            try {
-                j = EnchantmentHelperBridge.createLookup();
-            }
-            catch (Throwable failure) {
-                Vape.logThrowable(failure);
-            }
+            j = EnchantmentHelperBridge.createLookup();
         }
         return j;
     }
@@ -176,13 +164,6 @@ public class EnchantmentUtil {
             return A;
         }
         EnchantmentRegistryAccess enchantmentRegistryAccess = EnchantmentUtil.z();
-        if (enchantmentRegistryAccess == null) {
-            
-
-            
-
-            return new Enchantment[0];
-        }
         EnchantmentRegistry enchantmentRegistry = enchantmentRegistryAccess.lookupOrThrow(ResourceKeyEnchantmentBridge.enchantment());
         Stream<EnchantmentHolder> stream = enchantmentRegistry.listElements();
         Stream<Enchantment> stream2 = stream.map(EnchantmentUtil::lambda$getVanillaEnchantments_54$0);
@@ -232,11 +213,6 @@ public class EnchantmentUtil {
         }
         String string2 = string.contains(":") ? string : "minecraft:" + string;
         EnchantmentRegistryAccess enchantmentRegistryAccess = EnchantmentUtil.z();
-        if (enchantmentRegistryAccess == null) {
-            
-
-            return null;
-        }
         EnchantmentRegistry enchantmentRegistry = enchantmentRegistryAccess.lookupOrThrow(ResourceKeyEnchantmentBridge.enchantment());
         Stream<EnchantmentHolder> stream = enchantmentRegistry.listElements();
         Optional<EnchantmentHolder> optional = stream.filter(arg_0 -> EnchantmentUtil.lambda$getEnchantmentByName$2(string2, arg_0)).findFirst();

@@ -10,7 +10,7 @@ public enum FriendRelationColorState {
     ENEMY(GuiComponentContract.J.d);
 
     Color color;
-    private static final   FriendRelationColorState[] VALUES;
+    private static final  FriendRelationColorState[] VALUES;
 
     private FriendRelationColorState(Color color) {
         this.color = color;

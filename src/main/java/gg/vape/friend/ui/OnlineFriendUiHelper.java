@@ -41,7 +41,6 @@ public final class OnlineFriendUiHelper {
             }
             catch (Exception exception) {
                 
-
                 break;
             }
         }

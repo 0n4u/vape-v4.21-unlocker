@@ -44,13 +44,9 @@ extends Mod {
             return;
         }
         
-
         
-
         
-
         
-
         if (ForgeVersion.MC_1_8_9.d()) {
             eventChunkRenderRebuild.setCancelled(true);
         }
@@ -96,13 +92,9 @@ extends Mod {
             return;
         }
         
-
         
-
         
-
         
-
         if (!ForgeVersion.MC_1_8_9.d()) {
             this.lastOpacity = (Double)this.opacityValue.getValue();
             return;
@@ -158,15 +150,10 @@ extends Mod {
         boolean isTarget = this.isTargetBlock(eventBlockRenderBounds.getBlock());
         eventBlockRenderBounds.getRenderBlocks().setRenderAllFaces(isTarget);
         
-
         
-
         
-
         
-
         
-
         if (!isTarget) {
             if (ForgeVersion.MC_1_7_10.L()) {
                 eventBlockRenderBounds.setCancelled(true);
@@ -174,9 +161,7 @@ extends Mod {
             return;
         }
         
-
         
-
         if (this.caveModeValue.getEffectiveValue() && ForgeVersion.MC_1_7_10.L()) {
             World world = Minecraft.theWorld();
             if (world.isNotNull()) {
@@ -239,16 +224,12 @@ extends Mod {
         this.addValue(this.opacityValue, this.caveModeValue, this.blocksValue);
         this.opacityValue.addChangeListener(this::onOpacityChanged);
         
-
         
-
         if (ForgeVersion.MC_1_7_10.L()) {
             this.opacityValue.setHidden(true);
         }
         
-
         
-
         this.caveModeValue.addChangeListener(value -> {
             if (this.isEnabled()) {
                 this.needsReload = true;

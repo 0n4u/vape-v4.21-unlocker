@@ -53,7 +53,7 @@ implements ZeusSerializablePacket {
         }
     }
 
-    public   PartyMemberActionType o() {
+    public  PartyMemberActionType o() {
         return this.a_EN_o();
     }
 }

@@ -100,7 +100,6 @@ implements Runnable {
                     }
                     catch (InterruptedException interruptedException) {
                         
-
                     }
                     if (Minecraft.theWorld().isNull() || Minecraft.thePlayer().isNull()) continue;
                     EntityPlayerSP entityPlayerSP = Minecraft.thePlayer();

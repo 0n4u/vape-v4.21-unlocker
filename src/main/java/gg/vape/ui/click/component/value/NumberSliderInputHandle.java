@@ -45,7 +45,6 @@ extends SliderInputHandle {
         }
         catch (Exception exception) {
             
-
         }
         ClientSettings.activeComponent = null;
     }

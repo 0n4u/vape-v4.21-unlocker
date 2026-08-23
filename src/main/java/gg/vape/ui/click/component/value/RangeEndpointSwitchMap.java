@@ -14,14 +14,12 @@ class RangeEndpointSwitchMap {
         }
         catch (NoSuchFieldError noSuchFieldError) {
             
-
         }
         try {
             RangeEndpointSwitchMap.ENDPOINT_CASES[RangeEndpoint.MAXIMUM.ordinal()] = 2;
         }
         catch (NoSuchFieldError noSuchFieldError) {
             
-
         }
     }
 }

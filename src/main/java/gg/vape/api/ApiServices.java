@@ -83,7 +83,6 @@ public class ApiServices {
     private static String resolveBaseUrl() {
         String configured = System.getenv("VAPE_ONLINE_BASE_URL");
         
-
         return configured == null || configured.trim().isEmpty()
                 ? "http://127.0.0.1:8080"
                 : configured.replaceAll("/+$", "");

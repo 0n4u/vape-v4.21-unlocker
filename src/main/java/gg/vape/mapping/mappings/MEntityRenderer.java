@@ -632,9 +632,7 @@ extends Mapping {
             if (ForgeVersion.MC_1_16_5.d()) {
                 if (ForgeVersion.MC_26_2.d()) {
                     
-
                     
-
                     Class[] classArray13 = new Class[]{MappedClasses.uy};
                     Class<Void> clazz36 = Void.TYPE;
                     boolean bl28 = true;
@@ -642,18 +640,12 @@ extends Mapping {
                     this.J = this.Y("update", bl28, clazz36, classArray13);
                 } else if (ForgeVersion.MC_1_21_0.d()
                         
-
                         
-
                         
-
                         || ForgeVersion.MC_26_1.S().y()) {
                     
-
                     
-
                     
-
                     Class[] classArray13 = new Class[]{MappedClasses.uy, Boolean.TYPE};
                     Class<Void> clazz36 = Void.TYPE;
                     boolean bl28 = true;
@@ -661,7 +653,6 @@ extends Mapping {
                     this.J = this.Y("render", bl28, clazz36, classArray13);
                 } else if (ForgeVersion.MC_1_20_1.d()) {
                     
-
                     Class[] classArray13 = new Class[]{Float.TYPE, Long.TYPE, Boolean.TYPE};
                     Class<Void> clazz36 = Void.TYPE;
                     boolean bl28 = true;

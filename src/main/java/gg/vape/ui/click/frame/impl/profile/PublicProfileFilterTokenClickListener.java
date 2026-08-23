@@ -33,7 +33,7 @@ implements GuiMouseListener {
         ClientSettings.UI_EXECUTOR.execute(this::selectSuggestion);
     }
 
-     
+    
     private void selectSuggestion() {
         try {
             this.searchPanel.getSuggestionsPanel().removeChild(this.suggestion);

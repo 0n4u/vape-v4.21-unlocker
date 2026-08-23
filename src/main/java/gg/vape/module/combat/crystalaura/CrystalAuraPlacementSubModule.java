@@ -665,7 +665,6 @@ extends SubModule<CrystalAura> {
                 }
                 catch (Exception exception) {
                     
-
                 }
             }
         }

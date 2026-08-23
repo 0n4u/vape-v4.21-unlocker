@@ -15,9 +15,7 @@ LocalControllerService::~LocalControllerService() { stop(); }
 bool LocalControllerService::start(std::string accessToken, bool cacheEnabled,
                                    bool firstRun) {
     
-
     
-
     if (running_ && !completed_ && !failed_) return true;
     if (running_) stop();
     WSADATA data{};

@@ -52,7 +52,6 @@ extends Mapping {
         Class<Boolean> clazz = Boolean.TYPE;
         boolean bl = true;
         
-
         String string = ForgeVersion.MC_1_17.d() ? "isDown" : "pressed";
         MKeyBinding mKeyBinding = this;
         this.x = this.J(string, bl, clazz);

@@ -1082,9 +1082,7 @@ public class Mapper {
         }
         if (ForgeVersion.MC_1_20_1.d()) {
             
-
             
-
             this.DM = new MGameSettingsValue();
             this.h3 = new MSharedMonsterAttributesBridge();
             this.Cl = new MVoxelShapeBridge();

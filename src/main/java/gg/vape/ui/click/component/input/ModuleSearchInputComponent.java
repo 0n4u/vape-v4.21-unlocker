@@ -78,7 +78,6 @@ extends TextInputComponentBase {
             }
             if (ClientSettings.activeComponent != null) {
                 
-
             }
             return;
         }

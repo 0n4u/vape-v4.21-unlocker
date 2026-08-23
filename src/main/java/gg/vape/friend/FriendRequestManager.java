@@ -25,7 +25,7 @@ public class FriendRequestManager {
     private final Map<OnlineFriend, IncomingFriendRequest> incomingRequests = new LinkedHashMap<OnlineFriend, IncomingFriendRequest>();
     private final Map<OnlineFriend, OutgoingFriendRequest> outgoingRequests = new LinkedHashMap<OnlineFriend, OutgoingFriendRequest>();
 
-     
+    
     public void removeRequest(FriendRequest friendRequest) {
         if (friendRequest instanceof IncomingFriendRequest) {
             Map<OnlineFriend, IncomingFriendRequest> map = this.incomingRequests;
@@ -138,7 +138,7 @@ public class FriendRequestManager {
         }
     }
 
-     
+    
     public void addRequest(FriendRequest friendRequest) {
         if (friendRequest instanceof IncomingFriendRequest) {
             Map<OnlineFriend, IncomingFriendRequest> map = this.incomingRequests;

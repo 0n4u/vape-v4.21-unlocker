@@ -31,7 +31,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
- 
+
 public final class ClutchLadderPlanner {
     private static final double LADDER_SIDE_ENTRY_DEPTH = 0.28;
     private static final double CATCH_CELL_INSET = 0.02;

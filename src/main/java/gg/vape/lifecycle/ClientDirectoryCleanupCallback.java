@@ -18,9 +18,13 @@ implements ClientLifecycleCallback {
                     String name = child.getName();
                     if (name.equals("cache")
                             || name.equals("config.json")
-                            || name.equals("log")) {
+                            || name.equals("log")
+                            || name.equals("lunar")
+                            || name.equals("vape-service.json")) {
                         continue;
                     }
+                    gg.vape.Vape.debugLog("LUNAR storage: cleanup removing "
+                            + child.getAbsolutePath());
                     deleteRecursively(child);
                 }
             }
@@ -28,9 +32,7 @@ implements ClientLifecycleCallback {
     }
 
     
-
     
-
     private static void deleteRecursively(File file) {
         if (file.isDirectory()) {
             File[] children = file.listFiles();

@@ -61,7 +61,6 @@ extends SliderInputHandle {
         }
         catch (Exception exception) {
             
-
         }
         this.rangeSlider.getRandomValue().setRange(new double[]{this.rangeSlider.getRandomValue().getMinimumValue(), this.rangeSlider.getRandomValue().getMaximumValue()});
         ClientSettings.activeComponent = null;

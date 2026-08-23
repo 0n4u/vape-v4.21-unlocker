@@ -47,11 +47,11 @@ public class MouseInput {
         return MouseInput.getState().getLastButton();
     }
 
-    public static   int getLastButtonBridge() {
+    public static  int getLastButtonBridge() {
         return MouseInput.getLastButton();
     }
 
-    public static   long getLastChangeTimeBridge() {
+    public static  long getLastChangeTimeBridge() {
         return MouseInput.getLastChangeTime();
     }
 }

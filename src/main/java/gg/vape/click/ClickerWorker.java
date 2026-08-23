@@ -26,7 +26,7 @@ implements Runnable {
         this.resume();
     }
 
-     
+    
     private void awaitActivityAndRunClickCycle() {
         ClickEngine clickEngine = this.clickerModule.getClickEngine();
         try {
@@ -64,7 +64,7 @@ implements Runnable {
         }
     }
 
-     
+    
     public void resume() {
         synchronized (this.activityMonitor) {
             this.active.set(true);
@@ -72,7 +72,7 @@ implements Runnable {
         }
     }
 
-     
+    
     public void pause() {
         synchronized (this.activityMonitor) {
             this.active.set(false);

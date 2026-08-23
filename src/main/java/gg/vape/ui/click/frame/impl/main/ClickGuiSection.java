@@ -5,7 +5,7 @@ public enum ClickGuiSection {
     FRIENDS("Friends"),
     PROFILES("Profiles");
 
-    private static final   ClickGuiSection[] R;
+    private static final  ClickGuiSection[] R;
     private final String a;
 
     static {

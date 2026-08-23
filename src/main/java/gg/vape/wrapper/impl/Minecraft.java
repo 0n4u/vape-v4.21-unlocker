@@ -243,16 +243,8 @@ extends Wrapper {
     }
 
     public static Object i() {
-        
-
-        
-
         if (L == null) {
-            Object instance = Minecraft.vapeInstance.getMappings().U.J();
-            if (instance != null) {
-                L = instance;
-            }
-            return instance;
+            L = Minecraft.vapeInstance.getMappings().U.J();
         }
         return L;
     }

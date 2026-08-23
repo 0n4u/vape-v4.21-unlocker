@@ -14,14 +14,12 @@ class ClickGuiLayerSwitchMap {
         }
         catch (NoSuchFieldError noSuchFieldError) {
             
-
         }
         try {
             ClickGuiLayerSwitchMap.d[ClickGuiLayer.OVERLAYS.ordinal()] = 2;
         }
         catch (NoSuchFieldError noSuchFieldError) {
             
-
         }
     }
 }

@@ -3,8 +3,6 @@
 
 
 
-
-
 #include <objidl.h>
 
 #include <shellapi.h>
@@ -30,6 +28,27 @@ ResourceView resourceView(HINSTANCE instance, int resourceId) {
     HGLOBAL loaded = resource == nullptr ? nullptr : LoadResource(instance, resource);
     return {loaded == nullptr ? nullptr : LockResource(loaded),
         resource == nullptr ? 0 : SizeofResource(instance, resource)};
+}
+
+
+static float easeTo(float current, float target, float rate, float dt) {
+    const float k = 1.0f - std::exp(-rate * dt);
+    return current + (target - current) * k;
+}
+
+static Gdiplus::Color lerpColor(const Gdiplus::Color& a, const Gdiplus::Color& b, float t) {
+    t = std::clamp(t, 0.0f, 1.0f);
+    return Gdiplus::Color(
+        static_cast<BYTE>(a.GetA() + (b.GetA() - a.GetA()) * t),
+        static_cast<BYTE>(a.GetR() + (b.GetR() - a.GetR()) * t),
+        static_cast<BYTE>(a.GetG() + (b.GetG() - a.GetG()) * t),
+        static_cast<BYTE>(a.GetB() + (b.GetB() - a.GetB()) * t));
+}
+
+
+static Gdiplus::Color scaleAlpha(const Gdiplus::Color& c, float mult) {
+    return Gdiplus::Color(static_cast<BYTE>(c.GetA() * std::clamp(mult, 0.0f, 1.0f)),
+        c.GetR(), c.GetG(), c.GetB());
 }
 
 void addRoundedPath(Gdiplus::GraphicsPath& path, float x, float y,
@@ -97,9 +116,7 @@ int ControllerUi::run(int showCommand) {
     klass.hInstance = instance_;
     klass.hCursor = LoadCursorW(nullptr, IDC_ARROW);
     
-
     
-
     klass.hIcon = LoadIconW(instance_, MAKEINTRESOURCEW(300));
     if (klass.hIcon == nullptr) {
         klass.hIcon = LoadIconW(nullptr, IDI_APPLICATION);
@@ -207,6 +224,41 @@ void ControllerUi::updateFrame() {
             loadingProgress_ = std::min(loadingProgress_, target);
         }
     }
+
+    
+    const bool gearHot = page != ControllerPage::Settings &&
+        pointerIn(GearX, GearY, GearSize, GearSize);
+    gearHover_ = easeTo(gearHover_, gearHot ? 1.0f : 0.0f, 16.0f, delta);
+
+    const bool backHot = page == ControllerPage::Settings && pointerIn(28, 22, 32, 32);
+    backHover_ = easeTo(backHover_, backHot ? 1.0f : 0.0f, 16.0f, delta);
+
+    settingsOpen_ = easeTo(settingsOpen_, page == ControllerPage::Settings ? 1.0f : 0.0f,
+        14.0f, delta);
+    settingsScroll_ = easeTo(settingsScroll_, settingsScrollTarget_, 18.0f, delta);
+    if (settingsScroll_ < 0.0f) settingsScroll_ = 0.0f;
+    if (settingsScroll_ > settingsMaxScroll_) settingsScroll_ = settingsMaxScroll_;
+
+    
+    const std::vector<SettingsSection> sections = settingsSections();
+    for (const auto& section : sections) {
+        for (const auto& item : section.items) {
+            const float target = item.value ? 1.0f : 0.0f;
+            auto it = switchAnim_.find(item.focus);
+            const float cur = it == switchAnim_.end() ? target : it->second;
+            switchAnim_[item.focus] = easeTo(cur, target, 18.0f, delta);
+
+            auto tgt = rowHoverTarget_.find(item.focus);
+            const float t = tgt == rowHoverTarget_.end() ? 0.0f : tgt->second;
+            auto rh = rowHoverAnim_.find(item.focus);
+            const float rc = rh == rowHoverAnim_.end() ? 0.0f : rh->second;
+            rowHoverAnim_[item.focus] = easeTo(rc, t, 16.0f, delta);
+        }
+    }
+    selectHover_ = easeTo(selectHover_, selectHoverTarget_, 16.0f, delta);
+    rowHoverTarget_.clear();
+    selectHoverTarget_ = 0.0f;
+
     InvalidateRect(window_, nullptr, FALSE);
 }
 
@@ -246,6 +298,30 @@ LRESULT ControllerUi::handleMessage(UINT message, WPARAM wParam, LPARAM lParam) 
     case WM_TIMER:
         if (wParam == 1) updateFrame();
         return 0;
+    case WM_VSCROLL: {
+        if (model_.page() == ControllerPage::Settings) {
+            const int code = LOWORD(wParam);
+            float step = 28.0f;
+            if (code == SB_LINEUP) settingsScrollTarget_ -= step;
+            else if (code == SB_LINEDOWN) settingsScrollTarget_ += step;
+            else if (code == SB_PAGEUP) settingsScrollTarget_ -= 120.0f;
+            else if (code == SB_PAGEDOWN) settingsScrollTarget_ += 120.0f;
+            if (settingsScrollTarget_ < 0.0f) settingsScrollTarget_ = 0.0f;
+            if (settingsScrollTarget_ > settingsMaxScroll_) settingsScrollTarget_ = settingsMaxScroll_;
+            InvalidateRect(window_, nullptr, FALSE);
+        }
+        return 0;
+    }
+    case WM_MOUSEWHEEL: {
+        if (model_.page() == ControllerPage::Settings) {
+            const int delta = GET_WHEEL_DELTA_WPARAM(wParam);
+            settingsScrollTarget_ -= static_cast<float>(delta) / 120.0f * 28.0f;
+            if (settingsScrollTarget_ < 0.0f) settingsScrollTarget_ = 0.0f;
+            if (settingsScrollTarget_ > settingsMaxScroll_) settingsScrollTarget_ = settingsMaxScroll_;
+            InvalidateRect(window_, nullptr, FALSE);
+        }
+        return 0;
+    }
     case WM_MOUSEMOVE: {
         mouseX_ = static_cast<float>(GET_X_LPARAM(lParam)) / scaleX_;
         mouseY_ = static_cast<float>(GET_Y_LPARAM(lParam)) / scaleY_;
@@ -266,6 +342,60 @@ LRESULT ControllerUi::handleMessage(UINT message, WPARAM wParam, LPARAM lParam) 
         const float x = static_cast<float>(GET_X_LPARAM(lParam)) / scaleX_;
         const float y = static_cast<float>(GET_Y_LPARAM(lParam)) / scaleY_;
         const auto page = model_.page();
+
+        
+        if (page != ControllerPage::Settings && hit(x, y, GearX, GearY, GearSize, GearSize)) {
+            settingsReturnPage_ = page;
+            settingsScroll_ = 0.0f;
+            settingsScrollTarget_ = 0.0f;
+            model_.setPage(ControllerPage::Settings);
+            InvalidateRect(window_, nullptr, FALSE);
+            return 0;
+        }
+
+        if (page == ControllerPage::Settings) {
+            
+            if (hit(x, y, 28, 22, 32, 32)) {
+                model_.setPage(settingsReturnPage_);
+                InvalidateRect(window_, nullptr, FALSE);
+                return 0;
+            }
+            const float cy = y + settingsScroll_;
+            const std::vector<SettingsSection> sections = settingsSections();
+            float yy = HeaderBottom;
+            for (const auto& section : sections) {
+                yy += 26;
+                const float cardX = ContentX;
+                const float cardW = ContentW;
+                const float cardY = yy;
+                const int n = static_cast<int>(section.items.size());
+                const float cardH = static_cast<float>(n) * RowH + CardPad * 2;
+                float ry = cardY + CardPad;
+                for (const auto& item : section.items) {
+                    const float ctrlW = 140.0f;
+                    const float ctrlX = cardX + cardW - CardPad - ctrlW;
+                    const bool isSelect = item.description != nullptr && item.description[0] == L'\0';
+                    if (isSelect) {
+                        const float selY = ry + (RowH - 36.0f) / 2.0f;
+                        if (hit(x, cy, ctrlX, selY, ctrlW, 36.0f)) {
+                            cycleLanguage();
+                            return 0;
+                        }
+                    } else {
+                        if (hit(x, cy, cardX, ry, cardW, RowH)) {
+                            toggleSettingsItem(static_cast<Focus>(item.focus));
+                            return 0;
+                        }
+                    }
+                    ry += RowH;
+                }
+                yy = cardY + cardH + 18;
+            }
+            focus_ = Focus::None;
+            InvalidateRect(window_, nullptr, FALSE);
+            return 0;
+        }
+
         if (page == ControllerPage::Login) {
             if (hit(x, y, 278, 183, 268, 36)) focus_ = Focus::Username;
             else if (hit(x, y, 278, 231, 268, 36)) focus_ = Focus::Password;
@@ -299,7 +429,7 @@ LRESULT ControllerUi::handleMessage(UINT message, WPARAM wParam, LPARAM lParam) 
         } else if (page == ControllerPage::Error) {
             if (hit(x, y, 356, 300, 112, 36)) {
                 const auto detail = model_.status();
-                const auto text = L"阶段 " + std::to_wstring(model_.loadingStage()) +
+                const auto text = L"Stage " + std::to_wstring(model_.loadingStage()) +
                     L"\r\nError start\r\n====================\r\n" + detail +
                     L"\r\n====================\r\nError end";
                 const SIZE_T bytes = (text.size() + 1) * sizeof(wchar_t);
@@ -404,8 +534,10 @@ void ControllerUi::paint() {
     case ControllerPage::LoadingComplete: drawLoadingComplete(graphics); break;
     case ControllerPage::OutdatedLauncher: drawOutdated(graphics); break;
     case ControllerPage::Error: drawError(graphics); break;
+    case ControllerPage::Settings: drawSettings(graphics); break;
     }
     drawTransitionMasks(graphics);
+    if (model_.page() != ControllerPage::Settings) drawGearButton(graphics);
 
     BitBlt(target, 0, 0, width, height, bufferDc, 0, 0, SRCCOPY);
     SelectObject(bufferDc, previous);
@@ -426,10 +558,6 @@ void ControllerUi::drawRoundedRect(Gdiplus::Graphics& graphics, float x, float y
         graphics.DrawPath(&pen, &path);
     }
 }
-
-
-
-
 
 
 
@@ -465,12 +593,9 @@ std::wstring ControllerUi::ellipsize(Gdiplus::Graphics& graphics,
     }
 
     
-
     
-
     const float safeWidth = maxWidth - 4.0f;
     
-
     const std::wstring ellipsis = L"\u2026";
     size_t low = 0;
     size_t high = text.size();
@@ -548,24 +673,24 @@ void ControllerUi::drawLogin(Gdiplus::Graphics& graphics) {
             graphics.DrawLine(&caret, caretX, y + 10, caretX, y + 26);
         }
     };
-    input(183, L"用户名 / 邮箱", model_.username(), false, focus_ == Focus::Username);
-    input(231, L"密码", model_.password(), true, focus_ == Focus::Password);
+    input(183, L"Username / Email", model_.username(), false, focus_ == Focus::Username);
+    input(231, L"Password", model_.password(), true, focus_ == Focus::Password);
     const bool enabled = !model_.username().empty();
     const bool loginHover = enabled && pointerIn(352, 302.4f, 112.8f, 36);
     drawRoundedRect(graphics, 352, 302.4f, 112.8f, 36, 3,
         enabled ? (loginHover ? Gdiplus::Color(255, 49, 130, 97)
                               : Gdiplus::Color(255, 43, 112, 84))
                 : Gdiplus::Color(255, 51, 51, 51));
-    drawText(graphics, L"登录", 352, 302.4f, 112.8f, 36, 13,
+    drawText(graphics, L"Login", 352, 302.4f, 112.8f, 36, 13,
         enabled ? Gdiplus::Color(255, 220, 225, 222) : Gdiplus::Color(255, 116, 113, 117), true,
         Gdiplus::StringAlignmentCenter);
 
     Gdiplus::Pen line(Gdiplus::Color(255, 34, 33, 34), 1.0f);
     graphics.DrawLine(&line, 278.0f, 374.0f, 392.0f, 374.0f);
     graphics.DrawLine(&line, 432.0f, 374.0f, 546.0f, 374.0f);
-    drawText(graphics, L"或", 392, 362, 40, 24, 12,
+    drawText(graphics, L"or", 392, 362, 40, 24, 12,
         Gdiplus::Color(255, 192, 189, 193), true, Gdiplus::StringAlignmentCenter);
-    drawText(graphics, L"通过浏览器登录", 328, 399, 160, 28, 12,
+    drawText(graphics, L"Log in via browser", 328, 399, 160, 28, 12,
         pointerIn(328, 399, 160, 28) ? Gdiplus::Color(255, 79, 146, 241)
                                     : Gdiplus::Color(255, 46, 120, 227),
         true, Gdiplus::StringAlignmentCenter);
@@ -588,7 +713,7 @@ void ControllerUi::drawBrowserAuth(Gdiplus::Graphics& graphics) {
         graphics.DrawImage(maskBottom_.get(), 276.0f, 372.0f, 91.0f, 46.0f);
     graphics.SetClip(&previousClip, Gdiplus::CombineModeReplace);
 
-    drawText(graphics, L"正在登录", 278, 103, 268, 40, 18,
+    drawText(graphics, L"Logging in", 278, 103, 268, 40, 18,
         Gdiplus::Color(255, 20, 20, 20), true, Gdiplus::StringAlignmentCenter);
     if (roundedRect_ && roundedRect_->GetLastStatus() == Gdiplus::Ok)
         graphics.DrawImage(roundedRect_.get(), 376.0f, 170.0f, 80.0f, 80.0f);
@@ -600,13 +725,13 @@ void ControllerUi::drawBrowserAuth(Gdiplus::Graphics& graphics) {
         graphics.FillRectangle(&square, spinnerX[index], spinnerY[index], 12.0f, 12.0f);
     }
 
-    drawText(graphics, L"请按浏览器中的提示继续操作", 300, 272, 224, 40, 13,
+    drawText(graphics, L"Follow the prompts in your browser", 300, 272, 224, 40, 13,
         Gdiplus::Color(255, 20, 20, 20), true, Gdiplus::StringAlignmentCenter);
-    drawText(graphics, L"重新打开", 363, 306, 50, 25, 13,
+    drawText(graphics, L"Reopen", 363, 306, 50, 25, 13,
         pointerIn(363, 306, 50, 25) ? Gdiplus::Color(255, 44, 111, 207)
                                     : Gdiplus::Color(255, 76, 140, 231),
         true, Gdiplus::StringAlignmentCenter);
-    drawText(graphics, L"取消", 420, 306, 50, 25, 13,
+    drawText(graphics, L"Cancel", 420, 306, 50, 25, 13,
         pointerIn(420, 306, 50, 25) ? Gdiplus::Color(255, 178, 38, 40)
                                     : Gdiplus::Color(255, 209, 51, 53),
         true, Gdiplus::StringAlignmentCenter);
@@ -619,16 +744,16 @@ void ControllerUi::drawMinecraftSelection(Gdiplus::Graphics& graphics) {
     const auto processes = model_.minecraftProcesses();
     if (processes.empty()) {
         drawLogo(graphics, 182.0f - 80.0f * logoPosition_);
-        drawText(graphics, L"未找到 Minecraft", 295, 234, 234, 24, 13,
+        drawText(graphics, L"Minecraft not found", 295, 234, 234, 24, 13,
             Gdiplus::Color(255, 218, 215, 219), true, Gdiplus::StringAlignmentCenter);
-        drawText(graphics, L"请先打开 Minecraft", 295, 251, 234, 22, 12,
+        drawText(graphics, L"Please open Minecraft first", 295, 251, 234, 22, 12,
             Gdiplus::Color(255, 116, 113, 117), false, Gdiplus::StringAlignmentCenter);
         return;
     }
     drawLogo(graphics, 182.0f - 80.0f * logoPosition_);
-    drawText(graphics, L"选择要使用的 Minecraft", 220, 150, 384, 38, 18,
+    drawText(graphics, L"Select the Minecraft to use", 220, 150, 384, 38, 18,
         Gdiplus::Color(255, 218, 215, 219), true, Gdiplus::StringAlignmentCenter);
-    drawText(graphics, L"请确保游戏已完全加载", 220, 179, 384, 22, 12,
+    drawText(graphics, L"Make sure the game is fully loaded", 220, 179, 384, 22, 12,
         Gdiplus::Color(255, 116, 113, 117), false, Gdiplus::StringAlignmentCenter);
     float y = 210.0f;
     for (const auto& process : processes) {
@@ -638,13 +763,11 @@ void ControllerUi::drawMinecraftSelection(Gdiplus::Graphics& graphics) {
                 : hovered ? Gdiplus::Color(255, 38, 37, 38) : Gdiplus::Color(255, 31, 30, 31),
             Gdiplus::Color(255, 43, 42, 43));
         
-
         
-
         const float titleWidth = 560.0f - 268.0f;
         drawText(graphics, ellipsize(graphics, process.title, 13.0f, titleWidth),
             268, y + 4, titleWidth, 22, 13, Gdiplus::Color(255, 202, 199, 203));
-        drawText(graphics, (process.alreadyInjected ? L"已注入 [" : L"PID ") +
+        drawText(graphics, (process.alreadyInjected ? L"injected [" : L"PID ") +
             std::to_wstring(process.pid) + (process.alreadyInjected ? L"]" : L""),
             268, y + 24, titleWidth, 18, 11,
             Gdiplus::Color(255, 105, 102, 106));
@@ -666,13 +789,13 @@ void ControllerUi::drawLoading(Gdiplus::Graphics& graphics) {
 
     const double stageElapsed = model_.stageElapsedSeconds();
     if (stageElapsed >= 5.0) {
-        drawText(graphics, L"阶段 " + std::to_wstring(model_.loadingStage()) + L"/30",
+        drawText(graphics, L"Stage " + std::to_wstring(model_.loadingStage()) + L"/30",
             300, 286, 224, 24, 12, Gdiplus::Color(255, 139, 136, 140), false,
             Gdiplus::StringAlignmentCenter);
     }
     if (stageElapsed >= 10.0) {
         drawText(graphics,
-            L"该阶段加载时间异常长\n请联系支持人员\n注：26+版本请在打开世界后注入",
+            L"This stage is taking unusually long\nContact support\nNote: on 26+ versions, inject after opening a world",
             180, 310, 464, 60, 12, Gdiplus::Color(255, 176, 73, 73), false,
             Gdiplus::StringAlignmentCenter);
     }
@@ -680,10 +803,10 @@ void ControllerUi::drawLoading(Gdiplus::Graphics& graphics) {
 
 void ControllerUi::drawCachePrompt(Gdiplus::Graphics& graphics) {
     drawLogo(graphics, 179.0f - 80.0f * logoPosition_);
-    drawText(graphics, L"是否缓存本地文件以加快加载速度？",
+    drawText(graphics, L"Cache local files to speed up loading?",
         180, 232, 464, 48, 15, Gdiplus::Color(255, 210, 207, 211), true,
         Gdiplus::StringAlignmentCenter);
-    drawText(graphics, L"文件将存储于", 250, 245, 324, 22, 12,
+    drawText(graphics, L"Files will be stored at", 250, 245, 324, 22, 12,
         Gdiplus::Color(255, 112, 109, 113), false, Gdiplus::StringAlignmentCenter);
     drawText(graphics, model_.cacheDirectory(), 150, 267, 524, 24, 12,
         Gdiplus::Color(255, 151, 148, 152), false, Gdiplus::StringAlignmentCenter);
@@ -693,40 +816,268 @@ void ControllerUi::drawCachePrompt(Gdiplus::Graphics& graphics) {
     drawRoundedRect(graphics, 422, 330, 112, 36, 3,
         pointerIn(422, 330, 112, 36) ? Gdiplus::Color(255, 65, 64, 65)
                                      : Gdiplus::Color(255, 52, 51, 52));
-    drawText(graphics, L"是", 290, 330, 112, 36, 13, Gdiplus::Color(255, 224, 228, 225), true,
+    drawText(graphics, L"Yes", 290, 330, 112, 36, 13, Gdiplus::Color(255, 224, 228, 225), true,
         Gdiplus::StringAlignmentCenter);
-    drawText(graphics, L"否", 422, 330, 112, 36, 13, Gdiplus::Color(255, 174, 171, 175), true,
+    drawText(graphics, L"No", 422, 330, 112, 36, 13, Gdiplus::Color(255, 174, 171, 175), true,
         Gdiplus::StringAlignmentCenter);
 }
 
 void ControllerUi::drawLoadingComplete(Gdiplus::Graphics& graphics) {
     drawLogo(graphics, 179.0f - 80.0f * logoPosition_);
-    drawText(graphics, L"Vape 加载完成", 220, 232, 384, 30, 13,
+    drawText(graphics, L"Vape load complete", 220, 232, 384, 30, 13,
         Gdiplus::Color(255, 218, 215, 219), true, Gdiplus::StringAlignmentCenter);
-    drawText(graphics, L"游戏中按 右Shift（默认）打开界面", 140, 254, 544, 24,
+    drawText(graphics, L"Press Right Shift (default) in-game to open the menu", 140, 254, 544, 24,
         12, Gdiplus::Color(255, 116, 113, 117), false, Gdiplus::StringAlignmentCenter);
     drawRoundedRect(graphics, 356, 348, 112, 36, 3,
         pointerIn(356, 348, 112, 36) ? Gdiplus::Color(255, 65, 64, 65)
                                      : Gdiplus::Color(255, 52, 51, 52));
-    drawText(graphics, L"关闭窗口", 356, 348, 112, 36, 13,
+    drawText(graphics, L"Close window", 356, 348, 112, 36, 13,
         Gdiplus::Color(255, 174, 171, 175), true, Gdiplus::StringAlignmentCenter);
 }
 
 void ControllerUi::drawOutdated(Gdiplus::Graphics& graphics) {
     drawLogo(graphics, 179);
     const Gdiplus::Color red(255, 204, 51, 51);
-    drawText(graphics, L"启动器版本过旧", 240, 253, 320, 24, 13,
+    drawText(graphics, L"Launcher version too old", 240, 253, 320, 24, 13,
         red, true, Gdiplus::StringAlignmentCenter);
-    drawText(graphics, L"请从官网重新下载", 240, 270, 320, 24, 13,
+    drawText(graphics, L"Please re-download from the official site", 240, 270, 320, 24, 13,
         red, true, Gdiplus::StringAlignmentCenter);
 }
 
 void ControllerUi::drawError(Gdiplus::Graphics& graphics) {
     drawLogo(graphics, 179);
-    drawText(graphics, model_.status().empty() ? L"加载出错。阶段 0" : model_.status(),
+    drawText(graphics, model_.status().empty() ? L"Load error. Stage 0" : model_.status(),
         250, 235, 324, 48, 13, Gdiplus::Color(255, 203, 200, 204), true,
         Gdiplus::StringAlignmentCenter);
     drawRoundedRect(graphics, 356, 300, 112, 36, 3, Gdiplus::Color(255, 51, 51, 51));
-    drawText(graphics, L"复制错误", 356, 300, 112, 36, 13,
+    drawText(graphics, L"Copy error", 356, 300, 112, 36, 13,
         Gdiplus::Color(255, 174, 171, 175), true, Gdiplus::StringAlignmentCenter);
+}
+
+std::vector<ControllerUi::SettingsSection> ControllerUi::settingsSections() const {
+    const LoaderSettings s = model_.loaderSettings();
+    std::vector<SettingsSection> sections;
+
+    sections.push_back({L"GENERAL", {
+        {L"Auto-inject on launch", L"Automatically loads when Lunar Client starts",
+            s.autoInjectEnabled, static_cast<int>(Focus::SettingsAutoInject), false},
+    }});
+
+    sections.push_back({L"UNLOCKS", {
+        {L"Cosmetics", nullptr, s.unlockCosmetics, static_cast<int>(Focus::SettingsCosmetics), false},
+        {L"Badges", nullptr, s.unlockBadges, static_cast<int>(Focus::SettingsBadges), false},
+        {L"Emotes", nullptr, s.unlockEmotes, static_cast<int>(Focus::SettingsEmotes), false},
+        {L"Sprays", nullptr, s.unlockSprays, static_cast<int>(Focus::SettingsSprays), false},
+        {L"Jams", nullptr, s.unlockJams, static_cast<int>(Focus::SettingsJams), false},
+    }});
+
+    sections.push_back({L"APPEARANCE", {
+        {L"Lunar+ Appearance", nullptr, s.lunarPlusAppearance, static_cast<int>(Focus::SettingsLunarPlus), false},
+        {L"Language", nullptr, true, static_cast<int>(Focus::SettingsLanguage), false},
+    }});
+
+    sections.push_back({L"ADVANCED", {
+        {L"Debug logging", L"Technical. Only enable when troubleshooting",
+            s.debugLogging, static_cast<int>(Focus::SettingsDebug), true},
+    }});
+
+    auto& lang = sections[2].items[1];
+    lang.description = L"";
+    return sections;
+}
+
+void ControllerUi::cycleLanguage() {
+    LoaderSettings s = model_.loaderSettings();
+    static const wchar_t* langs[] = {L"English", L"Chinese", L"Spanish",
+        L"Portuguese", L"French"};
+    int idx = 0;
+    for (int i = 0; i < 5; ++i) if (s.language == langs[i]) { idx = i; break; }
+    s.language = langs[(idx + 1) % 5];
+    model_.applyLoaderSettings(s);
+    InvalidateRect(window_, nullptr, FALSE);
+}
+
+void ControllerUi::toggleSettingsItem(Focus focus) {
+    LoaderSettings s = model_.loaderSettings();
+    switch (focus) {
+    case Focus::SettingsAutoInject: s.autoInjectEnabled = !s.autoInjectEnabled; break;
+    case Focus::SettingsCosmetics: s.unlockCosmetics = !s.unlockCosmetics; break;
+    case Focus::SettingsBadges: s.unlockBadges = !s.unlockBadges; break;
+    case Focus::SettingsEmotes: s.unlockEmotes = !s.unlockEmotes; break;
+    case Focus::SettingsSprays: s.unlockSprays = !s.unlockSprays; break;
+    case Focus::SettingsJams: s.unlockJams = !s.unlockJams; break;
+    case Focus::SettingsLunarPlus: s.lunarPlusAppearance = !s.lunarPlusAppearance; break;
+    case Focus::SettingsDebug: s.debugLogging = !s.debugLogging; break;
+    default: break;
+    }
+    model_.applyLoaderSettings(s);
+    InvalidateRect(window_, nullptr, FALSE);
+}
+
+void ControllerUi::drawSwitch(Gdiplus::Graphics& graphics, float x, float y, float on) {
+    constexpr float w = 44.0f, h = 24.0f, r = 12.0f;
+    const Gdiplus::Color track = lerpColor(
+        Gdiplus::Color(255, 43, 42, 43), Gdiplus::Color(255, 5, 139, 111), on);
+    drawRoundedRect(graphics, x, y, w, h, r, track);
+    const float thumb = 18.0f;
+    const float minX = x + 3.0f;
+    const float maxX = x + w - thumb - 3.0f;
+    const float tx = minX + (maxX - minX) * on;
+    const float ty = y + (h - thumb) / 2.0f;
+    Gdiplus::SolidBrush knob(Gdiplus::Color(255, 244, 244, 245));
+    graphics.FillEllipse(&knob, tx, ty, thumb, thumb);
+}
+
+void ControllerUi::drawSelect(Gdiplus::Graphics& graphics, float x, float y, float w,
+                              float h, const std::wstring& text, float hover) {
+    const Gdiplus::Color fill = lerpColor(
+        Gdiplus::Color(255, 31, 30, 31), Gdiplus::Color(255, 38, 37, 38), hover);
+    drawRoundedRect(graphics, x, y, w, h, 8, fill,
+        Gdiplus::Color(255, 43, 42, 43));
+    drawText(graphics, text, x + 12, y, w - 28, h, 13, Gdiplus::Color(255, 244, 244, 245),
+        false, Gdiplus::StringAlignmentNear);
+    Gdiplus::SolidBrush chev(Gdiplus::Color(255, 116, 113, 117));
+    Gdiplus::PointF pts[3]{
+        {x + w - 16, y + h / 2 - 3},
+        {x + w - 9, y + h / 2 + 3},
+        {x + w - 2, y + h / 2 - 3},
+    };
+    graphics.FillPolygon(&chev, pts, 3);
+}
+
+void ControllerUi::drawGearButton(Gdiplus::Graphics& graphics) {
+    const float hov = gearHover_;
+    drawRoundedRect(graphics, GearX, GearY, GearSize, GearSize, 8,
+        lerpColor(Gdiplus::Color(255, 31, 30, 31), Gdiplus::Color(255, 38, 37, 38), hov),
+        Gdiplus::Color(255, 43, 42, 43));
+    const float cx = GearX + GearSize / 2.0f;
+    const float cy = GearY + GearSize / 2.0f;
+    const float rOuter = 9.0f;
+    const float rInner = 4.0f;
+    Gdiplus::SolidBrush fill(lerpColor(
+        Gdiplus::Color(255, 116, 113, 117), Gdiplus::Color(255, 5, 139, 111), hov));
+    graphics.FillEllipse(&fill, cx - rOuter, cy - rOuter, rOuter * 2, rOuter * 2);
+    Gdiplus::SolidBrush hole(Gdiplus::Color(255, 26, 25, 26));
+    graphics.FillEllipse(&hole, cx - rInner, cy - rInner, rInner * 2, rInner * 2);
+    Gdiplus::Pen teeth(lerpColor(
+        Gdiplus::Color(255, 116, 113, 117), Gdiplus::Color(255, 5, 139, 111), hov), 2.0f);
+    for (int i = 0; i < 8; ++i) {
+        const float a = static_cast<float>(i) * 3.14159265f / 4.0f;
+        const float x1 = cx + std::cos(a) * (rOuter + 1.0f);
+        const float y1 = cy + std::sin(a) * (rOuter + 1.0f);
+        const float x2 = cx + std::cos(a) * (rOuter + 5.0f);
+        const float y2 = cy + std::sin(a) * (rOuter + 5.0f);
+        graphics.DrawLine(&teeth, x1, y1, x2, y2);
+    }
+}
+
+void ControllerUi::drawSettings(Gdiplus::Graphics& graphics) {
+    const float open = settingsOpen_;
+    if (open <= 0.001f) return;
+    const float slide = (1.0f - open) * 24.0f;
+    const auto withOpen = [&](const Gdiplus::Color& c) {
+        return scaleAlpha(c, open);
+    };
+
+    const float backAlpha = backHover_;
+    drawRoundedRect(graphics, 28.0f, 22.0f, 32.0f, 32.0f, 8,
+        lerpColor(Gdiplus::Color(255, 31, 30, 31), Gdiplus::Color(255, 38, 37, 38), backAlpha),
+        Gdiplus::Color(255, 43, 42, 43));
+    Gdiplus::SolidBrush arrow(withOpen(Gdiplus::Color(255, 244, 244, 245)));
+    Gdiplus::PointF pts[3]{{44, 30}, {36, 38}, {44, 46}};
+    graphics.FillPolygon(&arrow, pts, 3);
+
+    drawText(graphics, L"Settings", ContentX, 20, ContentW, 30, 26,
+        withOpen(Gdiplus::Color(255, 218, 215, 219)), true, Gdiplus::StringAlignmentNear);
+
+    constexpr float viewTop = HeaderBottom;
+    constexpr float viewBottom = CanvasHeight - 8;
+    const float viewH = viewBottom - viewTop;
+
+    const std::vector<SettingsSection> sections = settingsSections();
+    float contentH = 0.0f;
+    for (const auto& section : sections) {
+        contentH += 26;
+        const int n = static_cast<int>(section.items.size());
+        contentH += static_cast<float>(n) * RowH + CardPad * 2 + 18;
+    }
+    settingsMaxScroll_ = std::max(0.0f, contentH - viewH);
+    if (settingsScroll_ > settingsMaxScroll_) settingsScroll_ = settingsMaxScroll_;
+    if (settingsScroll_ < 0.0f) settingsScroll_ = 0.0f;
+
+    Gdiplus::Region clip(Gdiplus::RectF(0, viewTop, CanvasWidth, viewH));
+    graphics.SetClip(&clip);
+    graphics.TranslateTransform(0.0f, -settingsScroll_ + slide);
+
+    float y = viewTop;
+    for (const auto& section : sections) {
+        drawText(graphics, section.title, ContentX, y, ContentW, 20, 12,
+            withOpen(Gdiplus::Color(255, 105, 102, 106)), true, Gdiplus::StringAlignmentNear);
+        y += 26;
+
+        const float cardX = ContentX;
+        const float cardW = ContentW;
+        const float cardY = y;
+        const int n = static_cast<int>(section.items.size());
+        const float cardH = static_cast<float>(n) * RowH + CardPad * 2;
+        drawRoundedRect(graphics, cardX, cardY, cardW, cardH, 12,
+            withOpen(Gdiplus::Color(255, 31, 30, 31)), Gdiplus::Color(255, 43, 42, 43));
+
+        float ry = cardY + CardPad;
+        for (const auto& item : section.items) {
+            auto rh = rowHoverAnim_.find(item.focus);
+            const float rhv = rh == rowHoverAnim_.end() ? 0.0f : rh->second;
+            if (rhv > 0.001f) {
+                drawRoundedRect(graphics, cardX + 6, ry + 2, cardW - 12, RowH - 4, 8,
+                    lerpColor(withOpen(Gdiplus::Color(255, 31, 30, 31)),
+                        Gdiplus::Color(255, 38, 37, 38), rhv));
+            }
+            const float labelX = cardX + CardPad;
+            const float labelW = cardW - CardPad * 2 - 200.0f;
+            const bool hasDesc = item.description != nullptr && item.description[0] != L'\0';
+            if (hasDesc) {
+                drawText(graphics, item.label, labelX, ry + 8, labelW, 20, 14,
+                    withOpen(Gdiplus::Color(255, 218, 215, 219)), true,
+                    Gdiplus::StringAlignmentNear);
+                drawText(graphics, item.description, labelX, ry + 28, labelW, 16, 12,
+                    withOpen(Gdiplus::Color(255, 105, 102, 106)), false,
+                    Gdiplus::StringAlignmentNear);
+            } else {
+                drawText(graphics, item.label, labelX, ry, labelW, RowH, 14,
+                    withOpen(Gdiplus::Color(255, 218, 215, 219)), true,
+                    Gdiplus::StringAlignmentNear);
+            }
+            const float ctrlW = 140.0f;
+            const float ctrlX = cardX + cardW - CardPad - ctrlW;
+            const float ctrlY = ry + (RowH - 24.0f) / 2.0f;
+            if (item.description != nullptr && item.description[0] == L'\0') {
+                const float selY = ry + (RowH - 36.0f) / 2.0f;
+                auto sh = rowHoverAnim_.find(item.focus);
+                selectHoverTarget_ = std::max(selectHoverTarget_,
+                    sh == rowHoverAnim_.end() ? 0.0f : sh->second);
+                drawSelect(graphics, ctrlX, selY, ctrlW, 36.0f,
+                    model_.loaderSettings().language, selectHover_);
+            } else {
+                auto sa = switchAnim_.find(item.focus);
+                const float on = sa == switchAnim_.end() ? (item.value ? 1.0f : 0.0f)
+                                                         : sa->second;
+                drawSwitch(graphics, ctrlX + ctrlW - 44.0f, ctrlY, on);
+            }
+            
+            const float cy = (mouseY_ + settingsScroll_ - slide);
+            const bool isSelect = item.description != nullptr && item.description[0] == L'\0';
+            if (isSelect) {
+                if (hit(mouseX_, cy, ctrlX, ry + (RowH - 36.0f) / 2.0f, ctrlW, 36.0f))
+                    rowHoverTarget_[item.focus] = 1.0f;
+            } else {
+                if (hit(mouseX_, cy, cardX, ry, cardW, RowH))
+                    rowHoverTarget_[item.focus] = 1.0f;
+            }
+            ry += RowH;
+        }
+        y = cardY + cardH + 18;
+    }
+
+    graphics.ResetTransform();
+    graphics.ResetClip();
 }

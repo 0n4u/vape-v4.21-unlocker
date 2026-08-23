@@ -104,11 +104,8 @@ extends JavassistMappingTask {
     private void B$src$V$f0x8xm() throws CannotCompileException {
         if (ForgeVersion.MC_26_2.d()) {
             
-
             
-
             
-
             return;
         }
         EntityRendererEventMappingTask.p(EventRender2DStaticCallback.class);

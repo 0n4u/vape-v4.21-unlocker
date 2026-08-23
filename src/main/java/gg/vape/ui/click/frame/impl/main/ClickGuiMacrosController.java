@@ -36,7 +36,6 @@ public class ClickGuiMacrosController {
     }
 
     
-
     private static void openMacroDocumentation() {
         try {
             Runtime.getRuntime().exec(new String[]{"cmd", "/c", "start", "https://docs.vape.gg/features/misc/Macros"});
@@ -191,7 +190,6 @@ public class ClickGuiMacrosController {
             }
             if (this.macroContent.f().isEmpty()) {
                 
-
             }
             this.macroContent.H(true);
             return;

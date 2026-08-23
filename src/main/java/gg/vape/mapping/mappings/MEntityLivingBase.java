@@ -174,7 +174,7 @@ extends Mapping {
         this.S.invokeVoidNoArgs(object);
     }
 
-     
+    
     public static void swingItem(MEntityLivingBase mEntityLivingBase, Object object) {
         mEntityLivingBase.c$src$V$85q5i8(object);
     }
