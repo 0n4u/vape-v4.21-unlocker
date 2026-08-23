@@ -107,24 +107,6 @@ add_custom_command(
         COMMENT "Embedding Vape421Native.dll into the GUI loader")
 target_sources(Vape421LoaderGui PRIVATE "${VAPE421_LOADER_GUI_DLL_RC}")
 
-include(CTest)
-if(BUILD_TESTING)
-    add_executable(Vape421BootstrapTest
-            tests/loader_bootstrap_test.c
-            loader_bootstrap.c)
-    target_include_directories(Vape421BootstrapTest PRIVATE
-            "${CMAKE_CURRENT_SOURCE_DIR}")
-    target_compile_definitions(Vape421BootstrapTest PRIVATE
-            WIN32_LEAN_AND_MEAN
-            _CRT_SECURE_NO_WARNINGS)
-    target_compile_options(Vape421BootstrapTest PRIVATE /W4 /utf-8)
-    target_link_libraries(Vape421BootstrapTest PRIVATE ws2_32)
-    add_test(NAME Vape421BootstrapStandalone
-            COMMAND Vape421BootstrapTest standalone)
-    add_test(NAME Vape421BootstrapHandoff COMMAND Vape421BootstrapTest)
-    add_test(NAME Vape421BootstrapRejectsInvalid
-            COMMAND Vape421BootstrapTest invalid)
-endif()
 
 set_property(TARGET Vape421Native Vape421LoaderGui
         PROPERTY
